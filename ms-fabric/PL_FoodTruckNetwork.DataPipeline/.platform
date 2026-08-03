@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_FoodTruckNetwork"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "fe8a289a-effc-8fe9-4236-9e43686ff6e3"
+  }
+}

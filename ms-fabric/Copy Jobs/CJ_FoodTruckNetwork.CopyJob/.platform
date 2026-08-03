@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "CopyJob",
+    "displayName": "CJ_FoodTruckNetwork"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d768fb0a-58cb-a648-4607-eac38a2509d5"
+  }
+}

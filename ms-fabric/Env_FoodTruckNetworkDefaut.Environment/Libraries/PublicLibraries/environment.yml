@@ -1,0 +1,6 @@
+dependencies:
+  - pip:
+      - great-expectations==1.19.1
+      - python-dotenv==1.2.2
+      - azure-keyvault-secrets==4.11.0
+      - boto3==1.43.57

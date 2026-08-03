@@ -1,0 +1,180 @@
+table dim_trucks
+	lineageTag: 6fadc0eb-2b28-4edf-b02f-418a8accf09e
+	sourceLineageTag: [gold].[dim_trucks]
+
+	column 'Truck Key'
+		dataType: string
+		sourceProviderType: varchar(400)
+		lineageTag: fb13f03f-4848-4bcc-a03e-da313b83ac25
+		sourceLineageTag: Truck Key
+		summarizeBy: none
+		sourceColumn: Truck Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Truck ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0e7d3af2-fc2a-4e90-90ac-30dd23cb8fa1
+		sourceLineageTag: Truck ID
+		summarizeBy: none
+		sourceColumn: Truck ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise Owner ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ef8ac819-2341-4fd3-a993-8bfbc04a13fc
+		sourceLineageTag: Franchise Owner ID
+		summarizeBy: none
+		sourceColumn: Franchise Owner ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Truck Brand Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: bc89bd5c-df46-42d0-8925-a1ebfa4c8504
+		sourceLineageTag: Truck Brand Name
+		summarizeBy: none
+		sourceColumn: Truck Brand Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Manufacturer
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 83fbe754-43da-4967-a220-45ea1ec9bc52
+		sourceLineageTag: Manufacturer
+		summarizeBy: none
+		sourceColumn: Manufacturer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 8dab5184-878d-48a2-8606-a5bc9a14fdb3
+		sourceLineageTag: Model
+		summarizeBy: none
+		sourceColumn: Model
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: cea07b6a-b90b-4b1a-9638-a1bc7de52cba
+		sourceLineageTag: City
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Region Code (ISO)'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 70407b55-55f3-4953-a83c-5753adf07936
+		sourceLineageTag: Region Code (ISO)
+		summarizeBy: none
+		sourceColumn: Region Code (ISO)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 0a190ea6-52b7-427c-8720-1763d36afc72
+		sourceLineageTag: Region
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country Code (ISO)'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 44ed3e2f-894a-41da-aeea-61ba3b915381
+		sourceLineageTag: Country Code (ISO)
+		summarizeBy: none
+		sourceColumn: Country Code (ISO)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ef946985-62bb-4963-bb52-c7db32658b33
+		sourceLineageTag: Country
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opening Year'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 1e035556-f008-4da2-ad3c-15ad5ab2ab6c
+		sourceLineageTag: Opening Year
+		summarizeBy: none
+		sourceColumn: Opening Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Operating Age'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9dd01e5f-c549-481d-b0f2-2a50d631b300
+		sourceLineageTag: Operating Age
+		summarizeBy: none
+		sourceColumn: Operating Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Franchise Flag'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b432a51c-9984-4154-b71b-7e789c3d7a6b
+		sourceLineageTag: Is Franchise Flag
+		summarizeBy: none
+		sourceColumn: Is Franchise Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is EV Flag'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: cd6233ac-4287-4150-91b5-5a1a6b88a344
+		sourceLineageTag: Is EV Flag
+		summarizeBy: none
+		sourceColumn: Is EV Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Loaded at (UTC)'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: f49a3a0c-1f07-43e9-a780-09ab3e858523
+		sourceLineageTag: Loaded at (UTC)
+		summarizeBy: none
+		sourceColumn: Loaded at (UTC)
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_trucks = entity
+		mode: directLake
+		source
+			entityName: dim_trucks
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

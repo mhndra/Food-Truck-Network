@@ -1,0 +1,88 @@
+table dim_order_time
+	lineageTag: a47bc8c0-dc5a-476c-96f1-0a397ab259b2
+	sourceLineageTag: [gold].[dim_order_time]
+
+	column 'Order Time'
+		dataType: dateTime
+		formatString: Long Time
+		sourceProviderType: time
+		lineageTag: 9d1159dc-909a-48c8-9975-3a02f366ee7e
+		sourceLineageTag: Order Time
+		summarizeBy: none
+		sourceColumn: Order Time
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Second
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 96d7d05f-2d04-4c4e-8848-aacf577ac081
+		sourceLineageTag: Second
+		summarizeBy: none
+		sourceColumn: Second
+
+		annotation SummarizationSetBy = Automatic
+
+	column Minute
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b0b69341-3205-42d3-ab78-20aaf12e9118
+		sourceLineageTag: Minute
+		summarizeBy: none
+		sourceColumn: Minute
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 79f9ae00-47f2-4287-a11c-2de1040677cd
+		sourceLineageTag: Hour
+		summarizeBy: none
+		sourceColumn: Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hour of Day'
+		dataType: string
+		sourceProviderType: varchar(5)
+		lineageTag: 5c0514f0-4b3b-4c54-a0ec-9d7aa8155d54
+		sourceLineageTag: Hour of Day
+		summarizeBy: none
+		sourceColumn: Hour of Day
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Time Hierarchy'
+		lineageTag: 17142d82-2d33-4e74-9bf4-7dd08021188d
+
+		level Hour
+			lineageTag: 7b5e49fd-2b15-459b-82e6-0015570635fb
+			column: Hour
+
+		level Minute
+			lineageTag: 0b86ec6a-7d6b-408c-929f-7aa91bc01a31
+			column: Minute
+
+		level Second
+			lineageTag: 040e561f-c8a3-41a7-85e6-7f505652ee37
+			column: Second
+
+		changedProperty = Name
+
+	partition dim_order_time = entity
+		mode: directLake
+		source
+			entityName: dim_order_time
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

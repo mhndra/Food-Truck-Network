@@ -1,0 +1,30 @@
+relationship 1b5a73c1-7bc7-5af3-530c-e65061918fb1
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_headers.'Customer DBT SCD ID'
+	toColumn: dim_customers_snapshot.dbt_scd_id
+
+relationship 4be3f22c-2825-dde4-b512-298641db33fc
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_headers.'Order Time'
+	toColumn: dim_order_time.'Order Time'
+
+relationship 4580110a-fdeb-260e-9d59-c9103494cd6d
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_headers.'Location Key'
+	toColumn: dim_locations.'Location Key'
+
+relationship 87f35fb9-a777-98a0-7107-a25ff6f0bc2a
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_headers.'Order Date'
+	toColumn: dim_order_date.'Order Date'
+
+relationship d697ac42-a37c-8c87-400e-9431a7cffa4c
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_headers.'Franchise Owner DBT SCD ID'
+	toColumn: dim_franchise_owners_snapshot.dbt_scd_id
+
+relationship 1d75f636-0de4-49c8-fec0-95d1f51dbbf9
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_headers.'Truck Key'
+	toColumn: dim_trucks.'Truck Key'
+

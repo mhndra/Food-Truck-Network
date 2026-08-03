@@ -1,0 +1,99 @@
+table dim_order_date
+	lineageTag: d77b65eb-9f8a-4de5-8bbd-d782548db0db
+	sourceLineageTag: [gold].[dim_order_date]
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: 8802cbdc-3933-449a-8898-5623498086e9
+		sourceLineageTag: Order Date
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a05e6c81-a0cf-47f8-83d2-2db26464c4a8
+		sourceLineageTag: Day
+		summarizeBy: none
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 5aa4e35d-7516-44ab-afb7-c14d12bd9f41
+		sourceLineageTag: Month
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		sourceProviderType: varchar(5)
+		lineageTag: c9bc6d73-2118-492a-986c-5a33fc970f5d
+		sourceLineageTag: Quarter
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3da14626-ac6b-48d0-8670-c70466b11fe9
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week'
+		dataType: string
+		sourceProviderType: varchar(9)
+		lineageTag: 6e56f627-774b-4bfc-8298-1656111f8bd3
+		sourceLineageTag: Day of Week
+		summarizeBy: none
+		sourceColumn: Day of Week
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Date Hierarchy'
+		lineageTag: fe3e8b35-819d-4cfe-9694-d568138c7fab
+
+		level Year
+			lineageTag: 104003d4-8654-4fcf-8f66-0f9c77a6ef04
+			column: Year
+
+		level Quarter
+			lineageTag: 2c0341d1-1ca7-4b44-8ecd-151906b185d6
+			column: Quarter
+
+		level Month
+			lineageTag: a6c58e4f-37a1-42d4-a4db-a38758eb6053
+			column: Month
+
+		level Day
+			lineageTag: 2664510f-d003-4abd-94aa-1390132ed3a5
+			column: Day
+
+		changedProperty = Name
+
+	partition dim_order_date = entity
+		mode: directLake
+		source
+			entityName: dim_order_date
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Report_FoodTruckNetwork"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c7660787-535f-9e9d-4de8-b12a9b3b494a"
+  }
+}

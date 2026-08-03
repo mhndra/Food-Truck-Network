@@ -1,0 +1,168 @@
+table dim_franchise_owners_snapshot
+	lineageTag: c4edf103-89a6-4d87-ba69-8587f821ec32
+	sourceLineageTag: [gold].[dim_franchise_owners_snapshot]
+
+	column 'Franchise Owner Key'
+		dataType: string
+		sourceProviderType: varchar(400)
+		lineageTag: 8728615c-1782-4baa-af50-e0eb28201601
+		sourceLineageTag: Franchise Owner Key
+		summarizeBy: none
+		sourceColumn: Franchise Owner Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise Owner ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 49d536ff-8812-4d2e-b2cf-a573dd2ab3a4
+		sourceLineageTag: Franchise Owner ID
+		summarizeBy: none
+		sourceColumn: Franchise Owner ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise Owner First Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 1578b17d-21de-49b6-8df8-54afd7b87b49
+		sourceLineageTag: Franchise Owner First Name
+		summarizeBy: none
+		sourceColumn: Franchise Owner First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise Owner Last Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 73287db6-94c4-4869-b66c-df3f1864ce94
+		sourceLineageTag: Franchise Owner Last Name
+		summarizeBy: none
+		sourceColumn: Franchise Owner Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise Owner Full Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: f4a9280a-51ed-40eb-8c6a-3bd3e872345e
+		sourceLineageTag: Franchise Owner Full Name
+		summarizeBy: none
+		sourceColumn: Franchise Owner Full Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise Owner Last First Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 3aa9e9cf-c6d7-4dec-8f2e-d3f2b92e8784
+		sourceLineageTag: Franchise Owner Last First Name
+		summarizeBy: none
+		sourceColumn: Franchise Owner Last First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise Owner Email'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7263fdd3-0c49-41c5-bd5a-4488f561b9b8
+		sourceLineageTag: Franchise Owner Email
+		summarizeBy: none
+		sourceColumn: Franchise Owner Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise Owner Phone Number'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 33a5e7fc-5a82-4f9e-af62-0d510f1feacf
+		sourceLineageTag: Franchise Owner Phone Number
+		summarizeBy: none
+		sourceColumn: Franchise Owner Phone Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise City Grouped'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 2c90ccc9-abe6-4df8-9029-acb13230c8f7
+		sourceLineageTag: Franchise City Grouped
+		summarizeBy: none
+		sourceColumn: Franchise City Grouped
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise Country'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 06e8a9bf-50b9-490e-a50c-8b7defb29d41
+		sourceLineageTag: Franchise Country
+		summarizeBy: none
+		sourceColumn: Franchise Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Loaded at (UTC)'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: f6abd55b-c980-4149-ba4d-a338550f788a
+		sourceLineageTag: Loaded at (UTC)
+		summarizeBy: none
+		sourceColumn: Loaded at (UTC)
+
+		annotation SummarizationSetBy = Automatic
+
+	column dbt_scd_id
+		dataType: string
+		sourceProviderType: varchar(32)
+		lineageTag: 6c1d0814-ea52-4b46-9e92-6feb96e2ead2
+		sourceLineageTag: dbt_scd_id
+		summarizeBy: none
+		sourceColumn: dbt_scd_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column dbt_updated_at
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: cd046c6f-6596-42e5-b393-d5429299840e
+		sourceLineageTag: dbt_updated_at
+		summarizeBy: none
+		sourceColumn: dbt_updated_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column dbt_valid_from
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 767595b1-1014-4b60-acee-5f93f8740227
+		sourceLineageTag: dbt_valid_from
+		summarizeBy: none
+		sourceColumn: dbt_valid_from
+
+		annotation SummarizationSetBy = Automatic
+
+	column dbt_valid_to
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 7a7f29fb-22af-4a40-a24d-638a3c2b4b3a
+		sourceLineageTag: dbt_valid_to
+		summarizeBy: none
+		sourceColumn: dbt_valid_to
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_franchise_owners_snapshot = entity
+		mode: directLake
+		source
+			entityName: dim_franchise_owners_snapshot
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

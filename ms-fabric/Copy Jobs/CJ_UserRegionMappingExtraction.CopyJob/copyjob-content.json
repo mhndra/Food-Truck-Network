@@ -1,0 +1,115 @@
+{
+  "properties": {
+    "jobMode": "CDC",
+    "fullLoadBehavior": "Truncate",
+    "source": {
+      "type": "DelimitedText",
+      "connectionSettings": {
+        "type": "Lakehouse",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "8ef7f874-ec98-bb7e-4156-42d02ca76da9",
+          "rootFolder": "Files"
+        }
+      }
+    },
+    "destination": {
+      "type": "DataWarehouseTable",
+      "connectionSettings": {
+        "type": "DataWarehouse",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "73d1a354-3cf9-8d7f-4949-89f0314e6aae",
+          "endPoint": "3nlrmuh7afoetckofuhrz4tpzq-3gcsnlcoct7ull7kguogkonpqu.datawarehouse.fabric.microsoft.com"
+        }
+      }
+    },
+    "policy": {
+      "timeout": "0.12:00:00",
+      "retry": 0
+    }
+  },
+  "activities": [
+    {
+      "id": "d7ab7200-5485-4e76-9a1e-29870bc4be66",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "LakehouseLocation",
+              "folderPath": "user_region_mapping"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+          },
+          "changeDataSettings": {
+            "readMethod": "SnapshotPlusIncremental"
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "Security",
+            "table": "user_region_mapping"
+          }
+        },
+        "enableStaging": true,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "name": "displayName",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "displayName",
+                "physicalType": "varchar",
+                "length": "8000"
+              }
+            },
+            {
+              "source": {
+                "name": "userPrincipalName",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "userPrincipalName",
+                "physicalType": "varchar",
+                "length": "8000"
+              }
+            },
+            {
+              "source": {
+                "name": "region",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "region",
+                "physicalType": "varchar",
+                "length": "8000"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+table _measures
+	lineageTag: 0b941c4b-ddb5-415b-a5b2-bccfe979a953
+
+	measure 'Total Order Items' = SUM(fact_order_headers[Order Amount])
+		formatString: #,0
+		lineageTag: fa1d7ddd-77e5-4381-ad08-0273107414d0
+
+	measure 'Total Orders' = DISTINCTCOUNT(fact_order_headers[Order ID])
+		formatString: #,0
+		lineageTag: dd9fa517-aa9a-4a5f-aa3c-8f5448511eef
+
+	measure 'Total Sales' = SUM(fact_order_headers[Total Order Price (USD)] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: db0c270c-e190-4121-a709-3c3825e7e2bd
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Quantities' = SUM(fact_order_headers[Total Order Quantities] )
+		formatString: #,0
+		lineageTag: 2713bf91-d851-4b73-94d0-43e44f6fadd4
+
+	column Column
+		formatString: 0
+		lineageTag: a2fe56a8-9b15-4db4-a5c5-a99b22469b6d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _measures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = f4b8fbdd01cc488caa43d5ce22c0c33d
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

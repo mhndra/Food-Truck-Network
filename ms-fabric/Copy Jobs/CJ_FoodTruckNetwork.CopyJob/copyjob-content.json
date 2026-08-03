@@ -1,0 +1,1377 @@
+{
+  "properties": {
+    "jobMode": "CDC",
+    "fullLoadBehavior": "Truncate",
+    "source": {
+      "type": "DelimitedText",
+      "connectionSettings": {
+        "type": "Lakehouse",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "8ef7f874-ec98-bb7e-4156-42d02ca76da9",
+          "rootFolder": "Files"
+        }
+      }
+    },
+    "destination": {
+      "type": "LakehouseTable",
+      "connectionSettings": {
+        "type": "Lakehouse",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "8ef7f874-ec98-bb7e-4156-42d02ca76da9",
+          "rootFolder": "Tables"
+        }
+      }
+    },
+    "policy": {
+      "timeout": "0.12:00:00",
+      "retry": 0
+    }
+  },
+  "activities": [
+    {
+      "id": "487cf1fe-5d1b-4a8d-9897-90c8df117971",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "LakehouseLocation",
+              "folderPath": "tastybytes/raw_pos/franchise"
+            },
+            "columnDelimiter": ",",
+            "rowDelimiter": "\n",
+            "escapeChar": "\\",
+            "firstRowAsHeader": false,
+            "quoteChar": "",
+            "compressionCodec": "gzip",
+            "compressionLevel": "Optimal",
+            "nullValue": "\\N"
+          },
+          "changeDataSettings": {
+            "readMethod": "SnapshotPlusIncremental"
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "bronze",
+            "table": "franchise"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "ordinal": 1,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column1",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 2,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column2",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 3,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column3",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 4,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column4",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 5,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column5",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 6,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column6",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 7,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column7",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Loaded at",
+                "type": "String"
+              },
+              "destination": {
+                "name": "Loaded at",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "File Name",
+                "type": "String"
+              },
+              "destination": {
+                "name": "File Name",
+                "physicalType": "string"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        },
+        "auditColumns": [
+          {
+            "name": "Loaded at",
+            "value": "$$NOW"
+          },
+          {
+            "name": "File Name",
+            "value": "$$FILEPATH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "6b78f8de-806a-4fba-bfe4-9c8118f4edb9",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "LakehouseLocation",
+              "folderPath": "tastybytes/raw_pos/location"
+            },
+            "columnDelimiter": ",",
+            "rowDelimiter": "\n",
+            "escapeChar": "\\",
+            "firstRowAsHeader": false,
+            "quoteChar": "",
+            "compressionCodec": "gzip",
+            "compressionLevel": "Optimal",
+            "nullValue": "\\N"
+          },
+          "changeDataSettings": {
+            "readMethod": "SnapshotPlusIncremental"
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "bronze",
+            "table": "location"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "ordinal": 1,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column1",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 2,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column2",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 3,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column3",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 4,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column4",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 5,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column5",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 6,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column6",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 7,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column7",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Loaded at",
+                "type": "String"
+              },
+              "destination": {
+                "name": "Loaded at",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "File Name",
+                "type": "String"
+              },
+              "destination": {
+                "name": "File Name",
+                "physicalType": "string"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        },
+        "auditColumns": [
+          {
+            "name": "Loaded at",
+            "value": "$$NOW"
+          },
+          {
+            "name": "File Name",
+            "value": "$$FILEPATH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "072728aa-0abb-4b9a-87f5-b82eb6881d92",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "LakehouseLocation",
+              "folderPath": "tastybytes/raw_pos/menu"
+            },
+            "columnDelimiter": ",",
+            "rowDelimiter": "\n",
+            "escapeChar": "\\",
+            "firstRowAsHeader": false,
+            "quoteChar": "",
+            "compressionCodec": "gzip",
+            "compressionLevel": "Optimal",
+            "nullValue": "\\N"
+          },
+          "changeDataSettings": {
+            "readMethod": "SnapshotPlusIncremental"
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "bronze",
+            "table": "menu"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "ordinal": 1,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column1",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 2,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column2",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 3,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column3",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 4,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column4",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 5,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column5",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 6,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column6",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 7,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column7",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 8,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column8",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 9,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column9",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 10,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column10",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 11,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column11",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Loaded at",
+                "type": "String"
+              },
+              "destination": {
+                "name": "Loaded at",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "File Name",
+                "type": "String"
+              },
+              "destination": {
+                "name": "File Name",
+                "physicalType": "string"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        },
+        "auditColumns": [
+          {
+            "name": "Loaded at",
+            "value": "$$NOW"
+          },
+          {
+            "name": "File Name",
+            "value": "$$FILEPATH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "3ba83f56-2657-4cd9-8b37-a68c0bc20af8",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "LakehouseLocation",
+              "folderPath": "tastybytes/raw_pos/order_detail"
+            },
+            "columnDelimiter": ",",
+            "rowDelimiter": "\n",
+            "escapeChar": "\\",
+            "firstRowAsHeader": false,
+            "quoteChar": "",
+            "compressionCodec": "gzip",
+            "compressionLevel": "Optimal",
+            "nullValue": "\\N"
+          },
+          "changeDataSettings": {
+            "readMethod": "SnapshotPlusIncremental"
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "bronze",
+            "table": "order_detail"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "ordinal": 1,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column1",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 2,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column2",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 3,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column3",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 4,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column4",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 5,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column5",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 6,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column6",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 7,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column7",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 8,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column8",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 9,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column9",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Loaded at",
+                "type": "String"
+              },
+              "destination": {
+                "name": "Loaded at",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "File Name",
+                "type": "String"
+              },
+              "destination": {
+                "name": "File Name",
+                "physicalType": "string"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        },
+        "auditColumns": [
+          {
+            "name": "Loaded at",
+            "value": "$$NOW"
+          },
+          {
+            "name": "File Name",
+            "value": "$$FILEPATH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ee1312dd-c0d4-4d09-82d0-0a269f1a7ed9",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "LakehouseLocation",
+              "folderPath": "tastybytes/raw_pos/order_header"
+            },
+            "columnDelimiter": ",",
+            "rowDelimiter": "\n",
+            "escapeChar": "\\",
+            "firstRowAsHeader": false,
+            "quoteChar": "",
+            "compressionCodec": "gzip",
+            "compressionLevel": "Optimal",
+            "nullValue": "\\N"
+          },
+          "changeDataSettings": {
+            "readMethod": "SnapshotPlusIncremental"
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "bronze",
+            "table": "order_header"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "ordinal": 1,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column1",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 2,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column2",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 3,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column3",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 4,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column4",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 5,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column5",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 6,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column6",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 7,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column7",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 8,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column8",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 9,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column9",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 10,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column10",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 11,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column11",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 12,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column12",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 13,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column13",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 14,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column14",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 15,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column15",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 16,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column16",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Loaded at",
+                "type": "String"
+              },
+              "destination": {
+                "name": "Loaded at",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "File Name",
+                "type": "String"
+              },
+              "destination": {
+                "name": "File Name",
+                "physicalType": "string"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        },
+        "auditColumns": [
+          {
+            "name": "Loaded at",
+            "value": "$$NOW"
+          },
+          {
+            "name": "File Name",
+            "value": "$$FILEPATH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "d088abdc-f3d9-4214-8f9e-73ed7d3dac3b",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "LakehouseLocation",
+              "folderPath": "tastybytes/raw_pos/truck"
+            },
+            "columnDelimiter": ",",
+            "rowDelimiter": "\n",
+            "escapeChar": "\\",
+            "firstRowAsHeader": false,
+            "quoteChar": "",
+            "compressionCodec": "gzip",
+            "compressionLevel": "Optimal",
+            "nullValue": "\\N"
+          },
+          "changeDataSettings": {
+            "readMethod": "SnapshotPlusIncremental"
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "bronze",
+            "table": "truck"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "ordinal": 1,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column1",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 2,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column2",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 3,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column3",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 4,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column4",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 5,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column5",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 6,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column6",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 7,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column7",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 8,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column8",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 9,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column9",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 10,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column10",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 11,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column11",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 12,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column12",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 13,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column13",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 14,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column14",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Loaded at",
+                "type": "String"
+              },
+              "destination": {
+                "name": "Loaded at",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "File Name",
+                "type": "String"
+              },
+              "destination": {
+                "name": "Full Name",
+                "physicalType": "string"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        },
+        "auditColumns": [
+          {
+            "name": "Loaded at",
+            "value": "$$NOW"
+          },
+          {
+            "name": "File Name",
+            "value": "$$FILEPATH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "56dcc92a-21a2-4de9-9705-b3a0d21df447",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "LakehouseLocation",
+              "folderPath": "tastybytes/raw_customer"
+            },
+            "columnDelimiter": ",",
+            "rowDelimiter": "\n",
+            "escapeChar": "\\",
+            "firstRowAsHeader": false,
+            "quoteChar": "",
+            "compressionCodec": "gzip",
+            "compressionLevel": "Optimal",
+            "nullValue": "\\N"
+          },
+          "changeDataSettings": {
+            "readMethod": "SnapshotPlusIncremental"
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "bronze",
+            "table": "raw_customer"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "ordinal": 1,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column1",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 2,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column2",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 3,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column3",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 4,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column4",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 5,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column5",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 6,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column6",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 7,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column7",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 8,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column8",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 9,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column9",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 10,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column10",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 11,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column11",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 12,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column12",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 13,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column13",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 14,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column14",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "ordinal": 15,
+                "type": "String"
+              },
+              "destination": {
+                "name": "Column15",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Loaded at",
+                "type": "String"
+              },
+              "destination": {
+                "name": "Loaded at",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "File Name",
+                "type": "String"
+              },
+              "destination": {
+                "name": "File Name",
+                "physicalType": "string"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        },
+        "auditColumns": [
+          {
+            "name": "Loaded at",
+            "value": "$$NOW"
+          },
+          {
+            "name": "File Name",
+            "value": "$$FILEPATH"
+          }
+        ]
+      }
+    }
+  ]
+}

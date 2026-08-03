@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Environment",
+    "displayName": "Env_FoodTruckNetworkDefaut",
+    "description": "Environment"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7c8f3501-81d2-852f-4339-3a31c72af024"
+  }
+}
