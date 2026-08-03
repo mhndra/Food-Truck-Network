@@ -23,43 +23,43 @@ Perusahaan memiliki data penjualan semua wilayah yang tersimpan di S3 bucket dan
     - Nama → raw_customer
     - Sumber data → Data perusahaan yang mencatat informasi pelanggan.
     - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama raw_customer yang terdiri dari file berekstensi .csv terkompresi.
-    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan date and time data untuk konteks dalam analisis.
 
 - Dataset kedua:
     - Nama → franchise
     - Sumber data → Data perusahaan yang mencatat informasi pemilik franchise.
     - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama franchise yang terdiri dari file berekstensi .csv terkompresi.
-    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam categorical data untuk konteks dalam analisis.
 
 - Dataset ketiga:
     - Nama → location
     - Sumber data → Data perusahaan yang mencatat informasi lokasi jangkauan perusahaan.
     - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama location yang terdiri dari file berekstensi .csv terkompresi.
-    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam categorical data untuk konteks dalam analisis.
 
 - Dataset keempat:
     - Nama → menu
     - Sumber data → Data perusahaan yang mencatat informasi menu per item.
     - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama menu yang terdiri dari file berekstensi .csv terkompresi.
-    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analisis.
 
 - Dataset kelima:
     - Nama → order_detail
     - Sumber data → Data perusahaan yang mencatat informasi pesanan per item.
     - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama order_detail yang terdiri dari file berekstensi .csv terkompresi.
-    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam continuous data untuk pengukuran metrik yang akan digunakan dalam analisis.
 
 - Dataset keenam:
     - Nama → order_header
     - Sumber data → Data perusahaan yang mencatat informasi per pesanan.
     - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama order_header yang terdiri dari file berekstensi .csv terkompresi.
-    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam categorical data untuk konteks dalam analisis.
 
 - Dataset ketujuh:
     - Nama → truck
     - Sumber data → Data perusahaan yang mencatat informasi truk.
     - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama truck yang terdiri dari file berekstensi .csv terkompresi.
-    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data untuk konteks dalam analisis.
 
 ## 06 Data Pipeline
 Pemrosesan data dari sumber harus mengikuti medallion architecture yang menggunakan tiga lapisan berikut: bronze, silver, dan gold. Terdapat pembersihan dan pengayaan data dalam lapisan silver, termasuk deduplikasi, penanganan nilai kosong, dan standarisasi struktur tabel, seperti nama kolom dan tipe datanya. Dalam lapisan gold, data ditransformasikan dengan menggunakan star schema untuk menyesuaikan kebutuhan analisis penjualan.
