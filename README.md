@@ -21,44 +21,51 @@ Tim di Departemen Sales yang tersebar di berbagai wilayah membutuhkan laporan pe
 Perusahaan memiliki data penjualan semua wilayah yang tersimpan di S3 bucket dan dapat diakses secara publik melalui requests ke S3 bucket. Perusahaan berencana menyimpan data tersebut di Fabric Lakehouse untuk memudahkan dalam memproses data di lingkungan Microsoft. Data penjualan terdiri dari beberapa dataset, yaitu:
 - Dataset pertama:
     - Nama → raw_customer
-    - Sumber data → Data perusahaan yang mencatat informasi pelanggan.
-    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama raw_customer yang terdiri dari file berekstensi .csv terkompresi.
+    - Deskripsi data → Data perusahaan yang mencatat informasi pelanggan.
+    - Bentuk data → Data terstruktur yang tersimpan dalam sebuah folder bernama raw_customer yang terdiri dari file berekstensi .csv terkompresi.
+    - Ukuran data → ± 7 MB
     - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan date and time data untuk konteks dalam analisis.
 
 - Dataset kedua:
     - Nama → franchise
-    - Sumber data → Data perusahaan yang mencatat informasi pemilik franchise.
-    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama franchise yang terdiri dari file berekstensi .csv terkompresi.
+    - Deskripsi data → Data perusahaan yang mencatat informasi pemilik franchise.
+    - Bentuk data → Data terstruktur yang tersimpan dalam sebuah folder bernama franchise yang terdiri dari file berekstensi .csv terkompresi.
+    - Ukuran data → ± 8 KB
     - Pengelompokkan tipe data → Dataset dikelompokkan dalam categorical data untuk konteks dalam analisis.
 
 - Dataset ketiga:
     - Nama → location
-    - Sumber data → Data perusahaan yang mencatat informasi lokasi jangkauan perusahaan.
-    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama location yang terdiri dari file berekstensi .csv terkompresi.
+    - Deskripsi data → Data perusahaan yang mencatat informasi lokasi jangkauan perusahaan.
+    - Bentuk data → Data terstruktur yang tersimpan dalam sebuah folder bernama location yang terdiri dari file berekstensi .csv terkompresi.
+    - Ukuran data → ± 233 KB
     - Pengelompokkan tipe data → Dataset dikelompokkan dalam categorical data untuk konteks dalam analisis.
 
 - Dataset keempat:
     - Nama → menu
-    - Sumber data → Data perusahaan yang mencatat informasi menu per item.
-    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama menu yang terdiri dari file berekstensi .csv terkompresi.
+    - Deskripsi data → Data perusahaan yang mencatat informasi menu per item.
+    - Bentuk data → Data terstruktur yang tersimpan dalam sebuah folder bernama menu yang terdiri dari file berekstensi .csv terkompresi.
+    - Ukuran data → ± 3 KB
     - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analisis.
 
 - Dataset kelima:
     - Nama → order_detail
-    - Sumber data → Data perusahaan yang mencatat informasi pesanan per item.
-    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama order_detail yang terdiri dari file berekstensi .csv terkompresi.
+    - Deskripsi data → Data perusahaan yang mencatat informasi pesanan per item.
+    - Bentuk data → Data terstruktur yang tersimpan dalam sebuah folder bernama order_detail yang terdiri dari file berekstensi .csv terkompresi.
+    - Ukuran data → ± 3,8 GB
     - Pengelompokkan tipe data → Dataset dikelompokkan dalam continuous data untuk pengukuran metrik yang akan digunakan dalam analisis.
 
 - Dataset keenam:
     - Nama → order_header
-    - Sumber data → Data perusahaan yang mencatat informasi per pesanan.
-    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama order_header yang terdiri dari file berekstensi .csv terkompresi.
+    - Deskripsi data → Data perusahaan yang mencatat informasi per pesanan.
+    - Bentuk data → Data terstruktur yang tersimpan dalam sebuah folder bernama order_header yang terdiri dari file berekstensi .csv terkompresi.
+    - Ukuran data → ± 2,6 GB
     - Pengelompokkan tipe data → Dataset dikelompokkan dalam categorical data untuk konteks dalam analisis.
 
 - Dataset ketujuh:
     - Nama → truck
-    - Sumber data → Data perusahaan yang mencatat informasi truk.
-    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama truck yang terdiri dari file berekstensi .csv terkompresi.
+    - Deskripsi data → Data perusahaan yang mencatat informasi truk.
+    - Bentuk data → Data terstruktur yang tersimpan dalam sebuah folder bernama truck yang terdiri dari file berekstensi .csv terkompresi.
+    - Ukuran data → ± 5 KB
     - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data untuk konteks dalam analisis.
 
 ## 06 Data Pipeline
