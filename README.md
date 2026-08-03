@@ -1,20 +1,67 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# End to End Analytics Case Study 
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## 01 Overview
+### 01-1 About The Company
+Sebuah perusahaan jaringan truk makanan menyediakan berbagai pilihan makanan yang unik dan berkualitas tinggi dengan cara yang praktis dan hemat biaya melalui pengantaran makanan yang mengutamakan penggunaan bahan-bahan segar dari supplier lokal. Saat ini, perusahaan ingin memodernisasi platform analitik perusahaan. Maka dari itu, perusahaan mulai merencanakan penggunaan Microsoft Fabric untuk menganalisis penjualannya.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+### 01-2 Corporate Structure
+Perusahaan memiliki beberapa tim di Departemen Sales yang tersebar di berbagai wilayah, serta tim yang terdiri dari data analisis dan data engineer yang mana tim ini akan menggunakan Microsoft Fabric dalam memproses data. Data engineer melakukan proses ekstraksi, transformasi, dan pemuatan data. Data engineer memilih bahasa pemrograman Python dan SQL dalam proses transformasinya. Sedangkan, data analisis melakukan kueri data dan membuat semantic model beserta laporan. Data analisis memiliki kemampuan untuk menulis kueri di T-SQL dan membuat laporan dengan Power BI. Tim di Departemen Sales akan menggunakan laporannya untuk menganalisis penjualan.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## 02 Existing Environment
+### 02-1 Microsoft Environment
+Perusahaan memiliki workspace di Microsoft Fabric untuk melakukan analisis penjualan. Perusahaan memiliki langganan Microsoft Azure dan membuat security group di Microsoft Entra ID untuk tim di Departemen Sales yang terbagi berdasarkan wilayah, yaitu:
+- APAC → berisi tim data analisis di wilayah APAC.
+- EMEA → berisi tim data analisis di wilayah EMEA.
+- North America → berisi tim data analisis di wilayah North America.
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+Selain Microsoft Entra ID, perusahaan telah memiliki organisasi Azure DevOps. Dalam organisasi Azure DevOps, perusahaan membuat proyek baru untuk repositories berkaitan dengan Microsoft Fabric.
+
+### 02-2 User Problem
+Tim di Departemen Sales yang tersebar di berbagai wilayah membutuhkan laporan penjualan yang efektif dibandingkan dengan pembuatan laporan penjualan secara manual. Tim biasanya membutuhkan satu minggu untuk membuat dan menganalisis laporan penjualannya. Maka dari itu, perusahaan ingin mengurangi waktu pembuatan laporan menjadi satu hari dengan menggunakan Microsoft Fabric, agar tim di Departemen Sales lebih mengutamakan alokasi waktunya untuk menganalisis dan merespon tren penjualan di wilayah masing-masing.
+
+### 02-3 Source System
+Perusahaan memiliki data penjualan semua wilayah yang tersimpan di S3 bucket dan dapat diakses secara publik melalui requests ke S3 bucket. Perusahaan berencana menyimpan data tersebut di Fabric Lakehouse untuk memudahkan dalam memproses data di lingkungan Microsoft. Data penjualan terdiri dari beberapa dataset, yaitu:
+- Dataset pertama:
+    - Nama → raw_customer
+    - Sumber data → Data perusahaan yang mencatat informasi pelanggan.
+    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama raw_customer yang terdiri dari file berekstensi .csv terkompresi.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+
+- Dataset kedua:
+    - Nama → franchise
+    - Sumber data → Data perusahaan yang mencatat informasi pemilik franchise.
+    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama franchise yang terdiri dari file berekstensi .csv terkompresi.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+
+- Dataset ketiga:
+    - Nama → location
+    - Sumber data → Data perusahaan yang mencatat informasi lokasi jangkauan perusahaan.
+    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama location yang terdiri dari file berekstensi .csv terkompresi.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+
+- Dataset keempat:
+    - Nama → menu
+    - Sumber data → Data perusahaan yang mencatat informasi menu per item.
+    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama menu yang terdiri dari file berekstensi .csv terkompresi.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+
+- Dataset kelima:
+    - Nama → order_detail
+    - Sumber data → Data perusahaan yang mencatat informasi pesanan per item.
+    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama order_detail yang terdiri dari file berekstensi .csv terkompresi.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+
+- Dataset keenam:
+    - Nama → order_header
+    - Sumber data → Data perusahaan yang mencatat informasi per pesanan.
+    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama order_header yang terdiri dari file berekstensi .csv terkompresi.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+
+- Dataset ketujuh:
+    - Nama → truck
+    - Sumber data → Data perusahaan yang mencatat informasi truk.
+    - Data terstruktur → Dataset yang tersimpan dalam sebuah folder bernama truck yang terdiri dari file berekstensi .csv terkompresi.
+    - Pengelompokkan tipe data → Dataset dikelompokkan dalam dua tipe data, yaitu categorical data dan continuous data, seta date and time data untuk konteks maupun pengukuran metrik yang akan digunakan dalam analsis.
+
+## 03 Requirements
+### 03-1 Planning
