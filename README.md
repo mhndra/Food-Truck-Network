@@ -246,7 +246,8 @@ Pemodelan data hasil transformasi lapisan gold dilakukan di Fabric Semantic Mode
 
 ## 09 Visualizing Data
 Visualisasi data menggunakan semantic model di Fabric Report. Visualisasi data ini sebagai pembuatan laporan yang mana dilakukan di Report_FoodTruckNetwork. Berikut dua halaman yang ditampilkan pada laporan tersebut, yaitu:
-- Halaman 1 - Order Summary
+
+### 09-1 Halaman 1 - Order Summary
 
 ![alt text](images/order_summary.png)
 
@@ -266,3 +267,30 @@ Halaman ini menampilkan ringkasan penjualan di wilayah dan tahun tertentu. Beber
     - Total Sales % by Day of Week → Persentase bagian masing-masing nama hari dalam seminggu dari keseluruhan total penjualan di wilayah dan tahun tertentu.
     - Total Sales by Truck Brand Name → Total penjualan dalam satuan USD pada masing-masing nama merk truck di wilayah dan tahun tertentu.
     - Total Orders by Hour of Day → Total pesanan pada masing-masing waktu dalam sehari di wilayah dan tahun tertentu.
+
+### 09-2 Halaman 2 - Order Details
+
+![alt text](images/order_details.png)
+
+Halaman ini menampilkan rincian setiap pesanan yang dilakukan oleh pelanggan beserta jumlah item pesanan dan total pembelian pesanannya. Beberapa bentuk visualisasi yang ditampilkan pada halaman ini, yaitu sebagai berikut:
+- SLicer:
+    - Select Truck Brand Name → Filter nama merk truk (hanya memilih salah satu).
+
+- Cards:
+    - Total Order Items → Jumlah item pesanan di wilayah dan tahun tertentu.
+    - Total Quantities → Jumlah kuantitas item yang telah dipesan di wilayah dan tahun tertentu.
+    - Total Orders → Jumlah pesanan di wilayah dan tahun tertentu.
+    - Total Sales → Total penjualan dalam satuan USD.
+
+- Table:
+    - Customer Full Name → Nama lengkap pelanggan. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan nama samaran (`**~MASKED~**`).
+    - Customer Email → Alamat email pelanggan. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan email samaran (`**~MASKED~**.**~MASKED~**@hotmail.com`).
+    - Customer Phone Number → Nomor telepon pelanggan. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan nomor telepon samaran (`111-111-1111`).
+    - Truck Brand Name → Nama merk truk. Nama ditentukan berdasarkan Select Truck Brand Name slicer.
+    - Order City → Kota tempat pesanan dilakukan.
+    - Order Country → Negara tempat pesanan dilakukan.
+    - Order Date → Tanggal pesanan dilakukan.
+    - Order Time → Waktu pesanan dilakukan.
+    - Total Order Items → Jumlah item pesanan.
+    - Grand Total (USD) → Total pembelian pesanan dalam satuan USD.
+
