@@ -106,6 +106,17 @@ Pemodelan data hasil transformasi lapisan gold dengan cara menyambungkan tabel f
         | Total Order Quantities        | INT           | Continuous data/Measure   |
         | Total Order Price (USD)       | FLOAT         | Continuous data/Measure   |
 
+    - Kolom referensi
+
+        | Nama kolom referensi          | Tujuan kolom  | Tujuan tabel                  |
+        |-------------------------------|---------------|-------------------------------|
+        | Customer DBT SCD ID           | dbt_scd_id    | dim_customers_snapshot        |
+        | Franchise Owner DBT SCD ID    | dbt_scd_id    | dim_franchise_owners_snapshot |
+        | Location Key                  | Location Key  | dim_locations                 |
+        | Truck Key                     | Truck Key     | dim_trucks                    |
+        | Order Date                    | Order Date    | dim_order_date                |
+        | Order Time                    | Order Time    | dim_order_time                |
+
 - Tabel dim_customers_snapshot
     - Pertanyaan masalah bisnis yang bisa dianalisis (WHO) → Siapa nama pelanggan yang telah melakukan pesanan pada tanggal dan waktu tertentu?
     - Jawaban yang dapat disajikan → 1) Nama lengkap pelanggan; 2) Kota tempat pelanggan tinggal; 3) Tanggal mendaftar menjadi pelanggan.
