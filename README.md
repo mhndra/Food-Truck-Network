@@ -83,3 +83,149 @@ Penyimpanan data hasil transformasi setiap lapisan dibuat dengan menggunakan Fab
 Keamanan data di Microsoft Fabric harus memenuhi persyaratan berikut:
 - Data engineer harus memiliki akses Read dan Write pada semua penyimpanan data di Fabric Lakehouse maupun Fabric Warehouse. Data engineer dalam membuat dan menghapus items di Fabric Workspace. Data engineer harus dapat melakukan commit perubahan pada source control di Azure DevOps melalui Git Integration di Fabric Workspace. 
 - Data analisis harus hanya memiliki akses Read pada penyimpanan data hasil transformasi lapisan gold di Fabric Warehouse. Data analisis harus tidak memiliki akses Read pada penyimpanan data hasil transformasi bronze maupun silver di Fabric Lakehouse. 
+
+## 08 Semantic model
+Pemodelan data hasil transformasi lapisan gold dengan cara menyambungkan tabel fakta dan tabel dimensi membentuk star schema. Beberapa tabel hasil transformasi lapisan gold yang digunakan untuk tabel dimensi dan tabel fakta adalah sebagai berikut:
+- Tabel fact_order_headers
+    - Granularitas → Setiap baris data pada tabel fact_order_headers mewakili satu pesanan yang dilakukan oleh pelanggan tertentu pada pemiliki franchise tertentu dengan tanggal dan waktu tertentu di lokasi tertentu melalui pengiriman dengan truk tertentu.
+    - Pertanyaan masalah bisnis yang bisa dianalisis (HOW) → Berapa total pesanan pada waktu tertentu?
+    - Jawaban yang dapat disajikan → 1) Total pesanan; 2) Total penjualan.
+    - Kolom dan tipe data
+
+        | Nama kolom                    | Tipe data     | Pengelompokkan tipe data  |
+        |-------------------------------|---------------|---------------------------|
+        | Order Key                     | VARCHAR(400)  | Surrogate key             |
+        | Customer DBT SCD ID           | VARCHAR(32)   | Foreign key               |
+        | Franchise Owner DBT SCD ID    | VARCHAR(32)   | Foreign key               |
+        | Location Key                  | VARCHAR(400)  | Foreign key               |
+        | Truck Key                     | VARCHAR(400)  | Foreign key               |
+        | Order ID                      | INT           | Degenerate dimension      |
+        | Order Date                    | DATE          | Foreign key               |
+        | Order Time                    | TIME(0)       | Foreign key               |
+        | Order Amount                  | INT           | Continuous data/Measure   |
+        | Total Order Quantities        | INT           | Continuous data/Measure   |
+        | Total Order Price (USD)       | FLOAT         | Continuous data/Measure   |
+
+- Tabel dim_customers_snapshot
+    - Pertanyaan masalah bisnis yang bisa dianalisis (WHO) → Siapa nama pelanggan yang telah melakukan pesanan pada tanggal dan waktu tertentu?
+    - Jawaban yang dapat disajikan → 1) Nama lengkap pelanggan; 2) Kota tempat pelanggan tinggal; 3) Tanggal mendaftar menjadi pelanggan.
+    - Kolom dan tipe data
+
+        | Nama kolom                    | Tipe data     | Pengelompokkan tipe data                  |
+        |-------------------------------|---------------|-------------------------------------------|
+        | Customer Key                  | VARCHAR(400)  | Surrogate key                             |
+        | Customer ID                   | INT           | Natural key                               |
+        | Birthday Date                 | DATE          | Date and time data/Dimension attribute    |
+        | First Name                    | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Last Name                     | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Full Name                     | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Last First Name               | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Gender                        | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Marital Status                | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Email                         | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Phone Number                  | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Children Amount               | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | City                          | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Country                       | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Postal Code                   | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Preferred Language            | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Favorite Brand                | VARCHAR(8000) | Categorical data/Dimension attribute      |
+        | Sign Up Date                  | DATE          | Date and time data/Dimension attribute    |
+        | Loaded at (UTC)               | DATETIME2(6)  | Date and time data                        |
+        | dbt_scd_id                    | VARCHAR(32)   | Surrogate key                             |
+        | dbt_update_at                 | DATETIME2(6)  | Date and time data                        |
+        | dbt_valid_from                | DATETIME2(6)  | Date and time data                        |
+        | dbt_valid_to                  | DATETIME2(6)  | Date and time data                        |
+
+- Tabel dim_franchise_owners_snapshot
+    - Pertanyaan masalah bisnis yang bisa dianalisis (WHO) → Siapa nama pemilik franchise yang telah menerima pesanan pada tanggal dan waktu tertentu?
+    - Jawaban yang dapat disajikan → 1) Nama lengkap pemilik franchise; 2) Negara tempat franchise berada.
+    - Kolom dan tipe data
+    
+        | Nama kolom                        | Tipe data     | Pengelompokkan tipe data              |
+        |-----------------------------------|---------------|---------------------------------------|
+        | Franchise Owner Key               | VARCHAR(400)  | Surrogate key                         |
+	    | Franchise Owner ID                | INT           | Natural key                           |
+	    | Franchise Owner First Name        | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Franchise Owner Last Name         | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Franchise Owner Full Name         | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Franchise Owner Last First Name   | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Franchise Owner Email             | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Franchise Owner Phone Number      | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Franchise City Grouped            | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Franchise Country                 | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Loaded at (UTC)                   | DATETIME2(6)  | Date and time data                    |
+	    | dbt_scd_id                        | VARCHAR(32)   | Surrogate key                         |
+	    | dbt_updated_at                    | DATETIME2(6)  | Date and time data                    |
+	    | dbt_valid_from                    | DATETIME2(6)  | Date and time data                    |
+	    | dbt_valid_to                      | DATETIME2(6)  | Date and time data                    |
+
+- Tabel dim_locations
+    - Pertanyaan masalah bisnis yang bisa dianalisis (WHERE) → Dimana wilayah dengan jumlah pesanan paling banyak?
+    - Jawaban yang dapat disajikan → 1) Kota tempat pesanan dilakukan; 2) Wilayah; 3) Negara.
+    - Kolom dan tipe data
+
+        | Nama kolom            | Tipe data     | Pengelompokkan tipe data              |
+        |-----------------------|---------------|---------------------------------------|
+        | Location Key          | VARCHAR(400)  | Surrogate key                         |
+	    | Location ID           | INT           | Natural key                           |
+	    | Location              | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | City                  | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Region                | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Country Code (ISO)    | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Country               | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Loaded at (UTC)       | DATETIME2(6)  | Date and time data                    |
+
+- Tabel dim_order_date
+    - Pertanyaan masalah bisnis yang bisa dianalisis (WHAT) → Apa nama hari yang jumlah pesanan paling banyak dibandingkan hari lainnya?
+    - Jawaban yang dapat disajikan → 1) Tahun; 2) Kuartal; 3) Nama bulan; 4) Tanggal; 5) Nama hari.
+    - Konteks hierarki → 1) Tahun; 2) Kuartal; 3) Nama bulan; 4) Tanggal.
+    - Kolom dan tipe data
+
+        | Nama kolom    | Tipe data     | Pengelompokkan tipe data              |
+        |---------------|---------------|---------------------------------------|
+        | Order Date    | DATE          | Primary key                           |
+	    | Day           | INT           | Continuous data/Dimension attribute   |
+	    | Month         | VARCHAR(10)   | Categorical data/Dimension attribute  |
+	    | Quarter       | VARCHAR(5)    | Categorical data/Dimension attribute  |
+	    | Year          | INT           | Continuous data/Dimension attribute   |
+	    | Day of Week   | VARCHAR(9)    | Categorical data/Dimension attribute  |
+
+- Tabel dim_order_time
+    - Pertanyaan masalah bisnis yang bisa dianalisis (HOW) → Waktu berapa yang jumlah pesanan paling banyak dibandingkan waktu lainnya?
+    - Jawaban yang dapat disajikan → 1) Jam; 2) Menit; 3) Detik; 4) Waktu dalam sehari.
+    - Konteks hierarki → 1) Jam; 2) Menit; 3) Detik.
+    - Kolom dan tipe data
+
+        | Nama kolom    | Tipe data     | Pengelompokkan tipe data              |
+        |---------------|---------------|---------------------------------------|
+        | Order Time    | TIME(0)       | Primary key                           |
+	    | Second        | INT           | Continuous data/Dimension attribute   |
+	    | Minute        | INT           | Continuous data/Dimension attribute   |
+	    | Hour          | INT           | Continuous data/Dimension attribute   |
+	    | Hour of Day   | VARCHAR(5)    | Categorical data/Dimension attribute  |
+
+- Tabel dim_trucks
+    - Pertanyaan masalah bisnis yang bisa dianalisis (WHAT) → Apa nama merk truk yang digunakan untuk pengiriman sebuah pesanan?
+    - Jawaban yang dapat disajikan → 1) Nama merk truk; 2) Nama manufaktur; 3) Kota tempat truck berada.
+    - Kolom dan tipe data
+
+        | Nama kolom            | Tipe data     | Pengelompokkan tipe data              |
+        |-----------------------|---------------|---------------------------------------|
+        | Truck Key             | VARCHAR(400)  | Surrogate key                         |
+	    | Truck ID              | INT           | Natural key                           |
+	    | Franchise Owner ID    | INT           | Natural key                           |
+	    | Truck Brand Name      | VARCHAR(8000) | Categorical data/Dimension attribute  |
+	    | Manufacturer          | VARCHAR(8000) | Categorical data/Dimension attribute  | 
+	    | Model                 | VARCHAR(8000) | Categorical data/Dimension attribute  | 
+	    | City                  | VARCHAR(8000) | Categorical data/Dimension attribute  | 
+	    | Region Code (ISO)     | VARCHAR(8000) | Categorical data/Dimension attribute  | 
+	    | Region                | VARCHAR(8000) | Categorical data/Dimension attribute  | 
+	    | Country Code (ISO)    | VARCHAR(8000) | Categorical data/Dimension attribute  | 
+	    | Country               | VARCHAR(8000) | Categorical data/Dimension attribute  | 
+	    | Opening Year          | INT           | Continuous data/Dimension attribute   |
+	    | Operating Age         | INT           | Continuous data/Dimension attribute   | 
+	    | Is Franchise Flag     | INT           | Continuous data/Dimension attribute   | 
+	    | Is EV Flag            | INT           | Continuous data/Dimension attribute   | 
+	    | Loaded at (UTC)       | DATETIME2(6)  | Date and time data                    |
+
