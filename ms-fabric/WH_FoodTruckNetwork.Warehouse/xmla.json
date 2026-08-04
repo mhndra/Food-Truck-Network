@@ -25534,6 +25534,21 @@
                 "value": "Automatic"
               }
             ]
+          },
+          {
+            "name": "Day of Week Sorting",
+            "dataType": "int64",
+            "sourceColumn": "Day of Week Sorting",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "Day of Week Sorting",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
           }
         ],
         "partitions": [

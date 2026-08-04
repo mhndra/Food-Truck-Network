@@ -5,5 +5,6 @@ CREATE TABLE [gold].[dim_order_date] (
 	[Month] varchar(10) NULL, 
 	[Quarter] varchar(5) NULL, 
 	[Year] int NULL, 
-	[Day of Week] varchar(9) NULL
+	[Day of Week] varchar(9) NULL, 
+	[Day of Week Sorting] int NULL
 );

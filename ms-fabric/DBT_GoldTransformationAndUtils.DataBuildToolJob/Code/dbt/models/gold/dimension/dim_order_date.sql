@@ -27,9 +27,10 @@ WITH order_header_renamed AS (
         ) AS Quarter,
         YEAR("Order Date") AS Year,
         CAST(
-            DATENAME(weekday, [Order Date]) 
+            DATENAME(weekday, "Order Date") 
             AS VARCHAR(9)
-        ) AS "Day of Week"
+        ) AS "Day of Week",
+        DATEPART(weekday, "Order Date") AS "Day of Week Sorting"
     FROM
         distinction
 
@@ -41,7 +42,8 @@ WITH order_header_renamed AS (
         Month,
         Quarter,
         Year,
-        "Day of Week"
+        "Day of Week",
+        "Day of Week Sorting"
     FROM
         date_enriched
 

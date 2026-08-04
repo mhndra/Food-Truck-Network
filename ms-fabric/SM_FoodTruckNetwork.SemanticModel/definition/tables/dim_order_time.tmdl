@@ -57,6 +57,9 @@ table dim_order_time
 		sourceLineageTag: Hour of Day
 		summarizeBy: none
 		sourceColumn: Hour of Day
+		sortByColumn: Hour
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 

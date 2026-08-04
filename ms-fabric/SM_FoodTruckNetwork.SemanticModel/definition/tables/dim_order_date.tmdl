@@ -64,6 +64,20 @@ table dim_order_date
 		sourceLineageTag: Day of Week
 		summarizeBy: none
 		sourceColumn: Day of Week
+		sortByColumn: 'Day of Week Sorting'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week Sorting'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: fb768d5d-776e-47b8-8157-d253b5ffc0c5
+		sourceLineageTag: Day of Week Sorting
+		summarizeBy: none
+		sourceColumn: Day of Week Sorting
 
 		annotation SummarizationSetBy = Automatic
 
