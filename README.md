@@ -71,7 +71,7 @@ Perusahaan memiliki data penjualan semua wilayah yang tersimpan di S3 bucket dan
 ## 06 Data Pipeline
 Pemrosesan data dari sumber harus mengikuti medallion architecture yang menggunakan tiga lapisan berikut: bronze, silver, dan gold. Terdapat pembersihan dan pengayaan data dalam lapisan silver, termasuk deduplikasi, penanganan nilai kosong, dan standarisasi struktur tabel, seperti nama kolom dan tipe datanya. Dalam lapisan gold, data ditransformasikan dengan menggunakan star schema untuk menyesuaikan kebutuhan analisis penjualan.
 
-Setiap lapisan dalam mentransformasikan datanya harus berhasil sebelum berlanjut ke lapisan berikutnya. Maka dari itu, diperlukan pembuatan alur data dengan menggunakan Fabric Pipeline untuk mengikuti medallion architecture dan memenuhi kebutuhan analisis penjualan.
+Setiap lapisan dalam mentransformasikan datanya harus berhasil sebelum berlanjut ke lapisan berikutnya. Maka dari itu, diperlukan pembuatan alur data dengan menggunakan Fabric Pipeline untuk mengikuti medallion architecture dan memenuhi kebutuhan analisis penjualan. Pembuatan alur data dilakukan di PL_FoodTruckNetwork pipeline.
 
 ![alt text](images/data_pipeline.png)
 
@@ -82,10 +82,14 @@ Penyimpanan data hasil transformasi setiap lapisan dibuat dengan menggunakan Fab
 ## 07 Data Security
 Keamanan data di Microsoft Fabric harus memenuhi persyaratan berikut:
 - Data engineer harus memiliki akses Read dan Write pada semua penyimpanan data di Fabric Lakehouse maupun Fabric Warehouse. Data engineer dalam membuat dan menghapus items di Fabric Workspace. Data engineer harus dapat melakukan commit perubahan pada source control di Azure DevOps melalui Git Integration di Fabric Workspace. 
-- Data analisis harus hanya memiliki akses Read pada penyimpanan data hasil transformasi lapisan gold di Fabric Warehouse. Data analisis harus tidak memiliki akses Read pada penyimpanan data hasil transformasi bronze maupun silver di Fabric Lakehouse. 
+- Data analisis harus hanya memiliki akses Read pada penyimpanan data hasil transformasi lapisan gold di Fabric Warehouse. Data analisis harus tidak memiliki akses Read pada penyimpanan data hasil transformasi bronze maupun silver di Fabric Lakehouse. Data analisis diperbolehkan Build semantic model di Fabric Semantic Model dan Create laporan di Fabric Report.  
+- Tim masing-masing wilayah di Departemen Sales hanya memiliki akses Read pada penyimpanan data hasil transformasi lapisan gold di Fabric Warehouse dan hanya bisa mengkueri tabel-tabel yang digunakan di Fabric Semantic Model dan Fabric Report. Tim ini hanya bisa melihat laporan di wilayah masing-masing, tidak diperbolehkan untuk melihat laporan di wilayah lainnya, dan tidak diperbolehkan melihat secara utuh informasi pribadi pelanggan, yaitu nama, email, nomor telepon, dan tanggal lahir.
 
 ## 08 Semantic model
-Pemodelan data hasil transformasi lapisan gold dengan cara menyambungkan tabel fakta dan tabel dimensi membentuk star schema. Beberapa tabel hasil transformasi lapisan gold yang digunakan untuk tabel dimensi dan tabel fakta adalah sebagai berikut:
+Pemodelan data hasil transformasi lapisan gold dilakukan di Fabric Semantic Model dengan cara menyambungkan relasi tabel fakta dan tabel dimensi agar membentuk star schema. Pembuatan semantic model ini dilakukan di SM_FoodTruckNetwork semantic model. Beberapa tabel hasil transformasi lapisan gold yang digunakan untuk tabel dimensi dan tabel fakta adalah sebagai berikut:
+
+![alt text](images/star_schema_diagram.png)
+
 - Tabel fact_order_headers
     - Granularitas → Setiap baris data pada tabel fact_order_headers mewakili satu pesanan yang dilakukan oleh pelanggan tertentu pada pemiliki franchise tertentu dengan tanggal dan waktu tertentu di lokasi tertentu melalui pengiriman dengan truk tertentu.
     - Pertanyaan masalah bisnis yang bisa dianalisis (HOW) → Berapa total pesanan pada waktu tertentu?
@@ -188,8 +192,8 @@ Pemodelan data hasil transformasi lapisan gold dengan cara menyambungkan tabel f
 	    | Loaded at (UTC)       | DATETIME2(6)  | Date and time data                    |
 
 - Tabel dim_order_date
-    - Pertanyaan masalah bisnis yang bisa dianalisis (WHAT) → Apa nama hari yang jumlah pesanan paling banyak dibandingkan hari lainnya?
-    - Jawaban yang dapat disajikan → 1) Tahun; 2) Kuartal; 3) Nama bulan; 4) Tanggal; 5) Nama hari.
+    - Pertanyaan masalah bisnis yang bisa dianalisis (WHAT) → Apa nama hari dalam seminggu yang jumlah pesanan paling banyak dibandingkan hari lainnya?
+    - Jawaban yang dapat disajikan → 1) Tahun; 2) Kuartal; 3) Nama bulan; 4) Tanggal; 5) Nama hari dalam seminggu.
     - Konteks hierarki → 1) Tahun; 2) Kuartal; 3) Nama bulan; 4) Tanggal.
     - Kolom dan tipe data
 
@@ -240,3 +244,25 @@ Pemodelan data hasil transformasi lapisan gold dengan cara menyambungkan tabel f
 	    | Is EV Flag            | INT           | Continuous data/Dimension attribute   | 
 	    | Loaded at (UTC)       | DATETIME2(6)  | Date and time data                    |
 
+## 09 Visualizing Data
+Visualisasi data menggunakan semantic model di Fabric Report. Visualisasi data ini sebagai pembuatan laporan yang mana dilakukan di Report_FoodTruckNetwork. Berikut dua halaman yang ditampilkan pada laporan tersebut, yaitu:
+- Halaman 1 - Order Summary
+
+![alt text](images/order_summary.png)
+
+Halaman ini menampilkan ringkasan penjualan di wilayah dan tahun tertentu. Beberapa bentuk visualisasi yang ditampilkan pada halaman ini, yaitu sebagai berikut:
+- Slicer:
+    - Region → Filter wilayah (hanya memilih salah satu). Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan wilayah tim tersebut.
+    - Year → Filter tahun (hanya memilih salah satu).
+
+- Cards:
+    - Total Order Items → Jumlah item pesanan di wilayah dan tahun tertentu.
+    - Total Quantities → Jumlah kuantitas item yang telah dipesan di wilayah dan tahun tertentu.
+    - Total Orders → Jumlah pesanan di wilayah dan tahun tertentu.
+    - Total Sales → Total penjualan dalam satuan USD.
+
+- Charts:
+    - Total Sales % by City → Persentase bagian masing-masing kota dari keseluruhan total penjualan di wilayah dan tahun tertentu.
+    - Total Sales % by Day of Week → Persentase bagian masing-masing nama hari dalam seminggu dari keseluruhan total penjualan di wilayah dan tahun tertentu.
+    - Total Sales by Truck Brand Name → Total penjualan dalam satuan USD pada masing-masing nama merk truck di wilayah dan tahun tertentu.
+    - Total Orders by Hour of Day → Total pesanan pada masing-masing waktu dalam sehari di wilayah dan tahun tertentu.
