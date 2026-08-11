@@ -19,7 +19,7 @@
         "type": "DataWarehouse",
         "typeProperties": {
           "workspaceId": "00000000-0000-0000-0000-000000000000",
-          "artifactId": "72d75240-c8f7-45aa-b2fc-d344e0d86ff2",
+          "artifactId": "e0d86ff2-d344-b2fc-45aa-c8f772d75240",
           "endPoint": "3nlrmuh7afoetckofuhrz4tpzq-edncwvhs6p3uhisnrnicem5rja.datawarehouse.fabric.microsoft.com"
         }
       }
