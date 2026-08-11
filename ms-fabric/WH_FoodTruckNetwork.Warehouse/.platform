@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Warehouse",
+    "displayName": "WH_FoodTruckNetwork"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "73d1a354-3cf9-8d7f-4949-89f0314e6aae"
+  }
+}
