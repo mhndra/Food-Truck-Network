@@ -1,0 +1,28 @@
+{
+  "project": {
+    "projectType": "OneLake",
+    "folderPath": "dbt"
+  },
+  "profile": {
+    "profileType": "DataWarehouse",
+    "schema": "dbt",
+    "connectionSettings": {
+      "name": "WH_FoodTruckNetwork",
+      "properties": {
+        "type": "DataWarehouse",
+        "typeProperties": {
+          "workspaceId": "542bda20-f3f2-43f7-a24d-8b502233b148",
+          "artifactId": "72d75240-c8f7-45aa-b2fc-d344e0d86ff2",
+          "endPoint": "3nlrmuh7afoetckofuhrz4tpzq-edncwvhs6p3uhisnrnicem5rja.datawarehouse.fabric.microsoft.com"
+        }
+      }
+    }
+  },
+  "command": {
+    "operation": "build",
+    "arguments": {
+      "exclude": "",
+      "threads": 4
+    }
+  }
+}

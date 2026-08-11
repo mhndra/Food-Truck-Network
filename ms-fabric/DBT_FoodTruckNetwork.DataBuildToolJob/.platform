@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataBuildToolJob",
+    "displayName": "DBT_FoodTruckNetwork"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "904fbfdf-0220-ae2c-4631-42044e47f7ab"
+  }
+}
