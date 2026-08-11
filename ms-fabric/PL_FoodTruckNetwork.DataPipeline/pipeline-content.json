@@ -45,27 +45,27 @@
           }
         ]
       },
-      // {
-      //   "type": "InvokeCopyJob",
-      //   "typeProperties": {
-      //     "copyJobId": "99253ffe-5e86-4104-aee9-e4115e1ecd71",
-      //     "workspaceId": "ac2685d9-144e-45ff-afea-351c6539af85"
-      //   },
-      //   "externalReferences": {
-      //     "connection": "aa5d5e43-a76d-4213-b826-78c8d7ac97d4"
-      //   },
-      //   "policy": {
-      //     "timeout": "0.12:00:00",
-      //     "retry": 0,
-      //     "retryIntervalInSeconds": 30,
-      //     "secureInput": false,
-      //     "secureOutput": false
-      //   },
-      //   "name": "Copy job - User region mapping extraction",
-      //   "state": "Inactive",
-      //   "onInactiveMarkAs": "Succeeded",
-      //   "dependsOn": []
-      // },
+      {
+        "type": "InvokeCopyJob",
+        "typeProperties": {
+          "copyJobId": "99253ffe-5e86-4104-aee9-e4115e1ecd71",
+          "workspaceId": "ac2685d9-144e-45ff-afea-351c6539af85"
+        },
+        "externalReferences": {
+          "connection": "1c0ec8df-ce20-44a0-b59a-9943aecea291"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Copy job - User region mapping extraction",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": []
+      },
       {
         "type": "TridentNotebook",
         "typeProperties": {
