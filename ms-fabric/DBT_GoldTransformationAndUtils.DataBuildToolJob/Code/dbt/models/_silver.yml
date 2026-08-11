@@ -1,0 +1,97 @@
+sources:
+  - name: silver
+    database: LH_FoodTruckNetwork
+    schema: silver
+    tables:
+      - name: franchise_cleaned
+        description: >
+          Silver model materialized as a table transformed by PySpark that cleans and standardizes raw data from the bronze source: LH_FoodTruckNetwork.bronze.franchise table.
+
+          Key transformations:
+            - Casting all selected columns to their appropriate data types.
+            - Renaming all selected columns for readability.
+            - Adding combined columns: Full Name and Last First columns.
+            - Removing duplicate values for all selected columns.
+          
+          Tested using Great Expectations on NB_SilverExpectations notebook.
+          Used as the foundation for downstream models in gold layer.
+
+      
+      - name: location_enriched
+        description: >
+          Silver model materialized as a table transformed by PySpark that cleans and standardizes raw data from the bronze source: LH_FoodTruckNetwork.bronze.location table.
+
+          Key transformations:
+            - Casting all selected columns to their appropriate data types.
+            - Renaming all selected columns for readability.
+            - Adding a conditional column: Region column.
+          
+          Tested using Great Expectations on NB_SilverExpectations notebook.
+          Used as the foundation for downstream models in gold layer.
+
+      
+      - name: menu_enriched
+        description: >
+          Silver model materialized as a table transformed by PySpark that cleans and standardizes raw data from the bronze source: LH_FoodTruckNetwork.bronze.menu table.
+
+          Key transformations:
+            - Casting all selected columns to their appropriate data types.
+            - Renaming all selected columns for readability.
+            - Adding new columns from the parsed semi-structured column (Menu Item Health Metrics column): Ingredients, Is Dairy Free, Is GLuten Free, Is Health, and Is Nut Free columns
+          
+          Tested using Great Expectations on NB_SilverExpectations notebook.
+          Used as the foundation for downstream models in gold layer.
+
+      
+      - name: order_detail_renamed
+        description: >
+          Silver model materialized as a table transformed by PySpark that cleans and standardizes raw data from the bronze source: LH_FoodTruckNetwork.bronze.order_detail table.
+
+          Key transformations:
+            - Casting all selected columns to their appropriate data types.
+            - Renaming all selected columns for readability.
+          
+          Tested using Great Expectations on NB_SilverExpectations notebook.
+          Used as the foundation for downstream models in gold layer.
+
+      
+      - name: order_header_renamed
+        description: >
+          Silver model materialized as a table transformed by PySpark that cleans and standardizes raw data from the bronze source: LH_FoodTruckNetwork.bronze.order_header table.
+
+          Key transformations:
+            - Filtering Customer ID column for values that are not null.
+            - Casting all selected columns to their appropriate data types.
+            - Renaming all selected columns for readability.
+          
+          Tested using Great Expectations on NB_SilverExpectations notebook.
+          Used as the foundation for downstream models in gold layer.
+
+      
+      - name: raw_customer_enriched
+        description: >
+          Silver model materialized as a table transformed by PySpark that cleans and standardizes raw data from the bronze source: LH_FoodTruckNetwork.bronze.raw_customer table.
+
+          Key transformations:
+            - Casting all selected columns to their appropriate data types.
+            - Renaming all selected columns for readability.
+            - Imputing missing values on First Name, Postal Code, and Favorite Brand columns with "Undisclosed" value.
+            - Replacing values on Phone Number column with appropriate values.
+          
+          Tested using Great Expectations on NB_SilverExpectations notebook.
+          Used as the foundation for downstream models in gold layer.
+
+      
+      - name: truck_enriched
+        description: >
+          Silver model materialized as a table transformed by PySpark that cleans and standardizes raw data from the bronze source: LH_FoodTruckNetwork.bronze.truck table.
+
+          Key transformations:
+            - Casting all selected columns to their appropriate data types.
+            - Renaming all selected columns for readability.
+            - Replacing values on Manufacturer column with appropriate values.
+            - Adding a calculated column: Operating Age column.
+          
+          Tested using Great Expectations on NB_SilverExpectations notebook.
+          Used as the foundation for downstream models in gold layer.
+
