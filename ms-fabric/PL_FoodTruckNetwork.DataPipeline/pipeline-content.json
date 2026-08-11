@@ -112,33 +112,33 @@
           }
         ]
       },
-      // {
-      //   "type": "InvokeDataBuildToolJob",
-      //   "typeProperties": {
-      //     "dataBuildToolJobId": "41293213-d23f-ab89-4798-cbd84c498e3a",
-      //     "workspaceId": "00000000-0000-0000-0000-000000000000",
-      //     "threads": 4
-      //   },
-      //   "externalReferences": {
-      //     "connection": "9a93eada-f8f3-4bd7-9cdf-95f10e7fef71"
-      //   },
-      //   "policy": {
-      //     "timeout": "0.12:00:00",
-      //     "retry": 0,
-      //     "retryIntervalInSeconds": 30,
-      //     "secureInput": false,
-      //     "secureOutput": false
-      //   },
-      //   "name": "dbt job - Gold transformation and utils",
-      //   "dependsOn": [
-      //     {
-      //       "activity": "Notebook - Silver Expectations",
-      //       "dependencyConditions": [
-      //         "Succeeded"
-      //       ]
-      //     }
-      //   ]
-      // },
+      {
+        "type": "InvokeDataBuildToolJob",
+        "typeProperties": {
+          "dataBuildToolJobId": "41293213-d23f-ab89-4798-cbd84c498e3a",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "threads": 4
+        },
+        "externalReferences": {
+          "connection": "9a93eada-f8f3-4bd7-9cdf-95f10e7fef71"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "dbt job - Gold transformation and utils",
+        "dependsOn": [
+          {
+            "activity": "Notebook - Silver Expectations",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
       {
         "type": "PBISemanticModelRefresh",
         "typeProperties": {
@@ -188,7 +188,7 @@
         "name": "Semantic model refresh",
         "dependsOn": [
           {
-            "activity": "Notebook - Silver Expectations",
+            "activity": "dbt job - Gold transformation and utils",
             "dependencyConditions": [
               "Succeeded"
             ]
