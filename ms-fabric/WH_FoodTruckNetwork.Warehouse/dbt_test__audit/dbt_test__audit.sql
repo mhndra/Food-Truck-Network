@@ -1,1 +1,0 @@
-CREATE SCHEMA dbt_test__audit;
