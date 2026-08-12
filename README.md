@@ -248,6 +248,10 @@ Pemodelan data hasil transformasi lapisan gold dilakukan di Fabric Semantic Mode
 Visualisasi data menggunakan semantic model di Fabric Report. Visualisasi data ini sebagai pembuatan laporan yang mana dilakukan di Report_FoodTruckNetwork. Berikut dua halaman yang ditampilkan pada laporan tersebut, yaitu:
 
 ### 09-1 Halaman 1 - Order Summary
+Berikut tampilan laporan halaman 1 untuk tim di Departemen Sales semua wilayah.
+
+![alt text](images/order_summary_all.png)
+
 Berikut tampilan laporan halaman 1 untuk tim di Departemen Sales wilayah APAC. 
 
 ![alt text](images/order_summary.png)
@@ -270,6 +274,10 @@ Halaman ini menampilkan ringkasan penjualan di wilayah dan tahun tertentu. Beber
     - Total Orders by Hour of Day → Total pesanan pada masing-masing waktu dalam sehari di wilayah dan tahun tertentu.
 
 ### 09-2 Halaman 2 - Order Details
+Berikut tampilan laporan halaman 2 untuk tim di Departemen Sales semua wilayah.
+
+![alt text](images/order_details_all.png)
+
 Berikut tampilan laporan halaman 2 untuk tim di Departemen Sales wilayah APAC.
 
 ![alt text](images/order_details.png)
