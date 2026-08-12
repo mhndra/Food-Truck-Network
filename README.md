@@ -275,7 +275,7 @@ Berikut tampilan laporan halaman 2 untuk tim di Departemen Sales wilayah APAC.
 ![alt text](images/order_details.png)
 
 Halaman ini menampilkan rincian setiap pesanan yang dilakukan oleh pelanggan beserta jumlah item pesanan dan total pembelian pesanannya. Beberapa bentuk visualisasi yang ditampilkan pada halaman ini, yaitu sebagai berikut:
-- SLicer:
+- Slicer:
     - Select Truck Brand Name → Filter nama merk truk (hanya memilih salah satu).
 
 - Cards:
