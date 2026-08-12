@@ -8,9 +8,9 @@ Perusahaan memiliki beberapa tim di Departemen Sales yang tersebar di berbagai w
 
 ## 03 Microsoft Environment
 Perusahaan memiliki workspace di Microsoft Fabric untuk melakukan analisis penjualan. Perusahaan memiliki langganan Microsoft Azure dan membuat security group di Microsoft Entra ID untuk tim di Departemen Sales yang terbagi berdasarkan wilayah, yaitu:
-- APAC → berisi tim data analisis di wilayah APAC.
-- EMEA → berisi tim data analisis di wilayah EMEA.
-- North America → berisi tim data analisis di wilayah North America.
+- APAC → berisi tim di Departemen Sales wilayah APAC.
+- EMEA → berisi tim di Departemen Sales wilayah EMEA.
+- North America → berisi tim di Departemen Sales wilayah North America.
 
 Selain Microsoft Entra ID, perusahaan telah memiliki organisasi Azure DevOps. Dalam organisasi Azure DevOps, perusahaan membuat proyek baru untuk repositories berkaitan dengan Microsoft Fabric. Perusahaan merencanakan penggunaan repositories di Azure DevOps sebagai source control untuk Fabric Workspace.
 
@@ -293,11 +293,11 @@ Halaman ini menampilkan rincian setiap pesanan yang dilakukan oleh pelanggan bes
     - Total Sales → Total penjualan dalam satuan USD.
 
 - Table:
-    - Customer Full Name → Nama lengkap pelanggan. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan nama samaran (`**~MASKED~**`).
-    - Customer Email → Alamat email pelanggan. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan email samaran (`**~MASKED~**.**~MASKED~**@hotmail.com`).
-    - Customer Phone Number → Nomor telepon pelanggan. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan nomor telepon samaran (`111-111-1111`).
+    - Customer Full Name → Nama lengkap pelanggan. Tim masing-masing wilayah di Departemen Sales, tim yang memiliki akses pada wilayah tertentu hanya ditampilkan nama samaran (`**~MASKED~**`).
+    - Customer Email → Alamat email pelanggan. Tim masing-masing wilayah di Departemen Sales, tim yang memiliki akses pada wilayah tertentu hanya ditampilkan email samaran (`**~MASKED~**.**~MASKED~**@hotmail.com`).
+    - Customer Phone Number → Nomor telepon pelanggan. Tim masing-masing wilayah di Departemen Sales, tim yang memiliki akses pada wilayah tertentu hanya ditampilkan nomor telepon samaran (`111-111-1111`).
     - Truck Brand Name → Nama merk truk. Nama ditentukan berdasarkan Select Truck Brand Name slicer.
-    - Order City → Kota tempat pesanan dilakukan.
+    - Order Region → Wilayah tempat pesanan dilakukan.
     - Order Country → Negara tempat pesanan dilakukan.
     - Order Date → Tanggal pesanan dilakukan.
     - Order Time → Waktu pesanan dilakukan.
