@@ -8,10 +8,10 @@
 -- META   },
 -- META   "dependencies": {
 -- META     "warehouse": {
--- META       "default_warehouse": "73d1a354-3cf9-8d7f-4949-89f0314e6aae",
+-- META       "default_warehouse": "e0d86ff2-d344-b2fc-45aa-c8f772d75240",
 -- META       "known_warehouses": [
 -- META         {
--- META           "id": "73d1a354-3cf9-8d7f-4949-89f0314e6aae",
+-- META           "id": "e0d86ff2-d344-b2fc-45aa-c8f772d75240",
 -- META           "type": "Datawarehouse"
 -- META         }
 -- META       ]
@@ -29,7 +29,7 @@
 
 -- MARKDOWN ********************
 
--- ### > GRANT permission
+-- ### 00-1 GRANT permission
 
 -- CELL ********************
 
@@ -44,12 +44,13 @@ GRANT SELECT ON SCHEMA :: [gold] TO [EMEA], [North America], [APAC];
 
 -- MARKDOWN ********************
 
--- ### > DENY permission
+-- ### 00-2 DENY permission
 
 -- CELL ********************
 
 DENY SELECT ON [gold].[dim_customers] TO [EMEA], [North America], [APAC];
 DENY SELECT ON [gold].[dim_franchise_owners] TO [EMEA], [North America], [APAC];
+DENY SELECT ON [gold].[fact_order_details] TO [EMEA], [North America], [APAC];
 -- DENY SELECT ON [gold].[dim_customers_snapshot]([Birthday Date]) TO [EMEA], [North America], [APAC];
 
 -- METADATA ********************
@@ -98,10 +99,57 @@ WHERE pr.name != 'public';
 
 -- ## 01 Row-level security
 
+-- MARKDOWN ********************
+
+-- ### 01-1 Adding locatioKey column into [Security].[user_region_mapping] table
+
+-- CELL ********************
+
+SELECT
+    u.*,
+    l."Location Key" AS locationKey
+INTO
+    [Security].[user_region_mapping_enriched]
+FROM
+    [Security].[user_region_mapping] u
+JOIN (
+    SELECT DISTINCT
+        Region,
+        "Location Key"
+    FROM
+        [gold].[dim_locations]
+) l
+ON
+    u.region = l.Region;
+
+-- METADATA ********************
+
+-- META {
+-- META   "language": "sql",
+-- META   "language_group": "sqldatawarehouse"
+-- META }
+
+-- CELL ********************
+
+EXEC sp_rename '[Security].[[user_region_mapping]', 'user_region_mapping_backup';
+EXEC sp_rename '[Security].[[user_region_mapping_enriched]', 'user_region_mapping';
+
+-- METADATA ********************
+
+-- META {
+-- META   "language": "sql",
+-- META   "language_group": "sqldatawarehouse"
+-- META }
+
+-- MARKDOWN ********************
+
+-- ### 01-2 Create security policy and function for row-level security
+
 -- CELL ********************
 
 DROP SECURITY POLICY IF EXISTS YourSecurityPolicy;
-DROP FUNCTION IF EXISTS [Security].[tvf_securitypredicate];
+DROP FUNCTION IF EXISTS [Security].[tvf_LocationAccess];
+DROP FUNCTION IF EXISTS [Security].[tvf_RegionAccess];
 GO
 
 -- METADATA ********************
@@ -113,14 +161,29 @@ GO
 
 -- CELL ********************
 
-CREATE FUNCTION Security.tvf_securitypredicate(@region AS VARCHAR(100))
+CREATE FUNCTION Security.tvf_LocationAccess(@locationKey AS VARCHAR(100))
     RETURNS TABLE
 WITH SCHEMABINDING
 AS
     RETURN 
     SELECT 1 AS tvf_securitypredicate_result
-    WHERE 
-        EXISTS (
+    WHERE EXISTS (
+            SELECT 1 
+            FROM [Security].[user_region_mapping]
+            WHERE userPrincipalName = USER_NAME()
+            AND locationKey = @locationKey
+    )
+    OR 
+        USER_NAME() IN ('zynerta@zohomail.eu', 'topimhn@zohomail.eu');
+GO
+
+CREATE FUNCTION Security.tvf_RegionAccess(@region AS VARCHAR(100))
+    RETURNS TABLE
+WITH SCHEMABINDING
+AS
+    RETURN 
+    SELECT 1 AS tvf_securitypredicate_result
+    WHERE EXISTS (
             SELECT 1 
             FROM [Security].[user_region_mapping]
             WHERE userPrincipalName = USER_NAME()
@@ -131,11 +194,36 @@ AS
 GO
 
 CREATE SECURITY POLICY YourSecurityPolicy
-ADD FILTER PREDICATE Security.tvf_securitypredicate(Region)
-ON [gold].[dim_locations]
+ADD FILTER PREDICATE Security.tvf_LocationAccess([Location Key]) ON [gold].[fact_order_headers],
+ADD FILTER PREDICATE Security.tvf_RegionAccess([Region]) ON [gold].[dim_locations]
 WITH (STATE = ON);
 GO
 
+
+-- METADATA ********************
+
+-- META {
+-- META   "language": "sql",
+-- META   "language_group": "sqldatawarehouse"
+-- META }
+
+-- CELL ********************
+
+SELECT 
+    sp.name AS policy_name,
+    sp.is_enabled,
+    s.name AS schema_name,
+    o.name AS target_table,
+    pred.predicate_definition,
+    pred.predicate_type_desc
+FROM sys.security_policies sp
+INNER JOIN sys.security_predicates pred 
+    ON sp.object_id = pred.object_id
+INNER JOIN sys.objects o 
+    ON pred.target_object_id = o.object_id
+INNER JOIN sys.schemas s 
+    ON o.schema_id = s.schema_id
+WHERE sp.name = 'YourSecurityPolicy';
 
 -- METADATA ********************
 
@@ -150,7 +238,7 @@ GO
 
 -- MARKDOWN ********************
 
--- ### > Masking name columns
+-- ### 02-1 Masking name columns
 
 -- CELL ********************
 
@@ -172,7 +260,7 @@ ALTER COLUMN [Last First Name] ADD MASKED WITH (FUNCTION = 'partial(0, "**~MASKE
 
 -- MARKDOWN ********************
 
--- ### > Masking a email column
+-- ### 02-2 Masking a email column
 
 -- CELL ********************
 
@@ -189,7 +277,7 @@ ALTER COLUMN [Email] ADD MASKED WITH (FUNCTION = 'partial(0, "**~MASKED~**.**~MA
 
 -- MARKDOWN ********************
 
--- ### > Masking a phone number column
+-- ### 02-3 Masking a phone number column
 
 -- CELL ********************
 
@@ -205,7 +293,7 @@ ALTER COLUMN [Phone Number] ADD MASKED WITH (FUNCTION = 'partial(0, "111-111-111
 
 -- MARKDOWN ********************
 
--- ### Masking a date of birth column
+-- ### 02-4 Masking a date of birth column
 
 -- CELL ********************
 

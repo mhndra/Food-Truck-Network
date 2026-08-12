@@ -8,12 +8,12 @@
 # META   },
 # META   "dependencies": {
 # META     "lakehouse": {
-# META       "default_lakehouse": "2ca76da9-42d0-4156-bb7e-ec988ef7f874",
+# META       "default_lakehouse": "55312fb3-148f-459a-be62-fa4a63a5902f",
 # META       "default_lakehouse_name": "LH_FoodTruckNetwork",
-# META       "default_lakehouse_workspace_id": "ac2685d9-144e-45ff-afea-351c6539af85",
+# META       "default_lakehouse_workspace_id": "542bda20-f3f2-43f7-a24d-8b502233b148",
 # META       "known_lakehouses": [
 # META         {
-# META           "id": "2ca76da9-42d0-4156-bb7e-ec988ef7f874"
+# META           "id": "55312fb3-148f-459a-be62-fa4a63a5902f"
 # META         }
 # META       ]
 # META     },

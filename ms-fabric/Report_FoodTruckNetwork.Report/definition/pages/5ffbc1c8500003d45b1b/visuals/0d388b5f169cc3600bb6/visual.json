@@ -4,10 +4,10 @@
   "position": {
     "x": 95.294117647058826,
     "y": 250.58823529411765,
-    "z": 8001,
+    "z": 3000,
     "height": 790.58823529411768,
     "width": 1440,
-    "tabOrder": 8001
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "tableEx",
@@ -82,12 +82,12 @@
                       "Entity": "dim_locations"
                     }
                   },
-                  "Property": "City"
+                  "Property": "Region"
                 }
               },
-              "queryRef": "dim_locations.City",
-              "nativeQueryRef": "Order City",
-              "displayName": "Order City"
+              "queryRef": "dim_locations.Region",
+              "nativeQueryRef": "Order Region",
+              "displayName": "Order Region"
             },
             {
               "field": {
@@ -163,6 +163,23 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_measures"
+                  }
+                },
+                "Property": "Total Sales"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
       }
     },
     "objects": {
@@ -246,7 +263,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "250D"
+                  "Value": "240D"
                 }
               }
             }
@@ -281,20 +298,6 @@
           },
           "selector": {
             "metadata": "dim_trucks.Truck Brand Name"
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "83D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "dim_locations.City"
           }
         },
         {
@@ -497,149 +500,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "0b828b80024b9013bc3a",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_trucks"
-              }
-            },
-            "Property": "Truck Brand Name"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "708d7fe96aaba923d167",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_locations"
-              }
-            },
-            "Property": "City"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "7f8b29a7859c646bbb50",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_order_date"
-              }
-            },
-            "Property": "Order Date"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "8bbf87cd0ae06090e9c0",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_order_time"
-              }
-            },
-            "Property": "Order Time"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "b9a26573d1aebdace181",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_measures"
-              }
-            },
-            "Property": "Total Sales"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "e61d024b026207bc007c",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_customers_snapshot"
-              }
-            },
-            "Property": "Full Name"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "3ea44cf91723cd43014b",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_customers_snapshot"
-              }
-            },
-            "Property": "Email"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "bc00d9655d4cb0b31b63",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_customers_snapshot"
-              }
-            },
-            "Property": "Phone Number"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "3608f2ff1193b055a8bd",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_measures"
-              }
-            },
-            "Property": "Total Order Items"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "eb57e39d2a410c06b289",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_locations"
-              }
-            },
-            "Property": "Country"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

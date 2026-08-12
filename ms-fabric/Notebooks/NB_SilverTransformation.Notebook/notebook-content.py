@@ -8,12 +8,12 @@
 # META   },
 # META   "dependencies": {
 # META     "lakehouse": {
-# META       "default_lakehouse": "2ca76da9-42d0-4156-bb7e-ec988ef7f874",
+# META       "default_lakehouse": "55312fb3-148f-459a-be62-fa4a63a5902f",
 # META       "default_lakehouse_name": "LH_FoodTruckNetwork",
-# META       "default_lakehouse_workspace_id": "ac2685d9-144e-45ff-afea-351c6539af85",
+# META       "default_lakehouse_workspace_id": "542bda20-f3f2-43f7-a24d-8b502233b148",
 # META       "known_lakehouses": [
 # META         {
-# META           "id": "2ca76da9-42d0-4156-bb7e-ec988ef7f874"
+# META           "id": "55312fb3-148f-459a-be62-fa4a63a5902f"
 # META         }
 # META       ]
 # META     },
@@ -903,42 +903,42 @@ order_detail_df_renamed.createOrReplaceTempView("order_detail_renamed")
 # CELL ********************
 
 # MAGIC %%sql
-# MAGIC -- WITH natural_key_counts AS (
-# MAGIC --     SELECT 
-# MAGIC --         `Order Detail ID`, 
-# MAGIC --         COUNT(*) AS Count
-# MAGIC --     FROM
-# MAGIC --         order_detail_renamed
-# MAGIC --     GROUP BY
-# MAGIC --         `Order Detail ID`
-# MAGIC --     HAVING
-# MAGIC --         COUNT(*) > 1
-# MAGIC -- )
-# MAGIC -- SELECT
-# MAGIC --     o.`Order Detail ID`,
-# MAGIC --     SIZE(COLLECT_SET(o.`Order ID`)),
-# MAGIC --     SIZE(COLLECT_SET(o.`Menu Item ID`)),
-# MAGIC --     SIZE(COLLECT_SET(o.`Quantity`)),
-# MAGIC --     SIZE(COLLECT_SET(o.`Unit Price (USD)`)),
-# MAGIC --     SIZE(COLLECT_SET(o.`Total Price (USD)`))
-# MAGIC -- FROM
-# MAGIC --     order_detail_renamed o
-# MAGIC -- JOIN
-# MAGIC --     natural_key_counts
-# MAGIC -- USING
-# MAGIC --     (`Order Detail ID`)
-# MAGIC -- GROUP BY
-# MAGIC --     o.`Order Detail ID`
-# MAGIC -- HAVING
-# MAGIC --     SIZE(COLLECT_SET(o.`Order ID`)) > 1
-# MAGIC -- OR
-# MAGIC --     SIZE(COLLECT_SET(o.`Menu Item ID`)) > 1
-# MAGIC -- OR
-# MAGIC --     SIZE(COLLECT_SET(o.`Quantity`)) > 1
-# MAGIC -- OR
-# MAGIC --     SIZE(COLLECT_SET(o.`Unit Price (USD)`)) > 1
-# MAGIC -- OR
-# MAGIC --     SIZE(COLLECT_SET(o.`Total Price (USD)`)) > 1
+# MAGIC WITH natural_key_counts AS (
+# MAGIC     SELECT 
+# MAGIC         `Order Detail ID`, 
+# MAGIC         COUNT(*) AS Count
+# MAGIC     FROM
+# MAGIC         order_detail_renamed
+# MAGIC     GROUP BY
+# MAGIC         `Order Detail ID`
+# MAGIC     HAVING
+# MAGIC         COUNT(*) > 1
+# MAGIC )
+# MAGIC SELECT
+# MAGIC     o.`Order Detail ID`,
+# MAGIC     SIZE(COLLECT_SET(o.`Order ID`)),
+# MAGIC     SIZE(COLLECT_SET(o.`Menu Item ID`)),
+# MAGIC     SIZE(COLLECT_SET(o.`Quantity`)),
+# MAGIC     SIZE(COLLECT_SET(o.`Unit Price (USD)`)),
+# MAGIC     SIZE(COLLECT_SET(o.`Total Price (USD)`))
+# MAGIC FROM
+# MAGIC     order_detail_renamed o
+# MAGIC JOIN
+# MAGIC     natural_key_counts
+# MAGIC USING
+# MAGIC     (`Order Detail ID`)
+# MAGIC GROUP BY
+# MAGIC     o.`Order Detail ID`
+# MAGIC HAVING
+# MAGIC     SIZE(COLLECT_SET(o.`Order ID`)) > 1
+# MAGIC OR
+# MAGIC     SIZE(COLLECT_SET(o.`Menu Item ID`)) > 1
+# MAGIC OR
+# MAGIC     SIZE(COLLECT_SET(o.`Quantity`)) > 1
+# MAGIC OR
+# MAGIC     SIZE(COLLECT_SET(o.`Unit Price (USD)`)) > 1
+# MAGIC OR
+# MAGIC     SIZE(COLLECT_SET(o.`Total Price (USD)`)) > 1
 
 # METADATA ********************
 
@@ -1577,6 +1577,7 @@ loading_enriched_table(
 
 # CELL ********************
 
+notebookutils.session.stop()
 
 # METADATA ********************
 

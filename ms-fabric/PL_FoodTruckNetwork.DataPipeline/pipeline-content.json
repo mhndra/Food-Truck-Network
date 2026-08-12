@@ -2,40 +2,28 @@
   "properties": {
     "activities": [
       {
-        "type": "TridentNotebook",
-        "typeProperties": {
-          "notebookId": "ceeb97a8-6de9-4f79-8d7c-17144d79a2db",
-          "workspaceId": "ac2685d9-144e-45ff-afea-351c6539af85"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": true,
-          "secureOutput": false
-        },
         "name": "Notebook - Public S3 bucket extraction",
+        "type": "TridentNotebook",
         "state": "Inactive",
         "onInactiveMarkAs": "Succeeded",
-        "dependsOn": []
-      },
-      {
-        "type": "InvokeCopyJob",
-        "typeProperties": {
-          "copyJobId": "d768fb0a-58cb-a648-4607-eac38a2509d5",
-          "workspaceId": "00000000-0000-0000-0000-000000000000"
-        },
-        "externalReferences": {
-          "connection": "1c0ec8df-ce20-44a0-b59a-9943aecea291"
-        },
+        "dependsOn": [],
         "policy": {
           "timeout": "0.12:00:00",
           "retry": 0,
           "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
+          "secureOutput": false,
+          "secureInput": true
         },
+        "typeProperties": {
+          "notebookId": "9fedaefa-7a5a-4b7c-b999-701a3ce645fd",
+          "workspaceId": "542bda20-f3f2-43f7-a24d-8b502233b148"
+        }
+      },
+      {
         "name": "Copy job - Bronze transformation",
+        "type": "InvokeCopyJob",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
           {
             "activity": "Notebook - Public S3 bucket extraction",
@@ -43,43 +31,50 @@
               "Succeeded"
             ]
           }
-        ]
-      },
-      {
-        "type": "InvokeCopyJob",
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
         "typeProperties": {
-          "copyJobId": "99253ffe-5e86-4104-aee9-e4115e1ecd71",
-          "workspaceId": "ac2685d9-144e-45ff-afea-351c6539af85"
+          "copyJobId": "f494456c-78e4-4f37-8af5-f1559d958d7a",
+          "workspaceId": "542bda20-f3f2-43f7-a24d-8b502233b148",
+          "operationType": "RunCopyJob"
         },
         "externalReferences": {
           "connection": "1c0ec8df-ce20-44a0-b59a-9943aecea291"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Copy job - User region mapping extraction",
-        "state": "Inactive",
-        "onInactiveMarkAs": "Succeeded",
-        "dependsOn": []
+        }
       },
       {
-        "type": "TridentNotebook",
-        "typeProperties": {
-          "notebookId": "e28e0320-a47e-b877-4d1f-778196ab261c",
-          "workspaceId": "00000000-0000-0000-0000-000000000000"
-        },
+        "name": "Copy job - User region mapping extraction",
+        "type": "InvokeCopyJob",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [],
         "policy": {
           "timeout": "0.12:00:00",
           "retry": 0,
           "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
+          "secureOutput": false,
+          "secureInput": false
         },
+        "typeProperties": {
+          "copyJobId": "f6c06035-2ec7-4c68-a7b5-53e12a883105",
+          "workspaceId": "542bda20-f3f2-43f7-a24d-8b502233b148",
+          "operationType": "RunCopyJob"
+        },
+        "externalReferences": {
+          "connection": "1c0ec8df-ce20-44a0-b59a-9943aecea291"
+        }
+      },
+      {
         "name": "Notebook - Silver transformation",
+        "type": "TridentNotebook",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
           {
             "activity": "Copy job - Bronze transformation",
@@ -87,22 +82,24 @@
               "Succeeded"
             ]
           }
-        ]
-      },
-      {
-        "type": "TridentNotebook",
-        "typeProperties": {
-          "notebookId": "c5b2c76e-e77c-9a5c-4ec4-0b43fd4b6eb1",
-          "workspaceId": "00000000-0000-0000-0000-000000000000"
-        },
+        ],
         "policy": {
           "timeout": "0.12:00:00",
           "retry": 0,
           "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
+          "secureOutput": false,
+          "secureInput": false
         },
+        "typeProperties": {
+          "notebookId": "ddf47d1f-d395-4211-a7a3-d88e08f323da",
+          "workspaceId": "542bda20-f3f2-43f7-a24d-8b502233b148"
+        }
+      },
+      {
         "name": "Notebook - Silver Expectations",
+        "type": "TridentNotebook",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
           {
             "activity": "Notebook - Silver transformation",
@@ -110,26 +107,24 @@
               "Succeeded"
             ]
           }
-        ]
-      },
-      {
-        "type": "InvokeDataBuildToolJob",
-        "typeProperties": {
-          "dataBuildToolJobId": "904fbfdf-0220-ae2c-4631-42044e47f7ab",
-          "workspaceId": "00000000-0000-0000-0000-000000000000",
-          "threads": 4
-        },
-        "externalReferences": {
-          "connection": "de39a384-74b5-4029-b1f2-816a1d7d6a23"
-        },
+        ],
         "policy": {
           "timeout": "0.12:00:00",
-          "retry": 0,
+          "retry": 2,
           "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
+          "secureOutput": false,
+          "secureInput": false
         },
+        "typeProperties": {
+          "notebookId": "bbe6ef90-0825-4fde-96b8-cbbd914a05b5",
+          "workspaceId": "542bda20-f3f2-43f7-a24d-8b502233b148"
+        }
+      },
+      {
         "name": "dbt job - Gold transformation and utils",
+        "type": "InvokeDataBuildToolJob",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
           {
             "activity": "Notebook - Silver Expectations",
@@ -137,15 +132,47 @@
               "Succeeded"
             ]
           }
-        ]
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "dataBuildToolJobId": "4e47f7ab-4204-4631-ae2c-0220904fbfdf",
+          "workspaceId": "542bda20-f3f2-43f7-a24d-8b502233b148",
+          "operation": "build",
+          "threads": 4
+        },
+        "externalReferences": {
+          "connection": "de39a384-74b5-4029-b1f2-816a1d7d6a23"
+        }
       },
       {
+        "name": "Semantic model refresh",
         "type": "PBISemanticModelRefresh",
+        "dependsOn": [
+          {
+            "activity": "dbt job - Gold transformation and utils",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
         "typeProperties": {
           "method": "POST",
-          "groupId": "ac2685d9-144e-45ff-afea-351c6539af85",
-          "datasetId": "2dd822c9-1f15-437c-8548-94d83e5593b0",
-          "commitMode": "Transactional",
+          "operationType": "SemanticModelRefresh",
+          "groupId": "542bda20-f3f2-43f7-a24d-8b502233b148",
+          "datasetId": "47fe4ca4-a190-4f5d-97dd-438e42680492",
           "objects": [
             {
               "table": "dim_locations"
@@ -173,27 +200,11 @@
             }
           ],
           "waitOnCompletion": true,
-          "operationType": "SemanticModelRefresh"
+          "commitMode": "Transactional"
         },
         "externalReferences": {
           "connection": "17389259-c6b0-4be1-a138-2b82806bfb7b"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Semantic model refresh",
-        "dependsOn": [
-          {
-            "activity": "dbt job - Gold transformation and utils",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          }
-        ]
+        }
       }
     ]
   }

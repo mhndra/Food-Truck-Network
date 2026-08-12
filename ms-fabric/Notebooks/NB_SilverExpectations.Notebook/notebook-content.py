@@ -8,12 +8,12 @@
 # META   },
 # META   "dependencies": {
 # META     "lakehouse": {
-# META       "default_lakehouse": "2ca76da9-42d0-4156-bb7e-ec988ef7f874",
+# META       "default_lakehouse": "55312fb3-148f-459a-be62-fa4a63a5902f",
 # META       "default_lakehouse_name": "LH_FoodTruckNetwork",
-# META       "default_lakehouse_workspace_id": "ac2685d9-144e-45ff-afea-351c6539af85",
+# META       "default_lakehouse_workspace_id": "542bda20-f3f2-43f7-a24d-8b502233b148",
 # META       "known_lakehouses": [
 # META         {
-# META           "id": "2ca76da9-42d0-4156-bb7e-ec988ef7f874"
+# META           "id": "55312fb3-148f-459a-be62-fa4a63a5902f"
 # META         }
 # META       ]
 # META     },
@@ -36,6 +36,7 @@
 
 import great_expectations as gx
 import great_expectations.expectations as gxe
+from pyspark.sql.functions import *
 
 # METADATA ********************
 
@@ -177,7 +178,12 @@ context = gx.get_context(
 # CELL ********************
 
 franchise_cleaned_df = spark.read.table("silver.franchise_cleaned")
-franchise_cleaned_df.createOrReplaceTempView("franchise_cleaned")
+franchise_cleaned_df_exploded = franchise_cleaned_df.withColumn(
+    "Franchise City",
+    explode(from_json("Franchise City Grouped", "array<string>"))
+).drop("Franchise City Grouped")
+display(franchise_cleaned_df_exploded.count())
+franchise_cleaned_df_exploded.createOrReplaceTempView("franchise_exploded")
 
 # METADATA ********************
 
@@ -200,7 +206,7 @@ franchise_cleaned_df.createOrReplaceTempView("franchise_cleaned")
 # MAGIC     COLLECT_SET(`Franchise Owner Full Name`),
 # MAGIC     COLLECT_SET(`Franchise Owner Last First Name`)
 # MAGIC FROM
-# MAGIC     franchise_cleaned
+# MAGIC     franchise_exploded
 
 # METADATA ********************
 
@@ -241,7 +247,7 @@ except:
 
 # CELL ********************
 
-for column in franchise_cleaned_df.columns:
+for column in franchise_cleaned_df_exploded.columns:
     franchise_cleaned_suite.add_expectation(
         gxe.ExpectColumnValuesToNotBeNull(
             column=column
@@ -296,7 +302,7 @@ franchise_cleaned_suite.add_expectation(
     )
 )
 
-# Last first column
+# Franchise owner last first column
 franchise_cleaned_suite.add_expectation(
     gxe.ExpectColumnValuesToMatchRegex(
         column="Franchise Owner Last First Name",
@@ -1952,7 +1958,7 @@ display(truck_enriched_suite)
 # CELL ********************
 
 references = [
-    ("franchise_cleaned", franchise_cleaned_df),
+    ("franchise_cleaned", franchise_cleaned_df_exploded),
     ("location_enriched", location_enriched_df),
     ("menu_enriched", menu_enriched_df),
     ("order_detail_renamed", order_detail_renamed_df),
@@ -1977,6 +1983,7 @@ for table_name, dataframe in references:
 
 # CELL ********************
 
+notebookutils.session.stop()
 
 # METADATA ********************
 
