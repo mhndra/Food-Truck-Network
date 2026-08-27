@@ -309,34 +309,30 @@ Bagian halaman ini menampilkan ringkasan penjualan di wilayah dan tahun tertentu
     - [Parameter] by Hour of Day → [Parameter] berdasarkan waktu dalam sehari di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
     - [Parameter] by Day of Week → [Parameter] berdasrkan hari dalam seminggu di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
 
-### 09-2 Halaman 2 - Order Details
-Berikut tampilan laporan halaman 2 untuk tim di Departemen Sales semua wilayah.
+### 09-2 Halaman 2 - Customer
+Berikut tampilan laporan halaman 2 sepanjang bulan Oktober 2022 untuk tim di Departemen Sales semua wilayah.
 
-![alt text](images/order_details_all.png)
+![alt text](images/customer_all.png)
 
-Berikut tampilan laporan halaman 2 untuk tim di Departemen Sales wilayah APAC.
+Berikut tampilan laporan halaman 2 sepanjang bulan Oktober 2022 untuk tim di Departemen Sales wilayah APAC.
 
-![alt text](images/order_details.png)
+![alt text](images/customer_apac.png)
 
-Halaman ini menampilkan rincian setiap pesanan yang dilakukan oleh pelanggan beserta jumlah item pesanan dan total pembelian pesanannya. Beberapa bentuk visualisasi yang ditampilkan pada halaman ini, yaitu sebagai berikut:
+Halaman ini menampilkan rincian pelanggan beserta jumlah pesanan yang pernah dilakukan, jumlah unit item yang dipesan dan total pembelian yang pernah dilakukan di wilayah dan bulan tertentu. Beberapa bentuk visualisasi yang ditampilkan pada halaman ini, yaitu sebagai berikut:
 - Slicer:
-    - Select Truck Brand Name → Filter nama merk truk (hanya memilih salah satu).
-
-- Cards:
-    - Total Order Items → Jumlah item pesanan di wilayah dan tahun tertentu.
-    - Total Quantities → Jumlah kuantitas item yang telah dipesan di wilayah dan tahun tertentu.
-    - Total Orders → Jumlah pesanan di wilayah dan tahun tertentu.
-    - Total Sales → Total penjualan dalam satuan USD.
+    - Select Latest Period → Filter periode bulan terakhir (hanya memilih salah satu). Pengguna bisa melihat rincian pelanggan pada bulan yang terakhir diperbarui maupun bulan-bulan sebelumnya.
+    - Select Region → Filter wilayah (hanya memilih salah satu). Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
+    - Select Country → Filter negara tempat pelanggan melakukan pemesanan.
+    - Select Food Truck → Filter nama merk truk yang menerima pesanan.
 
 - Table:
-    - Customer Full Name → Nama lengkap pelanggan. Tim masing-masing wilayah di Departemen Sales, tim yang memiliki akses pada wilayah tertentu hanya ditampilkan nama samaran (`**~MASKED~**`).
-    - Customer Email → Alamat email pelanggan. Tim masing-masing wilayah di Departemen Sales, tim yang memiliki akses pada wilayah tertentu hanya ditampilkan email samaran (`**~MASKED~**.**~MASKED~**@hotmail.com`).
-    - Customer Phone Number → Nomor telepon pelanggan. Tim masing-masing wilayah di Departemen Sales, tim yang memiliki akses pada wilayah tertentu hanya ditampilkan nomor telepon samaran (`111-111-1111`).
-    - Truck Brand Name → Nama merk truk. Nama ditentukan berdasarkan Select Truck Brand Name slicer.
-    - Order Region → Wilayah tempat pesanan dilakukan.
-    - Order Country → Negara tempat pesanan dilakukan.
-    - Order Date → Tanggal pesanan dilakukan.
-    - Order Time → Waktu pesanan dilakukan.
-    - Total Order Items → Jumlah item pesanan.
-    - Grand Total (USD) → Total pembelian pesanan dalam satuan USD.
+    - Customer ID → Nomor identifikasi pelanggan di wilayah dan bulan tertentu. Semua tim masing-masing wilayah di Departemen Sales dapat melihat nomor identifkasi pelanggan.
+    - Customer Name → Nama lengkap pelanggan di wilayah dan bulan tertentu. Tim masing-masing wilayah di Departemen Sales  yang memiliki akses pada satu wilayah tertentu hanya ditampilkan nama samaran (`**~MASKED~**`).
+    - Email → Alamat email pelanggan di wilayah dan bulan tertentu. Tim masing-masing wilayah di Departemen Sales yang memiliki akses pada satu wilayah tertentu hanya ditampilkan email samaran (`**~MASKED~**.**~MASKED~**@hotmail.com`).
+    - Phone Number → Nomor telepon pelanggan di wilayah dan bulan tertentu. Tim masing-masing wilayah di Departemen Sales yang memiliki akses pada satu wilayah tertentu hanya ditampilkan nomor telepon samaran (`111-111-1111`).
+    - Country → Negara tempat pelanggan melakukan pemesanan di wilayah dan bulan tertentu.
+    - Food Truck → Nama merk truk yang menerima pesanan di wilayah dan bulan tertentu.
+    - Total Orders → Jumlah pesanan yang pernah dilakukan di wilayah dan bulan tertentu.
+    - Total Quantities → Jumlah unit item yang dipesan di wilayah dan bulan tertentu.
+    - Grand Total → Total pembelian yang pernah dilakukan di wilayah dan bulan tertentu.
 
