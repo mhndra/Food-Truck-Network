@@ -247,31 +247,36 @@ Pemodelan data hasil transformasi lapisan gold dilakukan di Fabric Semantic Mode
 ## 09 Visualizing Data
 Visualisasi data menggunakan semantic model di Fabric Report. Visualisasi data ini sebagai pembuatan laporan yang mana dilakukan di Report_FoodTruckNetwork. Berikut dua halaman yang ditampilkan pada laporan tersebut, yaitu:
 
-### 09-1 Halaman 1 - Order Summary
-Berikut tampilan laporan halaman 1 untuk tim di Departemen Sales semua wilayah.
+### 09-1-1 Halaman 1 - Main - Monthly
+Berikut tampilan laporan halaman 1 sepanjang bulan Oktober 2022 untuk tim di Departemen Sales semua wilayah.
 
-![alt text](images/order_summary_all.png)
+![alt text](images/main_october_2022_all.png)
 
-Berikut tampilan laporan halaman 1 untuk tim di Departemen Sales wilayah APAC. 
+Berikut tampilan laporan halaman 1 sepanjang bulan Oktober 2022 untuk tim di Departemen Sales wilayah APAC. 
 
-![alt text](images/order_summary.png)
+![alt text](images/main_october_2022_apac.png)
 
-Halaman ini menampilkan ringkasan penjualan di wilayah dan tahun tertentu. Beberapa bentuk visualisasi yang ditampilkan pada halaman ini, yaitu sebagai berikut:
+Bagian halaman ini menampilkan ringkasan penjualan di wilayah dan bulan tertentu. Beberapa bentuk visualisasi yang ditampilkan pada bagian halaman ini, yaitu sebagai berikut:
+- Bookmark:
+    - Monthly → filter menampilkan laporan bulanan.
+    - Annual → filter menampilkan laporan tahunan. 
+
 - Slicer:
-    - Region → Filter wilayah (hanya memilih salah satu). Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan wilayah tim tersebut.
-    - Year → Filter tahun (hanya memilih salah satu).
+    - Select Latest Period → Filter periode bulan terakhir. Pengguna bisa melihat laporan bulanan yang terakhir diperbarui maupun laporan bulan sebelum-sebelumnya.
+    - Select Region → Filter wilayah (hanya memilih salah satu). Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
 
 - Cards:
-    - Total Order Items → Jumlah item pesanan di wilayah dan tahun tertentu.
-    - Total Quantities → Jumlah kuantitas item yang telah dipesan di wilayah dan tahun tertentu.
-    - Total Orders → Jumlah pesanan di wilayah dan tahun tertentu.
-    - Total Sales → Total penjualan dalam satuan USD.
+    - Total Orders → Jumlah pesanan di wilayah dan bulan tertentu. Terdapat persentase perubahan jumlah pesanan terhadap bulan sebelumnya dan trend jumlah pesanan sepanjang bulan tertentu.
+    - Total Quantities → Jumlah unit item yang telah dipesan di wilayah dan bulan tertentu. Terdapat persentase perubahan jumlah unit item yang telah dipesan terhadap bulan sebelumnya dan trend jumlah unit item yang telah dipesan sepanjang bulan tertentu.
+    - Total Sales → Total penjualan dalam satuan USD di wilayah dan bulan tertentu. Terdapat persentase perubahan total penjualan terhadap bulan sebelumnya dan trend total penjualan sepanjang bulan tertentu.
 
 - Charts:
-    - Total Sales % by City → Persentase bagian masing-masing kota dari keseluruhan total penjualan di wilayah dan tahun tertentu.
-    - Total Sales % by Day of Week → Persentase bagian masing-masing nama hari dalam seminggu dari keseluruhan total penjualan di wilayah dan tahun tertentu.
-    - Total Sales by Truck Brand Name → Total penjualan dalam satuan USD pada masing-masing nama merk truck di wilayah dan tahun tertentu.
-    - Total Orders by Hour of Day → Total pesanan pada masing-masing waktu dalam sehari di wilayah dan tahun tertentu.
+    - [Parameter] by Country → Parameter berdasarkan negara di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by City → Parameter berdasarkan kota di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Truck Model → Parameter berdasarkan model truk yang digunakan di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Truck Brand Name → Parameter berdasarkan nama merk truk di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Hour of Day → Parameter berdasarkan waktu dalam sehari di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Day of Week → Parameter berdasrkan hari dalam seminggu di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
 
 ### 09-2 Halaman 2 - Order Details
 Berikut tampilan laporan halaman 2 untuk tim di Departemen Sales semua wilayah.
