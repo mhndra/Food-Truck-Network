@@ -262,7 +262,7 @@ Bagian halaman ini menampilkan ringkasan penjualan di wilayah dan bulan tertentu
     - Annual → filter menampilkan laporan tahunan. 
 
 - Slicer:
-    - Select Latest Period → Filter periode bulan terakhir. Pengguna bisa melihat laporan bulanan yang terakhir diperbarui maupun laporan bulan sebelum-sebelumnya.
+    - Select Latest Period → Filter periode bulan terakhir. Pengguna bisa melihat laporan bulanan yang terakhir diperbarui maupun laporan bulan-bulan sebelumnya.
     - Select Region → Filter wilayah (hanya memilih salah satu). Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
 
 - Cards:
@@ -271,12 +271,43 @@ Bagian halaman ini menampilkan ringkasan penjualan di wilayah dan bulan tertentu
     - Total Sales → Total penjualan dalam satuan USD di wilayah dan bulan tertentu. Terdapat persentase perubahan total penjualan terhadap bulan sebelumnya dan trend total penjualan sepanjang bulan tertentu.
 
 - Charts:
-    - [Parameter] by Country → Parameter berdasarkan negara di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by City → Parameter berdasarkan kota di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Truck Model → Parameter berdasarkan model truk yang digunakan di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Truck Brand Name → Parameter berdasarkan nama merk truk di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Hour of Day → Parameter berdasarkan waktu dalam sehari di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Day of Week → Parameter berdasrkan hari dalam seminggu di wilayah dan bulan tertentu. Parameter bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Country → [Parameter] berdasarkan negara di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by City → [Parameter] berdasarkan kota di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Truck Model → [Parameter] berdasarkan model truk yang digunakan di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Truck Brand Name → [Parameter] berdasarkan nama merk truk di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Hour of Day → [Parameter] berdasarkan waktu dalam sehari di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Day of Week → [Parameter] berdasrkan hari dalam seminggu di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+
+### 09-1-2 Halaman 1 - Main - Annual
+Berikut tampilan laporan halaman 1 sepanjang tahun 2022 untuk tim di Departemen Sales semua wilayah.
+
+![alt text](images/main_2022_all.png)
+
+Berikut tampilan laporan halaman 1 sepanjang tahun 2022 untuk tim di Departemen Sales wilayah APAC. 
+
+![alt text](images/main_2022_apac.png)
+
+Bagian halaman ini menampilkan ringkasan penjualan di wilayah dan tahun tertentu. Beberapa bentuk visualisasi yang ditampilkan pada bagian halaman ini, yaitu sebagai berikut:
+- Bookmark:
+    - Monthly → filter menampilkan laporan bulanan.
+    - Annual → filter menampilkan laporan tahunan. 
+
+- Slicer:
+    - Select Latest Period → Filter periode tahun terakhir. Pengguna bisa melihat laporan tahunan yang terakhir diperbarui maupun laporan tahun-tahun sebelumnya.
+    - Select Region → Filter wilayah (hanya memilih salah satu). Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
+
+- Cards:
+    - Total Orders → Jumlah pesanan di wilayah dan tahun tertentu. Terdapat persentase perubahan jumlah pesanan terhadap tahun sebelumnya dan trend jumlah pesanan sepanjang tahun tertentu.
+    - Total Quantities → Jumlah unit item yang telah dipesan di wilayah dan tahun tertentu. Terdapat persentase perubahan jumlah unit item yang telah dipesan terhadap tahun sebelumnya dan trend jumlah unit item yang telah dipesan sepanjang tahun tertentu.
+    - Total Sales → Total penjualan dalam satuan USD di wilayah dan tahun tertentu. Terdapat persentase perubahan total penjualan terhadap tahun sebelumnya dan trend total penjualan sepanjang tahun tertentu.
+
+- Charts:
+    - [Parameter] by Country → [Parameter] berdasarkan negara di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by City → [Parameter] berdasarkan kota di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Truck Model → [Parameter] berdasarkan model truk yang digunakan di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Truck Brand Name → [Parameter] berdasarkan nama merk truk di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Hour of Day → [Parameter] berdasarkan waktu dalam sehari di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
+    - [Parameter] by Day of Week → [Parameter] berdasrkan hari dalam seminggu di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
 
 ### 09-2 Halaman 2 - Order Details
 Berikut tampilan laporan halaman 2 untuk tim di Departemen Sales semua wilayah.
