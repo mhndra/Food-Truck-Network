@@ -263,7 +263,7 @@ Bagian halaman ini menampilkan ringkasan penjualan di wilayah dan bulan tertentu
 
 - Slicer:
     - Select Latest Period → Filter periode bulan terakhir. Pengguna bisa melihat laporan bulanan yang terakhir diperbarui maupun laporan bulan-bulan sebelumnya.
-    - Select Region → Filter wilayah (hanya memilih salah satu). Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
+    - Select Region → Filter wilayah. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
 
 - Cards:
     - Total Orders → Jumlah pesanan di wilayah dan bulan tertentu. Terdapat persentase perubahan jumlah pesanan terhadap bulan sebelumnya dan trend jumlah pesanan sepanjang bulan tertentu.
@@ -294,7 +294,7 @@ Bagian halaman ini menampilkan ringkasan penjualan di wilayah dan tahun tertentu
 
 - Slicer:
     - Select Latest Period → Filter periode tahun terakhir. Pengguna bisa melihat laporan tahunan yang terakhir diperbarui maupun laporan tahun-tahun sebelumnya.
-    - Select Region → Filter wilayah (hanya memilih salah satu). Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
+    - Select Region → Filter wilayah. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
 
 - Cards:
     - Total Orders → Jumlah pesanan di wilayah dan tahun tertentu. Terdapat persentase perubahan jumlah pesanan terhadap tahun sebelumnya dan trend jumlah pesanan sepanjang tahun tertentu.
@@ -310,18 +310,18 @@ Bagian halaman ini menampilkan ringkasan penjualan di wilayah dan tahun tertentu
     - [Parameter] by Day of Week → [Parameter] berdasrkan hari dalam seminggu di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
 
 ### 09-2 Halaman 2 - Customer
-Berikut tampilan laporan halaman 2 sepanjang bulan Oktober 2022 untuk tim di Departemen Sales semua wilayah.
+Berikut tampilan laporan halaman 2 sepanjang bulan November 2022 untuk tim di Departemen Sales semua wilayah.
 
 ![alt text](images/customer_all.png)
 
-Berikut tampilan laporan halaman 2 sepanjang bulan Oktober 2022 untuk tim di Departemen Sales wilayah APAC.
+Berikut tampilan laporan halaman 2 sepanjang bulan November 2022 untuk tim di Departemen Sales wilayah APAC.
 
 ![alt text](images/customer_apac.png)
 
 Halaman ini menampilkan rincian pelanggan beserta jumlah pesanan yang pernah dilakukan, jumlah unit item yang dipesan dan total pembelian yang pernah dilakukan di wilayah dan bulan tertentu. Beberapa bentuk visualisasi yang ditampilkan pada halaman ini, yaitu sebagai berikut:
 - Slicer:
     - Select Latest Period → Filter periode bulan terakhir (hanya memilih salah satu). Pengguna bisa melihat rincian pelanggan pada bulan yang terakhir diperbarui maupun bulan-bulan sebelumnya.
-    - Select Region → Filter wilayah (hanya memilih salah satu). Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
+    - Select Region → Filter wilayah tempat pelanggan melakukan pemesanan. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
     - Select Country → Filter negara tempat pelanggan melakukan pemesanan.
     - Select Food Truck → Filter nama merk truk yang menerima pesanan.
 
@@ -335,4 +335,31 @@ Halaman ini menampilkan rincian pelanggan beserta jumlah pesanan yang pernah dil
     - Total Orders → Jumlah pesanan yang pernah dilakukan di wilayah dan bulan tertentu.
     - Total Quantities → Jumlah unit item yang dipesan di wilayah dan bulan tertentu.
     - Grand Total → Total pembelian yang pernah dilakukan di wilayah dan bulan tertentu.
+
+### 09-3 Halaman 3 - Franchise
+Berikut tampilan laporan halaman 3 sepanjang bulan November 2022 untuk tim di Departemen Sales semua wilayah.
+
+![alt text](images/franchise_all.png)
+
+Berikut tampilan laporan halaman 2 sepanjang bulan November 2022 untuk tim di Departemen Sales wilayah APAC.
+
+![alt text](images/franchise_apac.png)
+
+Halaman ini menampilkan rincian pemilik franchise beserta jumlah pesanan yang pernah diterima, jumlah unit item yang dibuat dan total penjualan yang pernah diterima di wilayah dan bulan tertentu. Beberapa bentuk visualisasi yang ditampilkan pada halaman ini, yaitu sebagai berikut:
+- Slicer:
+    - Select Latest Period → Filter periode bulan terakhir (hanya memilih salah satu). Pengguna bisa melihat rincian pemilik franchise pada bulan yang terakhir diperbarui maupun bulan-bulan sebelumnya.
+    - Select Region → Filter wilayah tempat pemilik franchise menerima pesanan. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
+    - Select Country → Filter negara tempat pemilik franchise menerima pesanan.
+    - Select Food Truck → Filter nama merk truk yang menerima pesanan.
+
+- Table:
+    - Owner ID → Nomor identifikasi pemilik franchise di wilayah dan bulan tertentu.
+    - Owner Name → Nama lengkap pemilik franchise di wilayah dan bulan tertentu.
+    - Email → Alamat email pemilik franchise di wilayah dan bulan tertentu.
+    - Phone Number → Nomor telepon pemilik franchise di wilayah dan bulan tertentu.
+    - Country → Negara tempat pemilik franchise menerima pesanan di wilayah dan bulan tertentu.
+    - Food Truck → Nama merk truk yang menerima pesanan di wilayah dan bulan tertentu.
+    - Total Orders → Jumlah pesanan yang pernah diterima di wilayah dan bulan tertentu.
+    - Total Quantities → Jumlah unit item yang dibuat di wilayah dan bulan tertentu.
+    - Grand Total → Total penjualan yang pernah diterima di wilayah dan bulan tertentu.
 
