@@ -1,0 +1,26 @@
+table _city_rank_range
+	lineageTag: d0f00f5f-9291-478a-b9f8-072d975a37bf
+
+	measure '_city_rank_range Value' = SELECTEDVALUE('_city_rank_range'[_city_rank_range])
+		formatString: 0
+		lineageTag: 2028c389-6329-42b1-b08e-aff3caddaba7
+
+	column _city_rank_range
+		formatString: 0
+		lineageTag: 8044f67d-e7e5-43a9-8427-45bc0451f989
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition _city_rank_range = calculated
+		mode: import
+		source = GENERATESERIES(0, 99, 1)
+
+	annotation PBI_Id = d5f2418afef64d9d951c084fbe3e72b3
+

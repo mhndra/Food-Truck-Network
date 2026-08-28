@@ -1,0 +1,49 @@
+table _insight_parameters
+	lineageTag: 118f144b-f3d5-448e-b9af-3451113cbd46
+
+	column _insight_parameters
+		lineageTag: 64746b2f-413d-48b2-bfd7-39cc2b286325
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_insight_parameters Order'
+
+		relatedColumnDetails
+			groupByColumn: '_insight_parameters Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_insight_parameters Fields'
+		isHidden
+		lineageTag: 3df24a30-4ab3-47ad-8cf4-ffd12c9423ce
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_insight_parameters Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_insight_parameters Order'
+		isHidden
+		formatString: 0
+		lineageTag: 1e981e69-1f3f-4e42-88e7-c3510f9513f0
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _insight_parameters = calculated
+		mode: import
+		source =
+				{
+				    ("Total Orders", NAMEOF('_measures'[Total Orders]), 0),
+				    ("Total Quantities", NAMEOF('_measures'[Total Quantities]), 1),
+				    ("Total Sales", NAMEOF('_measures'[Total Sales]), 2)
+				}
+
+	annotation PBI_Id = 9900d91cd4b54e89b5cc255ed3ba4e29
+

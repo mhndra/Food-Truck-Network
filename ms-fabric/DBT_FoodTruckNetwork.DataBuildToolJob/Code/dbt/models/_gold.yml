@@ -451,6 +451,19 @@ models:
         description: ''
         tests:
           - not_null
+      
+      - name: Day of Week Sorting
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Month Year
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
 
 
   - name: dim_order_time

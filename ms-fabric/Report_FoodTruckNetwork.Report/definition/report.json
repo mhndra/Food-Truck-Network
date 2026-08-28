@@ -50,6 +50,22 @@
           "type": "BaseTheme"
         }
       ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "background_dashboard15677842307015932.svg",
+          "path": "background_dashboard15677842307015932.svg",
+          "type": "Image"
+        },
+        {
+          "name": "background_dashboard7238747337239351.svg",
+          "path": "background_dashboard7238747337239351.svg",
+          "type": "Image"
+        }
+      ]
     }
   ],
   "settings": {

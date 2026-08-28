@@ -1,0 +1,24 @@
+table _top_bottom_city
+	lineageTag: 177fcb6a-d808-4a1b-929a-50182868ca40
+
+	column Column1
+		lineageTag: ff2055ca-032b-47f7-9c6f-0bc324927598
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Column1]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _top_bottom_city = calculated
+		mode: import
+		source =
+				DATATABLE(
+				    "Column1", STRING,
+				    {
+				        {"Top"},
+				        {"Bottom"}
+				    }
+				)
+
+	annotation PBI_Id = b984ad98f15d49949f8bb7e8eb86e00f
+

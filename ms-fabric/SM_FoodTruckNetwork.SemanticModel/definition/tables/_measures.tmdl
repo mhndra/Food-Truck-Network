@@ -1,23 +1,825 @@
 table _measures
 	lineageTag: 0b941c4b-ddb5-415b-a5b2-bccfe979a953
 
-	measure 'Total Order Items' = SUM(fact_order_headers[Order Amount])
-		formatString: #,0
-		lineageTag: fa1d7ddd-77e5-4381-ad08-0273107414d0
-
 	measure 'Total Orders' = DISTINCTCOUNT(fact_order_headers[Order ID])
 		formatString: #,0
+		displayFolder: 01_total_orders
 		lineageTag: dd9fa517-aa9a-4a5f-aa3c-8f5448511eef
 
 	measure 'Total Sales' = SUM(fact_order_headers[Total Order Price (USD)] )
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 03_total_sales
 		lineageTag: db0c270c-e190-4121-a709-3c3825e7e2bd
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'Total Quantities' = SUM(fact_order_headers[Total Order Quantities] )
+	measure 'Total Quantities' = SUM(fact_order_headers[Total Order Quantities])
 		formatString: #,0
+		displayFolder: 02_total_quantities
 		lineageTag: 2713bf91-d851-4b73-94d0-43e44f6fadd4
+
+	measure 'Ranked City Sales' =
+			
+			VAR _SelectedValue = SELECTEDVALUE(_top_bottom_city[Column1])
+			RETURN
+			IF(
+			    _SelectedValue = "Top",
+			    RANKX(ALLSELECTED(dim_locations[City]), [Total Sales],, DESC, Dense),
+			    RANKX(ALLSELECTED(dim_locations[City]), [Total Sales],, ASC, Dense)
+			)
+		formatString: 0
+		lineageTag: 9d167114-ab2c-4329-bf56-4e6f268b10e2
+
+	measure 'Selected City Sales' =
+			
+			VAR _SelectedValue = SELECTEDVALUE(_city_rank_range[_city_rank_range])
+			RETURN
+			IF(
+			    ISBLANK(_SelectedValue),
+			    [Total Sales],
+			    IF([Ranked City Sales] <= _SelectedValue, [Total Sales], BLANK())
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f21b055a-47a1-44f2-ae96-e6b4930406f1
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Max Location Insights' =
+			
+			
+			VAR SelectedLocation = SELECTEDVALUE(_location_parameters[_location_parameters Order])
+			VAR SelectedInsight = SELECTEDVALUE(_insight_parameters[_insight_parameters Order])
+			
+			VAR MaxOrders = SWITCH(
+			    SelectedLocation,
+			    0, CALCULATE(MAXX(ALL(dim_locations[City]), [Total Orders]), ALLSELECTED(fact_order_headers)),
+			    1, CALCULATE(MAXX(ALL(dim_locations[Location]), [Total Orders]), ALLSELECTED(fact_order_headers))
+			)
+			
+			VAR MaxQuantities = SWITCH(
+			    SelectedLocation,
+			    0, CALCULATE(MAXX(ALL(dim_locations[City]), [Total Quantities]), ALLSELECTED(fact_order_headers)),
+			    1, CALCULATE(MAXX(ALL(dim_locations[Location]), [Total Quantities]), ALLSELECTED(fact_order_headers))
+			)
+			
+			VAR MaxSales = SWITCH(
+			    SelectedLocation,
+			    0, CALCULATE(MAXX(ALL(dim_locations[City]), [Total Sales]), ALLSELECTED(fact_order_headers)),
+			    1, CALCULATE(MAXX(ALL(dim_locations[Location]), [Total Sales]), ALLSELECTED(fact_order_headers))
+			)
+			
+			VAR Color = SWITCH(
+			    TRUE(),
+			    SelectedInsight = 0 && [Total Orders] = MaxOrders, "#118DFF",
+			    SelectedInsight = 1 && [Total Quantities] = MaxQuantities, "#118DFF",
+			    SelectedInsight = 2 && [Total Sales] = MaxSales, "#118DFF",
+			    "#E6E6E6"
+			)
+			
+			RETURN Color
+		displayFolder: 00_insights
+		lineageTag: 0c8e3ac0-0dc8-45fb-8a46-52be837d169d
+
+	measure 'Max Truck Insights' =
+			
+			
+			VAR SelectedTruck = SELECTEDVALUE(_truck_parameters[_truck_parameters Order])
+			VAR SelectedInsight = SELECTEDVALUE(_insight_parameters[_insight_parameters Order])
+			
+			VAR MaxOrders = SWITCH(
+			    SelectedTruck,
+			    0, CALCULATE(MAXX(ALL(dim_trucks[Truck Brand Name]), [Total Orders]), ALLSELECTED(fact_order_headers)),
+			    1, CALCULATE(MAXX(ALL(dim_trucks[Model]), [Total Orders]), ALLSELECTED(fact_order_headers))
+			)
+			
+			VAR MaxQuantities = SWITCH(
+			    SelectedTruck,
+			    0, CALCULATE(MAXX(ALL(dim_trucks[Truck Brand Name]), [Total Quantities]), ALLSELECTED(fact_order_headers)),
+			    1, CALCULATE(MAXX(ALL(dim_trucks[Model]), [Total Quantities]), ALLSELECTED(fact_order_headers))
+			)
+			
+			VAR MaxSales = SWITCH(
+			    SelectedTruck,
+			    0, CALCULATE(MAXX(ALL(dim_trucks[Truck Brand Name]), [Total Sales]), ALLSELECTED(fact_order_headers)),
+			    1, CALCULATE(MAXX(ALL(dim_trucks[Model]), [Total Sales]), ALLSELECTED(fact_order_headers))
+			)
+			
+			VAR Color = SWITCH(
+			    TRUE(),
+			    SelectedInsight = 0 && [Total Orders] = MaxOrders, "#118DFF",
+			    SelectedInsight = 1 && [Total Quantities] = MaxQuantities, "#118DFF",
+			    SelectedInsight = 2 && [Total Sales] = MaxSales, "#118DFF",
+			    "#E6E6E6"
+			)
+			
+			RETURN Color
+		displayFolder: 00_insights
+		lineageTag: 9d9a0de2-8e8e-4967-b78f-057ebf3e80a4
+
+	measure 'Last Month - Total Orders' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR LastMonthOrders =
+			CALCULATE(
+			    [Total Orders],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        EOMONTH(LatestPeriodStart, -1) + 1,
+			        EOMONTH(LatestPeriodStart, 0)
+			    )
+			)
+			
+			RETURN LastMonthOrders
+			```
+		formatString: #,0
+		displayFolder: 01_total_orders
+		lineageTag: 6485db1d-3d52-49f7-80e0-13891d688564
+
+	measure 'Previous Month - Total Orders' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR PreviousMonthOrders =
+			CALCULATE(
+			    [Total Orders],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        EOMONTH(LatestPeriodStart, -2) + 1,
+			        EOMONTH(LatestPeriodStart, -1)
+			    )
+			)
+			
+			RETURN PreviousMonthOrders
+			```
+		formatString: #,0
+		displayFolder: 01_total_orders
+		lineageTag: 8a6e00d8-dac7-45f3-a63f-b5579ed57bd3
+
+	measure 'MoM % Change - Total Orders' =
+			
+			
+			VAR LastMonthOrders = [Last Month - Total Orders]
+			VAR PreviousMonthOrders = [Previous Month - Total Orders]
+			
+			VAR MoMPercentageChange =
+			IF(
+			    PreviousMonthOrders > 0,
+			    (LastMonthOrders - PreviousMonthOrders) / PreviousMonthOrders,
+			    BLANK()
+			)
+			
+			RETURN MoMPercentageChange
+		displayFolder: 01_total_orders
+		lineageTag: 0b957931-21ec-4e1a-abad-6d402587708e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last Month - Total Quantities' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR LastMonthQuantities =
+			CALCULATE(
+			    [Total Quantities],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        EOMONTH(LatestPeriodStart, -1) + 1,
+			        EOMONTH(LatestPeriodStart, 0)
+			    )
+			)
+			
+			RETURN LastMonthQuantities
+			```
+		formatString: #,0
+		displayFolder: 02_total_quantities
+		lineageTag: 0c6190fa-fa5c-4a72-aab7-8aedde84ea2a
+
+	measure 'Last Month - Total Sales' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR LastMonthSales =
+			CALCULATE(
+			    [Total Sales],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        EOMONTH(LatestPeriodStart, -1) + 1,
+			        EOMONTH(LatestPeriodStart, 0)
+			    )
+			)
+			
+			RETURN LastMonthSales
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 03_total_sales
+		lineageTag: 7be5cedb-fba3-4e25-bf41-35a948672ccf
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Previous Month - Total Quantities' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR PreviousMonthQuantities =
+			CALCULATE(
+			    [Total Quantities],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        EOMONTH(LatestPeriodStart, -2) + 1,
+			        EOMONTH(LatestPeriodStart, -1)
+			    )
+			)
+			
+			RETURN PreviousMonthQuantities
+			```
+		formatString: #,0
+		displayFolder: 02_total_quantities
+		lineageTag: 7b4a84fe-1f53-42b3-8627-e603084e9adb
+
+	measure 'Previous Month - Total Sales' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR PreviousMonthSales =
+			CALCULATE(
+			    [Total Sales],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        EOMONTH(LatestPeriodStart, -2) + 1,
+			        EOMONTH(LatestPeriodStart, -1)
+			    )
+			)
+			
+			RETURN PreviousMonthSales
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 03_total_sales
+		lineageTag: e90a0c6e-fabd-44b7-b94b-10b0f90ea5d2
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'MoM % Change - Total Quantities' =
+			
+			
+			VAR LastMonthQuantities = [Last Month - Total Quantities]
+			VAR PreviousMonthQuantities = [Previous Month - Total Quantities]
+			
+			VAR MoMPercentageChange =
+			IF(
+			    PreviousMonthQuantities > 0,
+			    (LastMonthQuantities - PreviousMonthQuantities) / PreviousMonthQuantities,
+			    BLANK()
+			)
+			
+			RETURN MoMPercentageChange
+		displayFolder: 02_total_quantities
+		lineageTag: ababed24-2a9b-488a-a973-6dc607a8dcd2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MoM % Change - Total Sales' =
+			
+			
+			VAR LastMonthSales = [Last Month - Total Sales]
+			VAR PreviousMonthSales = [Previous Month - Total Sales]
+			
+			VAR MoMPercentageChange =
+			IF(
+			    PreviousMonthSales > 0,
+			    (LastMonthSales - PreviousMonthSales) / PreviousMonthSales,
+			    BLANK()
+			)
+			
+			RETURN MoMPercentageChange
+		displayFolder: 03_total_sales
+		lineageTag: 082344c9-058e-41b3-9fca-8d717e8520a7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Text - MoM % Change - Total Orders' = FORMAT([MoM % Change - Total Orders], "▲ 0.00%;▼ 0.00%")
+		displayFolder: 01_total_orders
+		lineageTag: 85594222-5104-4e10-a6da-59a3499b1195
+
+	measure 'Color - MoM % Change - Total Orders' = IF([MoM % Change - Total Orders] > 0, "Green", "Red")
+		displayFolder: 01_total_orders
+		lineageTag: a035d812-b04e-4270-8756-4abd4f980335
+
+	measure 'Text - MoM % Change - Total Quantities' = ```
+			
+			FORMAT(
+			    [MoM % Change - Total Quantities], 
+			    "▲ 0.00%;▼ 0.00%"
+			)
+			```
+		displayFolder: 02_total_quantities
+		lineageTag: 2a6f493c-fab2-4074-90f4-5d89a32d593a
+
+	measure 'Text - MoM % Change - Total Sales' = FORMAT([MoM % Change - Total Sales], "▲ 0.00%;▼ 0.00%")
+		displayFolder: 03_total_sales
+		lineageTag: b50ea026-2e9a-4233-b9bf-b4f909e87663
+
+	measure 'Color - MoM % Change - Total Quantities' = IF([MoM % Change - Total Quantities] > 0, "Green", "Red")
+		displayFolder: 02_total_quantities
+		lineageTag: 7c657222-c198-49da-8b5f-ced0c355c8ea
+
+	measure 'Color - MoM % Change - Total Sales' = IF([MoM % Change - Total Sales] > 0, "Green", "Red")
+		displayFolder: 03_total_sales
+		lineageTag: 6c4caae8-224a-4e86-a150-919c4712bd30
+
+	measure 'Text - Month Period View' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]),
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR EarliestVisiblePeriod = 
+			CALCULATE(
+			    MIN(dim_order_date[Month Year]),
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestMonthStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR TextMonthPeriod =
+			"Period View: " &
+			IF(
+			    LatestVisiblePeriod <> EarliestVisiblePeriod,
+			    "All",
+			    FORMAT(LatestMonthStart, "mmmm YYYY")
+			)
+			
+			RETURN TextMonthPeriod
+			```
+		lineageTag: b1e85ad0-b763-4cbd-806d-7ad3c9a32e5e
+
+	measure 'Text - Previous Month Period' =
+			
+			
+			VAR LatestVisiblePeriod =
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]),
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]),
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR PreviousMonthPeriod = EOMONTH(LatestPeriodStart, -2) + 1
+			
+			VAR TextPreviousMonth = "vs " & FORMAT(PreviousMonthPeriod, "mmmm YYYY")
+			
+			RETURN TextPreviousMonth
+		lineageTag: e10e6cfb-845e-4118-a616-4d20ab4b605a
+
+	measure 'Last Year - Total Orders' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR LastYearOrders =
+			CALCULATE(
+			    [Total Orders],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        DATE(YEAR(LatestPeriodStart), 1, 1),
+			        EOMONTH(LatestPeriodStart, 0)
+			    )
+			)
+			
+			RETURN LastYearOrders
+			```
+		formatString: #,0
+		displayFolder: 01_total_orders
+		lineageTag: 1dd96c3d-1131-4913-afbe-14f5b30c5522
+
+	measure 'Previous Year - Total Orders' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR StartYearLatestPeriod = DATE(YEAR(LatestPeriodStart), 1, 1)
+			
+			VAR PreviousYearOrders =
+			CALCULATE(
+			    [Total Orders],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        EOMONTH(StartYearLatestPeriod, -13) + 1,
+			        EOMONTH(StartYearLatestPeriod, -1)
+			    )
+			)
+			
+			RETURN PreviousYearOrders
+			```
+		formatString: 0
+		displayFolder: 01_total_orders
+		lineageTag: d690c45e-c3bf-4530-8548-2d07cfd8dcb1
+
+	measure 'Previous Year - Total Quantities' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR StartYearLatestPeriod = DATE(YEAR(LatestPeriodStart), 1, 1)
+			
+			VAR PreviousYearQuantities =
+			CALCULATE(
+			    [Total Quantities],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        EOMONTH(StartYearLatestPeriod, -13) + 1,
+			        EOMONTH(StartYearLatestPeriod, -1)
+			    )
+			)
+			
+			RETURN PreviousYearQuantities
+			```
+		formatString: 0
+		displayFolder: 02_total_quantities
+		lineageTag: 966cee8a-d5b3-4c34-a5c7-e1b2ee001f10
+
+	measure 'Last Year - Total Quantities' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR LastYearQuantities =
+			CALCULATE(
+			    [Total Quantities],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        DATE(YEAR(LatestPeriodStart), 1, 1),
+			        EOMONTH(LatestPeriodStart, 0)
+			    )
+			)
+			
+			RETURN LastYearQuantities
+			```
+		formatString: #,0
+		displayFolder: 02_total_quantities
+		lineageTag: 32c474ef-af0e-40d2-a4f1-e4c7b10f3662
+
+	measure 'Last Year - Total Sales' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR LastYearSales =
+			CALCULATE(
+			    [Total Sales],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        DATE(YEAR(LatestPeriodStart), 1, 1),
+			        EOMONTH(LatestPeriodStart, 0)
+			    )
+			)
+			
+			RETURN LastYearSales
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 03_total_sales
+		lineageTag: 37890eb4-48d2-4fc1-b349-c0ae7c2a9684
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Previous Year - Total Sales' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR StartYearLatestPeriod = DATE(YEAR(LatestPeriodStart), 1, 1)
+			
+			VAR PreviousYearSales =
+			CALCULATE(
+			    [Total Sales],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        EOMONTH(StartYearLatestPeriod, -13) + 1,
+			        EOMONTH(StartYearLatestPeriod, -1)
+			    )
+			)
+			
+			RETURN PreviousYearSales
+			```
+		displayFolder: 03_total_sales
+		lineageTag: 260be615-2382-40c4-8f7c-8a966e1928c0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY % Change - Total Orders' =
+			
+			
+			VAR LastYearOrders = [Last Year - Total Orders]
+			VAR PreviousYearOrders = [Previous Year - Total Orders]
+			
+			VAR YoYPercentageChange =
+			IF(
+			    PreviousYearOrders > 0,
+			    (LastYearOrders - PreviousYearOrders) / PreviousYearOrders,
+			    BLANK()
+			)
+			
+			RETURN YoYPercentageChange
+		displayFolder: 01_total_orders
+		lineageTag: d3227647-966a-48d9-aa1b-c9e50f6ba84b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY % Change - Total Quantities' =
+			
+			
+			VAR LastYearQuantities = [Last Year - Total Quantities]
+			VAR PreviousYearQuantities = [Previous Year - Total Quantities]
+			
+			VAR YoYPercentageChange =
+			IF(
+			    PreviousYearQuantities > 0,
+			    (LastYearQuantities - PreviousYearQuantities) / PreviousYearQuantities,
+			    BLANK()
+			)
+			
+			RETURN YoYPercentageChange
+		displayFolder: 02_total_quantities
+		lineageTag: a23d909a-4817-4773-9683-21c12cde1c26
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY % Change - Total Sales' =
+			
+			
+			VAR LastYearSales = [Last Year - Total Sales]
+			VAR PreviousYearSales = [Previous Year - Total Sales]
+			
+			VAR YoYPercentageChange =
+			IF(
+			    PreviousYearSales > 0,
+			    (LastYearSales - PreviousYearSales) / PreviousYearSales,
+			    BLANK()
+			)
+			
+			RETURN YoYPercentageChange
+		displayFolder: 03_total_sales
+		lineageTag: 799f335c-e569-4105-a077-93f65382e7c8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Text - YoY % Change - Total Orders' = FORMAT([YoY % Change - Total Orders], "▲ 0.00%;▼ 0.00%")
+		displayFolder: 01_total_orders
+		lineageTag: c9983d17-e03c-4039-971b-a55cfdd9ecdc
+
+	measure 'Text - YoY % Change - Total Quantities' = ```
+			
+			FORMAT(
+			    [YoY % Change - Total Quantities], 
+			    "▲ 0.00%;▼ 0.00%"
+			)
+			```
+		displayFolder: 02_total_quantities
+		lineageTag: 261c45ba-1333-4d29-ade0-a2abd9cc870b
+
+	measure 'Text - YoY % Change - Total Sales' = FORMAT([YoY % Change - Total Sales], "▲ 0.00%;▼ 0.00%")
+		displayFolder: 03_total_sales
+		lineageTag: 407dd944-847b-4e5e-a567-b79527eb94e6
+
+	measure 'Color - YoY % Change - Total Orders' = IF([YoY % Change - Total Orders] > 0, "Green", "Red")
+		displayFolder: 01_total_orders
+		lineageTag: 4ac4b456-63f3-451a-93fc-efe84508f547
+
+	measure 'Color - YoY % Change - Total Quantities' = IF([YoY % Change - Total Quantities] > 0, "Green", "Red")
+		displayFolder: 02_total_quantities
+		lineageTag: f987a2a7-e43b-440d-9f76-ca8cedd86e17
+
+	measure 'Color - YoY % Change - Total Sales' = IF([YoY % Change - Total Sales] > 0, "Green", "Red")
+		displayFolder: 03_total_sales
+		lineageTag: b1277130-21fb-4784-8a1e-e01882b82e0d
+
+	measure 'Text - Year Period View' = ```
+			
+			
+			VAR LatestVisiblePeriod = 
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR EarliestVisiblePeriod = 
+			CALCULATE(
+			    MIN(dim_order_date[Month Year]), 
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]), 
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR LatestYearStart = DATE(YEAR(LatestPeriodStart), 1, 1)
+			VAR LatestYearEnd = EOMONTH(LatestPeriodStart, 0)
+			
+			VAR TextYearPeriod =
+			"Period View: " &
+			IF(
+			    YEAR(LatestVisiblePeriod) - YEAR(EarliestVisiblePeriod) > 1,
+			    "All",
+			    FORMAT(LatestYearStart, "mmmm YYYY") & " - " & FORMAT(LatestYearEnd, "mmmm YYYY")
+			)
+			
+			RETURN TextYearPeriod
+			```
+		lineageTag: 2cb7620c-2936-4ac9-912b-471ba9725f51
+
+	measure 'Text - Previous Year Period' = ```
+			
+			
+			VAR LatestVisiblePeriod =
+			CALCULATE(
+			    MAX(dim_order_date[Month Year]),
+			    ALLSELECTED(dim_order_date)
+			)
+			
+			VAR LatestPeriodStart =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]),
+			    ALLSELECTED(dim_order_date),
+			    dim_order_date[Month Year] = LatestVisiblePeriod
+			)
+			
+			VAR StartYearLatestPeriod = DATE(YEAR(LatestPeriodStart), 1, 1)
+			VAR PreviousYearStart = EOMONTH(StartYearLatestPeriod, -13) + 1
+			VAR PreviousYearEnd = EOMONTH(StartYearLatestPeriod, -1)
+			
+			VAR TextPreviousYear = 
+			"vs (" & 
+			FORMAT(PreviousYearStart, "mmm YY") & 
+			" - " & 
+			FORMAT(PreviousYearEnd, "mmm YY") & ")"
+			
+			RETURN TextPreviousYear
+			```
+		lineageTag: 1ed3fa30-1da4-4724-9716-07365be48f99
 
 	column Column
 		formatString: 0

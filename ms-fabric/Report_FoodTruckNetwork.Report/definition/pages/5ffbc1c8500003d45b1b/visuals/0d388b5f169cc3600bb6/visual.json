@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "0d388b5f169cc3600bb6",
   "position": {
     "x": 95.294117647058826,
     "y": 250.58823529411765,
-    "z": 3000,
+    "z": 1000,
     "height": 790.58823529411768,
     "width": 1440,
-    "tabOrder": 3000
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "tableEx",
@@ -131,20 +131,6 @@
               },
               "queryRef": "dim_order_time.Order Time",
               "nativeQueryRef": "Order Time"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_measures"
-                    }
-                  },
-                  "Property": "Total Order Items"
-                }
-              },
-              "queryRef": "_measures.Total Order Items",
-              "nativeQueryRef": "Total Order Items"
             },
             {
               "field": {
@@ -347,20 +333,6 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "133D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_measures.Total Order Items"
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
                   "Value": "137D"
                 }
               }
@@ -384,6 +356,31 @@
           },
           "selector": {
             "metadata": "dim_customers_snapshot.Email"
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridHorizontal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "gridHorizontalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       ]
@@ -422,7 +419,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -454,7 +451,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -492,6 +489,26 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "20D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Minimal'"
                 }
               }
             }

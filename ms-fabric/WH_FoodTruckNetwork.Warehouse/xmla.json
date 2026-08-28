@@ -1725,6 +1725,21 @@
                 "value": "Automatic"
               }
             ]
+          },
+          {
+            "name": "Month Year",
+            "dataType": "dateTime",
+            "sourceColumn": "Month Year",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "Month Year",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
           }
         ],
         "partitions": [

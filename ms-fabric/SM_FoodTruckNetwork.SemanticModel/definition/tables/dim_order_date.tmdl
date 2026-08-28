@@ -81,6 +81,23 @@ table dim_order_date
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Month Year'
+		dataType: dateTime
+		formatString: mmmm yyyy
+		sourceProviderType: date
+		lineageTag: 17f75924-93c9-4d66-bfbf-a6b73485b0be
+		sourceLineageTag: Month Year
+		summarizeBy: none
+		sourceColumn: Month Year
+
+		changedProperty = SortByColumn
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
 	hierarchy 'Date Hierarchy'
 		lineageTag: fe3e8b35-819d-4cfe-9694-d568138c7fab
 

@@ -20,7 +20,10 @@ WITH order_header_renamed AS (
     SELECT
         "Order Date",
         DAY("Order Date") AS Day,
-        CAST(DATENAME(month, "Order Date") AS VARCHAR(10)) AS Month,
+        CAST(
+            DATENAME(month, "Order Date") 
+            AS VARCHAR(10)
+        ) AS Month,
         CAST(
             'Qtr ' + CAST(DATEPART(quarter, "Order Date") AS VARCHAR(1))
             AS VARCHAR(5)
@@ -30,7 +33,13 @@ WITH order_header_renamed AS (
             DATENAME(weekday, "Order Date") 
             AS VARCHAR(9)
         ) AS "Day of Week",
-        DATEPART(weekday, "Order Date") AS "Day of Week Sorting"
+        DATEPART(weekday, "Order Date") AS "Day of Week Sorting",
+        -- CAST(
+        --     DATENAME(month, "Order Date") + ' ' + DATENAME(year, "Order Date") 
+        --     AS VARCHAR(15)
+        -- ) AS "Month Year",
+        -- DENSE_RANK() OVER(ORDER BY YEAR("Order Date"), MONTH("Order Date")) AS "Month Year Sorting"
+        DATETRUNC(month, "Order Date") AS "Month Year"
     FROM
         distinction
 
@@ -43,7 +52,8 @@ WITH order_header_renamed AS (
         Quarter,
         Year,
         "Day of Week",
-        "Day of Week Sorting"
+        "Day of Week Sorting",
+        "Month Year"
     FROM
         date_enriched
 

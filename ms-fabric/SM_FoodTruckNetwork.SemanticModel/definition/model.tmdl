@@ -21,4 +21,7 @@ ref table dim_franchise_owners_snapshot
 ref table fact_order_headers
 ref table _measures
 ref table dim_trucks
+ref table _top_bottom_city
+ref table _city_rank_range
+ref table _insight_parameters
 
