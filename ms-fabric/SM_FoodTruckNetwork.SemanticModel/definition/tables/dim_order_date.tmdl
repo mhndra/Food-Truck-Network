@@ -4,7 +4,7 @@ table dim_order_date
 
 	column 'Order Date'
 		dataType: dateTime
-		formatString: Short Date
+		formatString: dd/mmm/yyyy
 		sourceProviderType: date
 		lineageTag: 8802cbdc-3933-449a-8898-5623498086e9
 		sourceLineageTag: Order Date
@@ -14,6 +14,8 @@ table dim_order_date
 		changedProperty = FormatString
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
 
 	column Day
 		dataType: int64
@@ -91,6 +93,21 @@ table dim_order_date
 		sourceColumn: Month Year
 
 		changedProperty = SortByColumn
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column 'First Day of Week (ISO)'
+		dataType: dateTime
+		formatString: dd/mmm/yyyy
+		sourceProviderType: date
+		lineageTag: 9093aee0-f41e-4755-8745-3f25bc79f082
+		sourceLineageTag: First Day of Week (ISO)
+		summarizeBy: none
+		sourceColumn: First Day of Week (ISO)
 
 		changedProperty = FormatString
 

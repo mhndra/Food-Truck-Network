@@ -1,0 +1,120 @@
+table dim_order_date
+	lineageTag: c191a8cb-4e73-4e7f-a857-b4478741dc06
+	sourceLineageTag: [gold].[dim_order_date]
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: dd/mmm/yyyy
+		sourceProviderType: date
+		lineageTag: 62b8310d-ab05-47b9-89cd-60448681226e
+		sourceLineageTag: Order Date
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column 'First Day of Week (ISO)'
+		dataType: dateTime
+		formatString: dd/mmm/yyyy
+		sourceProviderType: date
+		lineageTag: 6540c2af-5bdd-4d3e-8c66-7829375a6b81
+		sourceLineageTag: First Day of Week (ISO)
+		summarizeBy: none
+		sourceColumn: First Day of Week (ISO)
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column 'Month Year'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: e8bdf300-1f57-4c27-9df4-896a916cb152
+		sourceLineageTag: Month Year
+		summarizeBy: none
+		sourceColumn: Month Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c8ca2ae4-a607-43a1-84c3-6a4f92c2c64d
+		sourceLineageTag: Day
+		summarizeBy: none
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 2bc1ad4d-7502-4fde-baa3-699c88e4edc6
+		sourceLineageTag: Month
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		sourceProviderType: varchar(5)
+		lineageTag: 1ee80e3d-3206-476b-9ed2-81ac688c6b42
+		sourceLineageTag: Quarter
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3da86d64-5c17-43c6-8878-22059d6a9055
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week'
+		dataType: string
+		sourceProviderType: varchar(9)
+		lineageTag: 16a1171e-2c80-4570-a8c8-9e3968fd2971
+		sourceLineageTag: Day of Week
+		summarizeBy: none
+		sourceColumn: Day of Week
+		sortByColumn: 'Day of Week Sorting'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week Sorting'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ded513a1-e3db-4d32-959b-fe39f7e30d32
+		sourceLineageTag: Day of Week Sorting
+		summarizeBy: none
+		sourceColumn: Day of Week Sorting
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_order_date = entity
+		mode: directLake
+		source
+			entityName: dim_order_date
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

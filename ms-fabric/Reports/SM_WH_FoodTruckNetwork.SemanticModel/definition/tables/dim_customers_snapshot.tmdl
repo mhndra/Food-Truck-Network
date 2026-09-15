@@ -1,0 +1,250 @@
+table dim_customers_snapshot
+	lineageTag: 856f2acc-265e-4e75-b0f7-7b8c8320dcf4
+	sourceLineageTag: [gold].[dim_customers_snapshot]
+
+	column 'Customer Key'
+		dataType: string
+		sourceProviderType: varchar(400)
+		lineageTag: b76b7b4c-8fc6-42a6-883d-e2cb8c69dd7d
+		sourceLineageTag: Customer Key
+		summarizeBy: none
+		sourceColumn: Customer Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 24d2adc5-e919-4bef-aa4c-50d959ec64f2
+		sourceLineageTag: Customer ID
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Birthday Date'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 295f18c8-c4a3-451a-93d3-5fcdd2cfb50e
+		sourceLineageTag: Birthday Date
+		summarizeBy: none
+		sourceColumn: Birthday Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 8d8ec0a9-e6b9-449f-92bd-29a88226424e
+		sourceLineageTag: First Name
+		summarizeBy: none
+		sourceColumn: First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: d77eb4b2-02f7-484c-9ea2-f63c471e243a
+		sourceLineageTag: Last Name
+		summarizeBy: none
+		sourceColumn: Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Full Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: f51d91b4-1792-4b44-9476-0727c68f1182
+		sourceLineageTag: Full Name
+		summarizeBy: none
+		sourceColumn: Full Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last First Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 8212d5e6-c2fd-4428-8601-72842297d902
+		sourceLineageTag: Last First Name
+		summarizeBy: none
+		sourceColumn: Last First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 91a73bbf-5997-48fd-8e29-45321fea351d
+		sourceLineageTag: Gender
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Marital Status'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: f13ed55d-8fec-4e99-98ae-6c5115d75aea
+		sourceLineageTag: Marital Status
+		summarizeBy: none
+		sourceColumn: Marital Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 24ceac4b-345b-4748-8db2-d175d1682c84
+		sourceLineageTag: Email
+		summarizeBy: none
+		sourceColumn: Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Phone Number'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 0522e353-0eb0-4118-a00f-83d7a8514a0c
+		sourceLineageTag: Phone Number
+		summarizeBy: none
+		sourceColumn: Phone Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Children Amount'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 13930610-cb01-4cf6-b6cb-d26f40254870
+		sourceLineageTag: Children Amount
+		summarizeBy: none
+		sourceColumn: Children Amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7c7c5b2e-0217-474d-bf05-fc7fff898159
+		sourceLineageTag: City
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 502b7c2c-5d69-469f-95ec-7d26d7643145
+		sourceLineageTag: Country
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Postal Code'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: bb520077-933f-4737-a0d2-4f5032e157e4
+		sourceLineageTag: Postal Code
+		summarizeBy: none
+		sourceColumn: Postal Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Preferred Language'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 6644bc30-bb4f-4af4-9890-1dd3f57e8690
+		sourceLineageTag: Preferred Language
+		summarizeBy: none
+		sourceColumn: Preferred Language
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Favorite Brand'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 372c9744-52bc-495c-bf71-98c2c016e44f
+		sourceLineageTag: Favorite Brand
+		summarizeBy: none
+		sourceColumn: Favorite Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sign Up Date'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: d48dd2e8-873e-4d81-9d0f-6126f928fd85
+		sourceLineageTag: Sign Up Date
+		summarizeBy: none
+		sourceColumn: Sign Up Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Loaded at (UTC)'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 9e2a41aa-dab7-42e5-9b9f-e0cd27324e0e
+		sourceLineageTag: Loaded at (UTC)
+		summarizeBy: none
+		sourceColumn: Loaded at (UTC)
+
+		annotation SummarizationSetBy = Automatic
+
+	column dbt_scd_id
+		dataType: string
+		sourceProviderType: varchar(32)
+		lineageTag: a91838e5-b945-4bea-99b4-7a73545697bf
+		sourceLineageTag: dbt_scd_id
+		summarizeBy: none
+		sourceColumn: dbt_scd_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column dbt_updated_at
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: e725aec9-4f52-49df-b37a-9ccd2c23045b
+		sourceLineageTag: dbt_updated_at
+		summarizeBy: none
+		sourceColumn: dbt_updated_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column dbt_valid_from
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: fcabb4a6-4643-458c-8083-d8882ba67b8c
+		sourceLineageTag: dbt_valid_from
+		summarizeBy: none
+		sourceColumn: dbt_valid_from
+
+		annotation SummarizationSetBy = Automatic
+
+	column dbt_valid_to
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 36af4c95-2223-4de2-acd1-3d40af543f8f
+		sourceLineageTag: dbt_valid_to
+		summarizeBy: none
+		sourceColumn: dbt_valid_to
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customers_snapshot = entity
+		mode: directLake
+		source
+			entityName: dim_customers_snapshot
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "WeeklyDashboard_RegionalSales"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ef5a31e3-c6c8-a5ca-4ab7-ba5237bc057c"
+  }
+}

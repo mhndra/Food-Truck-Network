@@ -1,0 +1,95 @@
+table dim_locations
+	lineageTag: 5cef885b-dbaa-4b5e-8a47-013c1af0cd16
+	sourceLineageTag: [gold].[dim_locations]
+
+	column 'Location Key'
+		dataType: string
+		sourceProviderType: varchar(400)
+		lineageTag: 6ce4a051-64e8-4237-b69b-1967f57d90da
+		sourceLineageTag: Location Key
+		summarizeBy: none
+		sourceColumn: Location Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 481487e0-7b1d-4da1-b4c4-1b125adb4d26
+		sourceLineageTag: Location ID
+		summarizeBy: none
+		sourceColumn: Location ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 15a4e3b9-f536-4891-8062-f87c15618b1c
+		sourceLineageTag: Location
+		summarizeBy: none
+		sourceColumn: Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 4df8f8dd-a649-4ff3-b0ed-4f0d718c64be
+		sourceLineageTag: City
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 5ecea11a-67e5-4a5a-82d0-2d2ecb3b339f
+		sourceLineageTag: Region
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country Code (ISO)'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: c5083109-71bb-4b91-a8a8-c5e3b93244ad
+		sourceLineageTag: Country Code (ISO)
+		summarizeBy: none
+		sourceColumn: Country Code (ISO)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 8468a6df-6350-4bb7-96e9-7885377eaddb
+		sourceLineageTag: Country
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Loaded at (UTC)'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: a3bb2452-0231-4e99-be1c-92aae5d0851e
+		sourceLineageTag: Loaded at (UTC)
+		summarizeBy: none
+		sourceColumn: Loaded at (UTC)
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_locations = entity
+		mode: directLake
+		source
+			entityName: dim_locations
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

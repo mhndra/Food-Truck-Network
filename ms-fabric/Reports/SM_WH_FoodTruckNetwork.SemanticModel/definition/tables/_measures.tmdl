@@ -1,0 +1,659 @@
+table _measures
+	lineageTag: 0e8feabe-3076-4192-a3d6-dda9c4fbd7c6
+
+	measure 'Total Orders' = DISTINCTCOUNT(fact_order_details[Order ID])
+		formatString: 0
+		displayFolder: 01_total_orders
+		lineageTag: c778d4e2-34bb-4cc2-9a3b-5930b75385bb
+
+	measure 'Total Orders Last Week' =
+			
+			
+			VAR LatestWeeklyPeriod = MAX(dim_order_date[First Day of Week (ISO)])
+			
+			VAR OrdersLastWeek =
+			CALCULATE(
+			    [Total Orders],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        LatestWeeklyPeriod,
+			        LatestWeeklyPeriod + 6
+			    )
+			)
+			
+			RETURN OrdersLastWeek
+		formatString: 0
+		displayFolder: 01_total_orders
+		lineageTag: 35d05ee1-ba9b-41dd-8cfd-2861e1d97d5c
+
+	measure 'Total Orders Previous Week' =
+			
+			
+			VAR LatestWeeklyPeriod = MAX(dim_order_date[First Day of Week (ISO)])
+			
+			VAR OrdersPreviousWeek =
+			CALCULATE(
+			    [Total Orders],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        LatestWeeklyPeriod - 7,
+			        LatestWeeklyPeriod - 1
+			    )
+			)
+			
+			RETURN OrdersPreviousWeek
+		formatString: 0
+		displayFolder: 01_total_orders
+		lineageTag: e6de319b-1b6c-4895-9fad-12eebe809254
+
+	measure 'Total Orders WoW %' =
+			
+			
+			VAR OrdersLastWeek = [Total Orders Last Week]
+			VAR OrdersPreviousWeek = [Total Orders Previous Week]
+			
+			VAR OrdersWoW =
+			IF(
+			    OrdersPreviousWeek > 0,
+			    (OrdersLastWeek - OrdersPreviousWeek) / OrdersPreviousWeek,
+			    BLANK()
+			)
+			
+			RETURN OrdersWoW
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 01_total_orders
+		lineageTag: 116bef0a-40d9-4d2f-a513-fe602a5efbe2
+
+	measure 'Text - Total Orders WoW %' = FORMAT([Total Orders WoW %], "+0.00% ▲;-0.00% ▼")
+		displayFolder: 01_total_orders
+		lineageTag: a5e6b868-1b88-4a74-bf52-1638e1b203b3
+
+	measure 'Text - Weekly Period View' =
+			
+			
+			VAR LatestWeeklyPeriod = MAX(dim_order_date[First Day of Week (ISO)])
+			
+			VAR LatestPeriodDate =
+			CALCULATE(
+			    MAX(dim_order_date[Order Date]),
+			    REMOVEFILTERS(dim_order_date),
+			    dim_order_date[First Day of Week (ISO)] = LatestWeeklyPeriod
+			)
+			
+			VAR EarliestPeriodDate =
+			CALCULATE(
+			    MIN(dim_order_date[Order Date]),
+			    REMOVEFILTERS(dim_order_date),
+			    dim_order_date[First Day of Week (ISO)] = LatestWeeklyPeriod
+			)
+			
+			VAR TextWeeklyPeriod =
+			"Weekly Period View: " &
+			FORMAT(EarliestPeriodDate, "dd/mmm/yyyy") & " - " & FORMAT(LatestPeriodDate, "dd/mmm/yyyy")
+			
+			RETURN TextWeeklyPeriod
+		displayFolder: 00_miscellaneous
+		lineageTag: 18ebb155-8b50-463c-9ba1-bc274930f356
+
+	measure 'Text - Franchise City' = ```
+			
+			
+			VAR FranchiseCity = SELECTEDVALUE(dim_franchise_owners_snapshot[Franchise City Grouped])
+			
+			VAR TextFranchiseCity =
+			SUBSTITUTE(
+			    SUBSTITUTE(FranchiseCity, "[""", ""), 
+			    """]", 
+			    ""
+			)
+			
+			RETURN TextFranchiseCity
+			```
+		displayFolder: 00_miscellaneous
+		lineageTag: d5f5133c-199c-4700-9181-f6436a48c2c7
+
+	measure Slicer = INT(NOT ISEMPTY(fact_order_details))
+		formatString: 0
+		displayFolder: 00_miscellaneous
+		lineageTag: 643fa835-6ef0-43ab-8ee0-71deeca2bc98
+
+	measure 'Label - Previous Week Period' = ```
+			
+			
+			VAR LatestWeeklyPeriod = MAX(dim_order_date[First Day of Week (ISO)])
+			
+			VAR LabelPreviousWeek = 
+			"vs (" &
+			FORMAT(LatestWeeklyPeriod - 7, "dd/mmm/yyyy") & 
+			" - " & 
+			FORMAT(LatestWeeklyPeriod - 1, "dd/mmm/yyyy") &
+			")"
+			
+			RETURN LabelPreviousWeek
+			```
+		displayFolder: 00_miscellaneous
+		lineageTag: 2fd6a17a-ae91-4faa-91e8-680c752622f1
+
+	measure 'Total Sales' = SUM(fact_order_details[Total Price (USD)])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 02_total_sales
+		lineageTag: 7f004355-875d-4a85-9844-97e4fdbc2542
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Sales Last Week' =
+			
+			
+			VAR LatestWeeklyPeriod = MAX(dim_order_date[First Day of Week (ISO)])
+			
+			VAR SalesLastWeek =
+			CALCULATE(
+			    [Total Sales],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        LatestWeeklyPeriod,
+			        LatestWeeklyPeriod + 6
+			    )
+			)
+			
+			RETURN SalesLastWeek
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 02_total_sales
+		lineageTag: 3adcfae1-043f-4849-9ac4-cf567569c4da
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Sales Previous Week' =
+			
+			
+			VAR LatestWeeklyPeriod = MAX(dim_order_date[First Day of Week (ISO)])
+			
+			VAR SalesPreviousWeek =
+			CALCULATE(
+			    [Total Sales],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        LatestWeeklyPeriod - 7,
+			        LatestWeeklyPeriod - 1
+			    )
+			)
+			
+			RETURN SalesPreviousWeek
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 02_total_sales
+		lineageTag: 23e98842-9a34-48cf-bf3b-827a95e13acf
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Sales WoW %' =
+			
+			
+			VAR SalesLastWeek = [Total Sales Last Week]
+			VAR SalesPreviousWeek = [Total Sales Previous Week]
+			
+			VAR SalesWoW =
+			IF(
+			    SalesPreviousWeek > 0,
+			    (SalesLastWeek - SalesPreviousWeek) / SalesPreviousWeek,
+			    BLANK()
+			)
+			
+			RETURN SalesWoW
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 02_total_sales
+		lineageTag: c0cac799-d633-482d-8e4b-ad917a4a852c
+
+	measure 'Text - Total Sales WoW %' = FORMAT([Total Sales WoW %], "+0.00% ▲;-0.00% ▼")
+		displayFolder: 02_total_sales
+		lineageTag: b2420515-8426-4ea9-b3e3-38a124fba94f
+
+	measure 'Total Items Sold' = SUM(fact_order_details[Quantity])
+		formatString: 0
+		displayFolder: 03_total_items_sold
+		lineageTag: 365db110-6a8d-4997-a1ec-db5f7aa4d079
+
+	measure 'Total Items Sold Last Week' =
+			
+			
+			VAR LatestWeeklyPeriod = MAX(dim_order_date[First Day of Week (ISO)])
+			
+			VAR ItemsSoldLastWeek =
+			CALCULATE(
+			    [Total Items Sold],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        LatestWeeklyPeriod,
+			        LatestWeeklyPeriod + 6
+			    )
+			)
+			
+			RETURN ItemsSoldLastWeek
+		formatString: 0
+		displayFolder: 03_total_items_sold
+		lineageTag: 0c9377ba-02fb-4f81-a976-894b2bc62237
+
+	measure 'Total Items Sold Previous Week' =
+			
+			
+			VAR LatestWeeklyPeriod = MAX(dim_order_date[First Day of Week (ISO)])
+			
+			VAR ItemsSoldPreviousWeek =
+			CALCULATE(
+			    [Total Items Sold],
+			    REMOVEFILTERS(dim_order_date),
+			    DATESBETWEEN(
+			        dim_order_date[Order Date],
+			        LatestWeeklyPeriod - 7,
+			        LatestWeeklyPeriod - 1
+			    )
+			)
+			
+			RETURN ItemsSoldPreviousWeek
+		formatString: 0
+		displayFolder: 03_total_items_sold
+		lineageTag: 743222f3-5502-4a2f-97e9-db49dc2767d1
+
+	measure 'Total Items Sold WoW %' =
+			
+			
+			VAR ItemsSoldLastWeek = [Total Items Sold Last Week]
+			VAR ItemsSoldPreviousWeek = [Total Items Sold Previous Week]
+			
+			VAR ItemsSoldWoW =
+			IF(
+			    ItemsSoldPreviousWeek > 0,
+			    (ItemsSoldLastWeek - ItemsSoldPreviousWeek) / ItemsSoldPreviousWeek,
+			    BLANK()
+			)
+			
+			RETURN ItemsSoldWoW
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 03_total_items_sold
+		lineageTag: 6cfdb458-3b81-4444-a45c-59fee91d7f12
+
+	measure 'Text - Total Items Sold WoW %' = FORMAT([Total Items Sold WoW %], "+0.00% ▲;-0.00% ▼")
+		displayFolder: 03_total_items_sold
+		lineageTag: 4f43a610-837a-476f-976d-8b05e08a7a3d
+
+	measure 'Avg Order Value (AOV)' = ```
+			DIVIDE([Total Sales], [Total Orders]) 
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 04_sales_per_orders
+		lineageTag: 23006765-470f-42a2-89ba-1ef699825a97
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'AOV Last Week' =
+			
+			
+			VAR SalesLastWeek = [Total Sales Last Week]
+			VAR OrdersLastWeek = [Total Orders Last Week]
+			
+			VAR AOVLastWeek = DIVIDE(SalesLastWeek, OrdersLastWeek)
+			
+			RETURN AOVLastWeek
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 04_sales_per_orders
+		lineageTag: af902284-1b2f-4f9d-b1d3-73ac102e4043
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'AOV Previous Week' =
+			
+			
+			VAR SalesPreviousWeek = [Total Sales Previous Week]
+			VAR OrdersPreviousWeek = [Total Orders Previous Week]
+			
+			VAR AOVPreviousWeek = DIVIDE(SalesPreviousWeek, OrdersPreviousWeek)
+			
+			RETURN AOVPreviousWeek
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 04_sales_per_orders
+		lineageTag: 6f8188e4-9ae1-4d56-9f2d-29d37d750bb8
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'AOV WoW %' =
+			
+			
+			VAR AOVLastWeek = [AOV Last Week]
+			VAR AOVPreviousWeek = [AOV Previous Week]
+			
+			VAR AOVWoW =
+			IF(
+			    AOVPreviousWeek > 0,
+			    (AOVLastWeek - AOVPreviousWeek) / AOVPreviousWeek,
+			    BLANK()
+			)
+			
+			
+			RETURN AOVWoW
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 04_sales_per_orders
+		lineageTag: 2085dab1-fa77-4c85-bcb8-87b37ebea368
+
+	measure 'Avg Price per Item (Price)' = DIVIDE([Total Sales], [Total Items Sold])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 05_sales_per_items_sold
+		lineageTag: d46191b2-8649-4699-9acc-e5714d5b9214
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Basket Size (Basket)' = DIVIDE([Total Items Sold], [Total Orders])
+		displayFolder: 06_items_sold_per_orders
+		lineageTag: 1ccdc403-b3ce-4e0a-b979-338357ec3e48
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Price Last Week' =
+			
+			
+			VAR SalesLastWeek = [Total Sales Last Week]
+			VAR ItemsSoldLastWeek = [Total Items Sold Last Week]
+			
+			VAR PriceLastWeek = DIVIDE(SalesLastWeek, ItemsSoldLastWeek)
+			
+			RETURN PriceLastWeek
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 05_sales_per_items_sold
+		lineageTag: 419d265c-ee84-4c1e-9fde-1324aa39643d
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Basket Last Week' =
+			
+			
+			VAR ItemsSoldLastWeek = [Total Items Sold Last Week]
+			VAR OrdersLastWeek = [Total Orders Last Week]
+			
+			VAR BasketLastWeek = DIVIDE(ItemsSoldLastWeek, OrdersLastWeek)
+			
+			RETURN BasketLastWeek
+		displayFolder: 06_items_sold_per_orders
+		lineageTag: 129c777b-be89-4525-b7ad-cb51a75663ab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Price Previous Week' =
+			
+			
+			VAR SalesPreviousWeek = [Total Sales Previous Week]
+			VAR ItemsSoldPreviousWeek = [Total Items Sold Previous Week]
+			
+			VAR PricePreviousWeek = DIVIDE(SalesPreviousWeek, ItemsSoldPreviousWeek)
+			
+			RETURN PricePreviousWeek
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 05_sales_per_items_sold
+		lineageTag: fbac75d3-7897-40d7-8466-451164e35a28
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Basket Previous Week' =
+			
+			
+			VAR ItemsSoldPreviousWeek = [Total Items Sold Previous Week]
+			VAR OrdersPreviousWeek = [Total Orders Previous Week]
+			
+			VAR BasketPreviousWeek = DIVIDE(ItemsSoldPreviousWeek, OrdersPreviousWeek)
+			
+			RETURN BasketPreviousWeek
+		displayFolder: 06_items_sold_per_orders
+		lineageTag: ad0ce286-3b1d-4b91-b15e-0a51ae1d4779
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Price WoW %' =
+			
+			
+			VAR PriceLastWeek = [Price Last Week]
+			VAR PricePreviousWeek = [Price Previous Week]
+			
+			VAR PriceWoW =
+			IF(
+			    PricePreviousWeek > 0,
+			    (PriceLastWeek - PricePreviousWeek) / PricePreviousWeek,
+			    BLANK()
+			)
+			
+			
+			RETURN PriceWoW
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 05_sales_per_items_sold
+		lineageTag: 826a69f8-65e6-4054-a00f-9d265cacb57e
+
+	measure 'Basket WoW %' =
+			
+			
+			VAR BasketLastWeek = [Basket Last Week]
+			VAR BasketPreviousWeek = [Basket Previous Week]
+			
+			VAR BasketWoW =
+			IF(
+			    BasketPreviousWeek > 0,
+			    (BasketLastWeek - BasketPreviousWeek) / BasketPreviousWeek,
+			    BLANK()
+			)
+			
+			
+			RETURN BasketWoW
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 06_items_sold_per_orders
+		lineageTag: 294e7174-ac54-4771-84da-b7fbb514fbcd
+
+	measure 'Performance Score WoW %' = [Total Orders WoW %] * 0.4 + [Total Sales WoW %] * 0.4 + [AOV WoW %] * 2
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		displayFolder: 07_performance
+		lineageTag: 5fa7347f-8956-48af-9ce8-5df405e64811
+
+	measure 'Tooltip - Declining Performance' = ```
+			
+			
+			VAR SummaryTable =
+			ADDCOLUMNS(
+			    VALUES(dim_franchise_owners_snapshot[Franchise Owner Full Name]),
+			    "@Score", [Performance Score WoW %],
+			    "@Basket", [Basket WoW %],
+			    "@Price", [Price WoW %]
+			)
+			
+			VAR Worst = TOPN(1, SummaryTable, [@Score], ASC)
+			VAR WorstName = MAXX(Worst, dim_franchise_owners_snapshot[Franchise Owner Full Name])
+			VAR WorstScore = MAXX(Worst, [@Score])
+			
+			VAR Driver =
+			IF(
+			    MAXX(Worst, [@Basket]) < MAXX(Worst, [@Price]),
+			    "a drop in items sold per order (basket size)",
+			    "a drop in sales per item sold (average price per item)"
+			)
+			
+			VAR TooltipDecliningPerformance =
+			"⚠️ " & WorstName & 
+			" declined the most this last week (score " & FORMAT(WorstScore,"+0.00%;-0.00%") &
+			"), mainly driven by " & Driver & "."
+			
+			RETURN TooltipDecliningPerformance
+			```
+		displayFolder: 07_performance
+		lineageTag: eec803c9-c591-4b95-8c83-6457bcf2434e
+
+	measure '📉 Declining Performance' =
+			
+			
+			VAR SummaryTable =
+			ADDCOLUMNS(
+			    VALUES(dim_franchise_owners_snapshot[Franchise Owner Full Name]),
+			    "@Score", [Performance Score WoW %],
+			    "@Orders", [Total Orders WoW %],
+			    "@Basket", [Basket WoW %],
+			    "@Price", [Price WoW %]
+			)
+			
+			VAR Worst = TOPN(1, SummaryTable, [@Score], ASC)
+			VAR WorstName = MAXX(Worst, dim_franchise_owners_snapshot[Franchise Owner Full Name])
+			
+			VAR TextDecliningPerformance = WorstName & " declined the most this last week"
+			
+			RETURN TextDecliningPerformance
+		displayFolder: 07_performance
+		lineageTag: ebcd7d4d-d27e-4501-97ad-c67d7e1da660
+
+	measure '📈 Rising Performance' =
+			
+			VAR SummaryTable =
+			ADDCOLUMNS(
+			    VALUES(dim_franchise_owners_snapshot[Franchise Owner Full Name]),
+			    "@Score", [Performance Score WoW %],
+			    "@Orders", [Total Orders WoW %],
+			    "@Basket", [Basket WoW %],
+			    "@Price", [Price WoW %]
+			)
+			
+			VAR Best = TOPN(1, SummaryTable, [@Score], DESC)
+			VAR BestName = MAXX(Best, dim_franchise_owners_snapshot[Franchise Owner Full Name])
+			
+			VAR TextRisingPerformance = BestName & " posted the highest performance gain this last week"
+			
+			RETURN TextRisingPerformance
+		displayFolder: 07_performance
+		lineageTag: f6051270-ff5e-4d2a-8c6e-7d7066d848fb
+
+	measure 'Tooltip - Rising Performance' = ```
+			
+			VAR SummaryTable =
+			    ADDCOLUMNS(
+			        VALUES(dim_franchise_owners_snapshot[Franchise Owner Full Name]),
+			        "@Score", [Performance Score WoW %],
+			        "@Basket", [Basket WoW %],
+			        "@Price", [Price WoW %]
+			    )
+			
+			VAR Best = TOPN(1, SummaryTable, [@Score], DESC)
+			VAR BestName = MAXX(Best, dim_franchise_owners_snapshot[Franchise Owner Full Name])
+			VAR BestScore = MAXX(Best, [@Score])
+			
+			VAR Driver = 
+			IF(
+			    MAXX(Best, [@Basket]) > MAXX(Best, [@Price]), 
+			    "more items sold per order (successful cross-sell)", 
+			    "higher average price per item (successful upsell/menu-mix)"
+			)
+			
+			VAR TooltipRisingPerformance =
+			"📈 " & BestName & 
+			" posted the highest performance gain this last week (score " & 
+			FORMAT(BestScore,"+0.00%;-0.00%") &
+			"), driven mainly by " & Driver & ". Worth replicating as best practice."
+			
+			RETURN TooltipRisingPerformance
+			```
+		displayFolder: 07_performance
+		lineageTag: 116d6608-3847-454b-9731-db3a72b2f423
+
+	measure 'Tooltip - Opportunity Improvement' = ```
+			
+			
+			VAR OverallBasket = [Basket Size (Basket)]
+			VAR OverallPrice = [Avg Price per Item (Price)]
+			VAR OverallAOV = [Avg Order Value (AOV)]
+			
+			VAR SummaryTable =
+			ADDCOLUMNS(
+			    VALUES(dim_franchise_owners_snapshot[Franchise Owner Full Name]),
+			    "@AOV", [Avg Order Value (AOV)],
+			    "@Orders", [Total Orders Last Week],
+			    "@Basket", [Basket Size (Basket)],
+			    "@Price", [Avg Price per Item (Price)]
+			)
+			
+			VAR WithGap =
+			ADDCOLUMNS(
+			    SummaryTable,
+			    "@Uplift", (OverallAOV - [@AOV]) * [@Orders],
+			    "@BasketGap", DIVIDE(OverallBasket - [@Basket], OverallBasket),
+			    "@PriceGap", DIVIDE(OverallPrice - [@Price], OverallPrice)
+			)
+			
+			VAR BestOpp = TOPN(1, FILTER(WithGap, [@Uplift] > 0), [@Uplift], DESC)
+			VAR OppName = MAXX(BestOpp, dim_franchise_owners_snapshot[Franchise Owner Full Name])
+			VAR OppUplift = MAXX(BestOpp, [@Uplift])
+			
+			VAR Driver = 
+			IF(
+			    MAXX(BestOpp, [@BasketGap]) > MAXX(BestOpp, [@PriceGap]),
+			    "cross-sell — increase items per order through bundling or combo deals",
+			    "upsell/menu-mix — steer customers toward higher-priced items"
+			)
+			
+			VAR TooltipOppImprovement =
+			"💡 " & OppName & 
+			" has an estimated upside of ~$" & FORMAT(OppUplift,"#,##0") &
+			" in sales if AOV is raised to the system average. The most relevant strategy: " & Driver & "."
+			
+			RETURN TooltipOppImprovement
+			```
+		displayFolder: 07_performance
+		lineageTag: 88e5c292-b990-459a-a3e5-8cd7a82a5e99
+
+	measure '💡 Opportunity Improvement' =
+			
+			
+			VAR OverallBasket = [Basket Size (Basket)]
+			VAR OverallPrice = [Avg Price per Item (Price)]
+			VAR OverallAOV = [Avg Order Value (AOV)]
+			
+			VAR SummaryTable =
+			ADDCOLUMNS(
+			    VALUES(dim_franchise_owners_snapshot[Franchise Owner Full Name]),
+			    "@AOV", [Avg Order Value (AOV)],
+			    "@Orders", [Total Orders],
+			    "@Basket", [Basket Size (Basket)],
+			    "@Price", [Avg Price per Item (Price)]
+			)
+			
+			VAR WithGap =
+			ADDCOLUMNS(
+			    SummaryTable,
+			    "@Uplift", (OverallAOV - [@AOV]) * [@Orders],
+			    "@BasketGap", DIVIDE(OverallBasket - [@Basket], OverallBasket),
+			    "@PriceGap", DIVIDE(OverallPrice - [@Price], OverallPrice)
+			)
+			
+			VAR BestOpp = TOPN(1, FILTER(WithGap, [@Uplift] > 0), [@Uplift], DESC)
+			VAR OppName = MAXX(BestOpp, dim_franchise_owners_snapshot[Franchise Owner Full Name])
+			VAR OppUplift = MAXX(BestOpp, [@Uplift])
+			
+			VAR TextOppImprovement = OppName & " has an estimated upside of ~$" & FORMAT(OppUplift,"#,##0")
+			
+			RETURN TextOppImprovement
+		displayFolder: 07_performance
+		lineageTag: 01d49c2d-b951-4f5d-beb8-df4dcb03f9a0
+
+	measure 'Text - AOV WoW %' = FORMAT([AOV WoW %], "+0.00% ▲;-0.00% ▼")
+		displayFolder: 04_sales_per_orders
+		lineageTag: 4c277f8e-4d49-486f-b180-32a60f3f8c37
+
+	column Column
+		formatString: 0
+		lineageTag: 2ed8ef9d-6009-4eb2-bf7b-018149763359
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _measures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 0028748ff72847acb7d2054428046002
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

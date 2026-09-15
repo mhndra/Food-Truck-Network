@@ -1740,6 +1740,21 @@
                 "value": "Automatic"
               }
             ]
+          },
+          {
+            "name": "First Day of Week (ISO)",
+            "dataType": "dateTime",
+            "sourceColumn": "First Day of Week (ISO)",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "First Day of Week (ISO)",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
           }
         ],
         "partitions": [

@@ -1,0 +1,35 @@
+relationship 40da068f-7355-8138-4d79-f180f52a8334
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_details.'Customer DBT SCD ID'
+	toColumn: dim_customers_snapshot.dbt_scd_id
+
+relationship e676582f-3a4f-ffe9-d1b9-b23700076dc6
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_details.'Franchise Owner DBT SCD ID'
+	toColumn: dim_franchise_owners_snapshot.dbt_scd_id
+
+relationship ae36f8ed-bc7b-5935-cddd-b9826eb34839
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_details.'Location Key'
+	toColumn: dim_locations.'Location Key'
+
+relationship 2f0b7627-166b-37c8-4217-3f5159bc67fc
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_details.'Truck Key'
+	toColumn: dim_trucks.'Truck Key'
+
+relationship 4ab5a4ca-8c29-6ccf-2b2b-ee3e45384c08
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_details.'Menu Item Key'
+	toColumn: dim_menu_items.'Menu Item Key'
+
+relationship 2cc994ee-73f6-f5ae-57bc-2ce28503c051
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_details.'Order Time'
+	toColumn: dim_order_time.'Order Time'
+
+relationship 1bf27de5-7103-d72c-b1a6-727a32e38865
+	relyOnReferentialIntegrity
+	fromColumn: fact_order_details.'Order Date'
+	toColumn: dim_order_date.'Order Date'
+

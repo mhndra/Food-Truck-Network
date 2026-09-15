@@ -1,0 +1,179 @@
+table dim_menu_items
+	lineageTag: 1d5c8618-e37b-4cd1-98fa-edd20bebeb90
+	sourceLineageTag: [gold].[dim_menu_items]
+
+	column 'Menu Item Key'
+		dataType: string
+		sourceProviderType: varchar(400)
+		lineageTag: f5be2255-3430-4b1f-ab62-0d8c44269f68
+		sourceLineageTag: Menu Item Key
+		summarizeBy: none
+		sourceColumn: Menu Item Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Menu Item ID'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: b7c5f78d-c2eb-4f05-9491-5c10b48fc16d
+		sourceLineageTag: Menu Item ID
+		summarizeBy: none
+		sourceColumn: Menu Item ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Menu Item Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 96a27d2a-9f15-444a-8a20-604e12c570fa
+		sourceLineageTag: Menu Item Name
+		summarizeBy: none
+		sourceColumn: Menu Item Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Menu Item Subcategory'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 3018d2ad-1111-47bc-a978-59cdd53ac283
+		sourceLineageTag: Menu Item Subcategory
+		summarizeBy: none
+		sourceColumn: Menu Item Subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Menu Item Category'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: cd196b86-9fd4-49ad-b12a-74f1c7fa31ae
+		sourceLineageTag: Menu Item Category
+		summarizeBy: none
+		sourceColumn: Menu Item Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Menu Type ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 1fe0bab7-77ec-4fb0-ab89-5288b201f916
+		sourceLineageTag: Menu Type ID
+		summarizeBy: none
+		sourceColumn: Menu Type ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Menu Type'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 287b9542-18e7-471d-8b98-a70bbff7544e
+		sourceLineageTag: Menu Type
+		summarizeBy: none
+		sourceColumn: Menu Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Truck Brand Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 439ad10a-a178-4abd-8443-073d97659beb
+		sourceLineageTag: Truck Brand Name
+		summarizeBy: none
+		sourceColumn: Truck Brand Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'COGS (USD)'
+		dataType: double
+		sourceProviderType: real
+		lineageTag: 17962ed7-fffc-4b5f-a4cc-312a872e639e
+		sourceLineageTag: COGS (USD)
+		summarizeBy: none
+		sourceColumn: COGS (USD)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Selling Price (USD)'
+		dataType: double
+		sourceProviderType: real
+		lineageTag: ceae26de-d340-47e7-aba6-6a1da08391f6
+		sourceLineageTag: Selling Price (USD)
+		summarizeBy: none
+		sourceColumn: Selling Price (USD)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Ingredients
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: a828fb66-78f7-408d-99ae-72b09103a8c4
+		sourceLineageTag: Ingredients
+		summarizeBy: none
+		sourceColumn: Ingredients
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Dairy Free'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: c11cb57a-fabf-4c20-9319-c3a37d8d9911
+		sourceLineageTag: Is Dairy Free
+		summarizeBy: none
+		sourceColumn: Is Dairy Free
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Gluten Free'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ba077dc4-d793-4c67-8479-94b0514fe087
+		sourceLineageTag: Is Gluten Free
+		summarizeBy: none
+		sourceColumn: Is Gluten Free
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Healthy'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 521efb61-9a8f-4ad2-9eaf-a270ab049e8e
+		sourceLineageTag: Is Healthy
+		summarizeBy: none
+		sourceColumn: Is Healthy
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Nut Free'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 37c6acf7-c510-4423-ad4f-bd6463d3f994
+		sourceLineageTag: Is Nut Free
+		summarizeBy: none
+		sourceColumn: Is Nut Free
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Loaded at (UTC)'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: dd932c52-e7d0-4f94-a4d7-bbc8d93c04dc
+		sourceLineageTag: Loaded at (UTC)
+		summarizeBy: none
+		sourceColumn: Loaded at (UTC)
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_menu_items = entity
+		mode: directLake
+		source
+			entityName: dim_menu_items
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

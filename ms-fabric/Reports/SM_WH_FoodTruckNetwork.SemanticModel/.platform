@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SM_WH_FoodTruckNetwork"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "5aa221c9-ba1c-8737-4299-59d68649b519"
+  }
+}

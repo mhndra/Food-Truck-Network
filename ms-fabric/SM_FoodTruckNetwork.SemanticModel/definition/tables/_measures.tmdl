@@ -44,78 +44,6 @@ table _measures
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'Max Location Insights' =
-			
-			
-			VAR SelectedLocation = SELECTEDVALUE(_location_parameters[_location_parameters Order])
-			VAR SelectedInsight = SELECTEDVALUE(_insight_parameters[_insight_parameters Order])
-			
-			VAR MaxOrders = SWITCH(
-			    SelectedLocation,
-			    0, CALCULATE(MAXX(ALL(dim_locations[City]), [Total Orders]), ALLSELECTED(fact_order_headers)),
-			    1, CALCULATE(MAXX(ALL(dim_locations[Location]), [Total Orders]), ALLSELECTED(fact_order_headers))
-			)
-			
-			VAR MaxQuantities = SWITCH(
-			    SelectedLocation,
-			    0, CALCULATE(MAXX(ALL(dim_locations[City]), [Total Quantities]), ALLSELECTED(fact_order_headers)),
-			    1, CALCULATE(MAXX(ALL(dim_locations[Location]), [Total Quantities]), ALLSELECTED(fact_order_headers))
-			)
-			
-			VAR MaxSales = SWITCH(
-			    SelectedLocation,
-			    0, CALCULATE(MAXX(ALL(dim_locations[City]), [Total Sales]), ALLSELECTED(fact_order_headers)),
-			    1, CALCULATE(MAXX(ALL(dim_locations[Location]), [Total Sales]), ALLSELECTED(fact_order_headers))
-			)
-			
-			VAR Color = SWITCH(
-			    TRUE(),
-			    SelectedInsight = 0 && [Total Orders] = MaxOrders, "#118DFF",
-			    SelectedInsight = 1 && [Total Quantities] = MaxQuantities, "#118DFF",
-			    SelectedInsight = 2 && [Total Sales] = MaxSales, "#118DFF",
-			    "#E6E6E6"
-			)
-			
-			RETURN Color
-		displayFolder: 00_insights
-		lineageTag: 0c8e3ac0-0dc8-45fb-8a46-52be837d169d
-
-	measure 'Max Truck Insights' =
-			
-			
-			VAR SelectedTruck = SELECTEDVALUE(_truck_parameters[_truck_parameters Order])
-			VAR SelectedInsight = SELECTEDVALUE(_insight_parameters[_insight_parameters Order])
-			
-			VAR MaxOrders = SWITCH(
-			    SelectedTruck,
-			    0, CALCULATE(MAXX(ALL(dim_trucks[Truck Brand Name]), [Total Orders]), ALLSELECTED(fact_order_headers)),
-			    1, CALCULATE(MAXX(ALL(dim_trucks[Model]), [Total Orders]), ALLSELECTED(fact_order_headers))
-			)
-			
-			VAR MaxQuantities = SWITCH(
-			    SelectedTruck,
-			    0, CALCULATE(MAXX(ALL(dim_trucks[Truck Brand Name]), [Total Quantities]), ALLSELECTED(fact_order_headers)),
-			    1, CALCULATE(MAXX(ALL(dim_trucks[Model]), [Total Quantities]), ALLSELECTED(fact_order_headers))
-			)
-			
-			VAR MaxSales = SWITCH(
-			    SelectedTruck,
-			    0, CALCULATE(MAXX(ALL(dim_trucks[Truck Brand Name]), [Total Sales]), ALLSELECTED(fact_order_headers)),
-			    1, CALCULATE(MAXX(ALL(dim_trucks[Model]), [Total Sales]), ALLSELECTED(fact_order_headers))
-			)
-			
-			VAR Color = SWITCH(
-			    TRUE(),
-			    SelectedInsight = 0 && [Total Orders] = MaxOrders, "#118DFF",
-			    SelectedInsight = 1 && [Total Quantities] = MaxQuantities, "#118DFF",
-			    SelectedInsight = 2 && [Total Sales] = MaxSales, "#118DFF",
-			    "#E6E6E6"
-			)
-			
-			RETURN Color
-		displayFolder: 00_insights
-		lineageTag: 9d9a0de2-8e8e-4967-b78f-057ebf3e80a4
-
 	measure 'Last Month - Total Orders' = ```
 			
 			
@@ -820,6 +748,28 @@ table _measures
 			RETURN TextPreviousYear
 			```
 		lineageTag: 1ed3fa30-1da4-4724-9716-07365be48f99
+
+	measure Slicer = INT(NOT ISEMPTY(fact_order_headers))
+		formatString: 0
+		displayFolder: 00_miscellaneous
+		lineageTag: 9d128329-f8cb-4a07-ba89-371a9aba6350
+
+	measure 'Text - Franchise City' = ```
+			
+			
+			VAR FranchiseCity = SELECTEDVALUE(dim_franchise_owners_snapshot[Franchise City Grouped])
+			
+			VAR TextFranchiseCity =
+			SUBSTITUTE(
+			    SUBSTITUTE(FranchiseCity, "[""", ""), 
+			    """]", 
+			    ""
+			)
+			
+			RETURN TextFranchiseCity
+			```
+		displayFolder: 00_miscellaneous
+		lineageTag: cecffae8-12d4-4eb4-8687-c33825873549
 
 	column Column
 		formatString: 0

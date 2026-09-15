@@ -1,0 +1,87 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "5fdb25262c7176b6edb6",
+  "displayName": "Page 1",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 0,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "a9c594870644aa28476b",
+      "target": "13ed78ca5daae784500d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a9c594870644aa28476b",
+      "target": "7257db636500a057bc83",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a9c594870644aa28476b",
+      "target": "26a71ad480a890d71b74",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a9c594870644aa28476b",
+      "target": "5b66be56000811131bc0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a033a4db35e06ae47967",
+      "target": "5b66be56000811131bc0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a033a4db35e06ae47967",
+      "target": "13ed78ca5daae784500d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a033a4db35e06ae47967",
+      "target": "7257db636500a057bc83",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a033a4db35e06ae47967",
+      "target": "26a71ad480a890d71b74",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a033a4db35e06ae47967",
+      "target": "a9c594870644aa28476b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "26a71ad480a890d71b74",
+      "target": "7257db636500a057bc83",
+      "type": "NoFilter"
+    }
+  ]
+}

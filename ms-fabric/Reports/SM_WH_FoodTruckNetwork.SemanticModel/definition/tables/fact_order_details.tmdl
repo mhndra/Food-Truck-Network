@@ -1,0 +1,163 @@
+table fact_order_details
+	lineageTag: 81f1da1f-b001-4b43-8403-ed598688ce13
+	sourceLineageTag: [gold].[fact_order_details]
+
+	column 'Order Detail Key'
+		dataType: string
+		sourceProviderType: varchar(400)
+		lineageTag: 7d574bc1-9b17-4e3b-b3f7-41b5a1b49631
+		sourceLineageTag: Order Detail Key
+		summarizeBy: none
+		sourceColumn: Order Detail Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer DBT SCD ID'
+		dataType: string
+		sourceProviderType: varchar(32)
+		lineageTag: fc05d927-6dad-435e-aebd-c3b9c1f9a56f
+		sourceLineageTag: Customer DBT SCD ID
+		summarizeBy: none
+		sourceColumn: Customer DBT SCD ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Franchise Owner DBT SCD ID'
+		dataType: string
+		sourceProviderType: varchar(32)
+		lineageTag: eb627ffc-7980-4a7e-81ef-950cc1c152d9
+		sourceLineageTag: Franchise Owner DBT SCD ID
+		summarizeBy: none
+		sourceColumn: Franchise Owner DBT SCD ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Menu Item Key'
+		dataType: string
+		sourceProviderType: varchar(400)
+		lineageTag: 6532a529-c5ae-4239-bafe-145c3455ad29
+		sourceLineageTag: Menu Item Key
+		summarizeBy: none
+		sourceColumn: Menu Item Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Key'
+		dataType: string
+		sourceProviderType: varchar(400)
+		lineageTag: e6e65a1c-5fab-49e7-94cb-f6fdd11a5300
+		sourceLineageTag: Location Key
+		summarizeBy: none
+		sourceColumn: Location Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Truck Key'
+		dataType: string
+		sourceProviderType: varchar(400)
+		lineageTag: 73fa52b4-1a4b-4a8c-a5c6-71990c40b629
+		sourceLineageTag: Truck Key
+		summarizeBy: none
+		sourceColumn: Truck Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Detail ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0f31ff24-cd81-4ebb-ae4c-086a140787f9
+		sourceLineageTag: Order Detail ID
+		summarizeBy: count
+		sourceColumn: Order Detail ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c94f4208-a4c2-4e85-bcd2-09bab422bfbf
+		sourceLineageTag: Order ID
+		summarizeBy: count
+		sourceColumn: Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: e711fc1a-1eeb-4327-992c-2c8313e87fd5
+		sourceLineageTag: Order Date
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Time'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: time
+		lineageTag: c6c487f7-edd7-45c3-90cc-47cb1c2a7329
+		sourceLineageTag: Order Time
+		summarizeBy: none
+		sourceColumn: Order Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 6a9d918e-3c13-465b-8b65-c2cff89f2cf5
+		sourceLineageTag: Quantity
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Price (USD)'
+		dataType: double
+		sourceProviderType: real
+		lineageTag: c1a3fd67-bdb8-4224-abcd-c709768d40bc
+		sourceLineageTag: Unit Price (USD)
+		summarizeBy: sum
+		sourceColumn: Unit Price (USD)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Price (USD)'
+		dataType: double
+		sourceProviderType: real
+		lineageTag: 913a930e-3e12-46bd-a975-45ef519754e7
+		sourceLineageTag: Total Price (USD)
+		summarizeBy: sum
+		sourceColumn: Total Price (USD)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Loaded at (UTC)'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 450bd854-630a-4792-852f-41636953a942
+		sourceLineageTag: Loaded at (UTC)
+		summarizeBy: none
+		sourceColumn: Loaded at (UTC)
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_order_details = entity
+		mode: directLake
+		source
+			entityName: fact_order_details
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

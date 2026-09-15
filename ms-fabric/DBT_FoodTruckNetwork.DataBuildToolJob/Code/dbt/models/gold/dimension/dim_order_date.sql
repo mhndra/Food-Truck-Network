@@ -19,6 +19,8 @@ WITH order_header_renamed AS (
 
     SELECT
         "Order Date",
+        DATETRUNC(iso_week, "Order Date") AS "First Day of Week (ISO)",
+        DATETRUNC(month, "Order Date") AS "Month Year",
         DAY("Order Date") AS Day,
         CAST(
             DATENAME(month, "Order Date") 
@@ -33,13 +35,7 @@ WITH order_header_renamed AS (
             DATENAME(weekday, "Order Date") 
             AS VARCHAR(9)
         ) AS "Day of Week",
-        DATEPART(weekday, "Order Date") AS "Day of Week Sorting",
-        -- CAST(
-        --     DATENAME(month, "Order Date") + ' ' + DATENAME(year, "Order Date") 
-        --     AS VARCHAR(15)
-        -- ) AS "Month Year",
-        -- DENSE_RANK() OVER(ORDER BY YEAR("Order Date"), MONTH("Order Date")) AS "Month Year Sorting"
-        DATETRUNC(month, "Order Date") AS "Month Year"
+        DATEPART(weekday, "Order Date") AS "Day of Week Sorting"
     FROM
         distinction
 
@@ -47,13 +43,14 @@ WITH order_header_renamed AS (
 
     SELECT
         "Order Date",
+        "First Day of Week (ISO)",
+        "Month Year",
         Day,
         Month,
         Quarter,
         Year,
         "Day of Week",
-        "Day of Week Sorting",
-        "Month Year"
+        "Day of Week Sorting"
     FROM
         date_enriched
 

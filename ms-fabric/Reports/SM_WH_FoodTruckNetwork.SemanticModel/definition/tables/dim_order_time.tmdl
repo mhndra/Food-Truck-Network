@@ -1,0 +1,70 @@
+table dim_order_time
+	lineageTag: 78cf14f7-e863-44a7-b963-2aacfd52a639
+	sourceLineageTag: [gold].[dim_order_time]
+
+	column 'Order Time'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: time
+		lineageTag: 610e1a93-3f77-4f71-8fce-c94484c96092
+		sourceLineageTag: Order Time
+		summarizeBy: none
+		sourceColumn: Order Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column Second
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 11272d52-d026-46b3-9b7f-46d1532984a6
+		sourceLineageTag: Second
+		summarizeBy: none
+		sourceColumn: Second
+
+		annotation SummarizationSetBy = Automatic
+
+	column Minute
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: da72de7e-1992-43d6-a96e-9cb2b888d855
+		sourceLineageTag: Minute
+		summarizeBy: none
+		sourceColumn: Minute
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 63a8da38-990b-4d83-b9eb-73796f2fb7e4
+		sourceLineageTag: Hour
+		summarizeBy: none
+		sourceColumn: Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hour of Day'
+		dataType: string
+		sourceProviderType: varchar(5)
+		lineageTag: 38a99301-4b05-438d-a07b-1412f5151bf9
+		sourceLineageTag: Hour of Day
+		summarizeBy: none
+		sourceColumn: Hour of Day
+		sortByColumn: Hour
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_order_time = entity
+		mode: directLake
+		source
+			entityName: dim_order_time
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+
