@@ -15,7 +15,7 @@ Perusahaan memiliki workspace di Microsoft Fabric untuk melakukan analisis penju
 Selain Microsoft Entra ID, perusahaan telah memiliki organisasi Azure DevOps. Dalam organisasi Azure DevOps, perusahaan membuat proyek baru untuk repositories berkaitan dengan Microsoft Fabric. Perusahaan merencanakan penggunaan repositories di Azure DevOps sebagai source control untuk Fabric Workspace.
 
 ## 04 User Problem
-Tim di Departemen Sales yang tersebar di berbagai wilayah membutuhkan laporan penjualan yang efektif dibandingkan dengan pembuatan laporan penjualan secara manual. Tim biasanya membutuhkan satu minggu untuk membuat dan menganalisis laporan penjualannya. Maka dari itu, perusahaan ingin mengurangi waktu pembuatan laporan menjadi satu hari dengan menggunakan Microsoft Fabric, agar tim di Departemen Sales lebih mengutamakan alokasi waktunya untuk menganalisis dan merespon tren penjualan di wilayah masing-masing.
+Tim di Departemen Sales yang tersebar di berbagai wilayah membutuhkan pemantauan performa penjualan pemilik franchise yang efektif dibandingkan dengan pembuatan laporan penjualan secara manual. Tim merasa pembuatan laporan penjualan setiap minggunya membutuhkan waktu lebih lama pada saat pengumpulan data dibandingkan waktu menganalisisnya, sehingga proses identifikasi performa pemilik franchise terlewatkan. Maka dari itu, perusahaan ingin mengubah pembuatan laporan menjadi dashboard dan mengurangi waktu pengumpulan data dengan bantuan Microsoft Fabric, agar tim di Departemen Sales lebih mengutamakan alokasi waktunya untuk menganalisis dan merespon performa penjualan pemilik franchise di wilayah masing-masing.
 
 ## 05 Source System
 Perusahaan memiliki data penjualan semua wilayah yang tersimpan di S3 bucket dan dapat diakses secara publik melalui requests ke S3 bucket. Perusahaan berencana menyimpan data tersebut di Fabric Lakehouse untuk memudahkan dalam memproses data di lingkungan Microsoft. Data penjualan terdiri dari beberapa dataset, yaitu:
@@ -245,18 +245,18 @@ Pemodelan data hasil transformasi lapisan gold dilakukan di Fabric Semantic Mode
 	    | Loaded at (UTC)       | DATETIME2(6)  | Date and time data                    |
 
 ## 09 Visualizing Data
-Visualisasi data menggunakan semantic model di Fabric Report. Visualisasi data ini sebagai pembuatan laporan yang mana dilakukan di Report_FoodTruckNetwork. Berikut dua halaman yang ditampilkan pada laporan tersebut, yaitu:
+Visualisasi data menggunakan semantic model di Fabric Report. Visualisasi data ini merupakan proses pembuatan dashboard yang mana dilakukan di WeeklyDashboard_FoodTruckNetwork. Berikut halaman yang ditampilkan pada dashboard tersebut, yaitu:
 
-### 09-1-1 Halaman 1 - Main - Monthly
-Berikut tampilan laporan halaman 1 sepanjang bulan Oktober 2022 untuk tim di Departemen Sales semua wilayah.
+### 09-1 Halaman - Main 
+Berikut tampilan dashboard halaman main dalam seminggu sepanjang periode 24 Oktober 2022 - 30 Oktober 2022 untuk tim di Departemen Sales semua wilayah.
 
 ![alt text](images/main_october_2022_all.png)
 
-Berikut tampilan laporan halaman 1 sepanjang bulan Oktober 2022 untuk tim di Departemen Sales wilayah APAC. 
+Berikut tampilan laporan halaman main dalam seminggu sepanjang periode 24 Oktober 2022 - 30 Oktober 2022 untuk tim di Departemen Sales wilayah APAC. 
 
 ![alt text](images/main_october_2022_apac.png)
 
-Bagian halaman ini menampilkan ringkasan penjualan di wilayah dan bulan tertentu. Beberapa bentuk visualisasi yang ditampilkan pada bagian halaman ini, yaitu sebagai berikut:
+Bagian halaman ini menampilkan ringkasan performa penjualan di wilayah dan bulan tertentu dan perbandingannya setiap pemilik franchise. Beberapa bentuk visualisasi yang ditampilkan pada bagian halaman ini, yaitu sebagai berikut:
 - Bookmark:
     - Monthly → filter menampilkan laporan bulanan.
     - Annual → filter menampilkan laporan tahunan. 
