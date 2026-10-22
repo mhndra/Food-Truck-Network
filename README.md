@@ -257,18 +257,17 @@ Berikut tampilan laporan halaman main dalam seminggu sepanjang periode 24 Oktobe
 ![alt text](images/main_2022_apac.png)
 
 Bagian halaman ini menampilkan ringkasan performa penjualan di wilayah dan bulan tertentu dan perbandingannya setiap pemilik franchise. Beberapa bentuk visualisasi yang ditampilkan pada bagian halaman ini, yaitu sebagai berikut:
-- Bookmark:
-    - Monthly → filter menampilkan laporan bulanan.
-    - Annual → filter menampilkan laporan tahunan. 
+- Input Button:
+- Select region → Filter wilayah. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
 
 - Slicer:
-    - Select Latest Period → Filter periode bulan terakhir. Pengguna bisa melihat laporan bulanan yang terakhir diperbarui maupun laporan bulan-bulan sebelumnya.
-    - Select Region → Filter wilayah. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
+    - Select year → Filter tahun. Pengguna bisa memantau performa pada tahun tertentu atau sepanjang tahun.
+    - Select period → Filter periode seminggu. Pengguna bisa memantau performa seminggu yang terakhir diperbarui maupun performa minggu-minggu sebelumnya.
 
 - Cards:
-    - Total Orders → Jumlah pesanan di wilayah dan bulan tertentu. Terdapat persentase perubahan jumlah pesanan terhadap bulan sebelumnya dan trend jumlah pesanan sepanjang bulan tertentu.
-    - Total Quantities → Jumlah unit item yang telah dipesan di wilayah dan bulan tertentu. Terdapat persentase perubahan jumlah unit item yang telah dipesan terhadap bulan sebelumnya dan trend jumlah unit item yang telah dipesan sepanjang bulan tertentu.
-    - Total Sales → Total penjualan dalam satuan USD di wilayah dan bulan tertentu. Terdapat persentase perubahan total penjualan terhadap bulan sebelumnya dan trend total penjualan sepanjang bulan tertentu.
+    - Total Orders Last Week → Jumlah pesanan di wilayah dan minggu tertentu. Terdapat persentase perubahan jumlah pesanan terhadap minggu sebelumnya dan trend jumlah pesanan sepanjang minggu tertentu.
+    - AOV Last Week → Rata-rata nilai pesanan dalam satuan USD di wilayah dan minggu tertentu. Terdapat persentase perubahan rata-rata nilai pesanan terhadap minggu sebelumnya dan trend rata-rata nilai pesanan yang telah dipesan sepanjang minggu tertentu.
+    - Total Sales Last Week → Total penjualan dalam satuan USD di wilayah dan minggu tertentu. Terdapat persentase perubahan total penjualan terhadap minggu sebelumnya dan trend total penjualan sepanjang minggu tertentu.
 
 - Charts:
     - [Parameter] by Country → [Parameter] berdasarkan negara di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
