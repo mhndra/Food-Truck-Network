@@ -261,7 +261,7 @@ Bagian halaman ini menampilkan ringkasan performa penjualan di wilayah dan bulan
 - Select region → Filter wilayah. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
 
 - Slicer:
-    - Select year → Filter tahun. Pengguna bisa memantau performa pada tahun tertentu atau sepanjang tahun.
+    - Select year → Filter tahun. Pengguna bisa mempersempit pilihan periode seminggu dengan memilih tahun tertentu atau sepanjang tahun.
     - Select period → Filter periode seminggu. Pengguna bisa memantau performa seminggu yang terakhir diperbarui maupun performa minggu-minggu sebelumnya.
 
 - Cards:
