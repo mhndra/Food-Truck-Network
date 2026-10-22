@@ -250,11 +250,11 @@ Visualisasi data menggunakan semantic model di Fabric Report. Visualisasi data i
 ### 09-1 Halaman - Main 
 Berikut tampilan dashboard halaman main dalam seminggu sepanjang periode 24 Oktober 2022 - 30 Oktober 2022 untuk tim di Departemen Sales semua wilayah.
 
-![alt text](images/main_october_2022_all.png)
+![alt text](images/main_2022_all.png)
 
 Berikut tampilan laporan halaman main dalam seminggu sepanjang periode 24 Oktober 2022 - 30 Oktober 2022 untuk tim di Departemen Sales wilayah APAC. 
 
-![alt text](images/main_october_2022_apac.png)
+![alt text](images/main_2022_apac.png)
 
 Bagian halaman ini menampilkan ringkasan performa penjualan di wilayah dan bulan tertentu dan perbandingannya setiap pemilik franchise. Beberapa bentuk visualisasi yang ditampilkan pada bagian halaman ini, yaitu sebagai berikut:
 - Bookmark:
