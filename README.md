@@ -268,97 +268,20 @@ Bagian halaman ini menampilkan ringkasan performa penjualan di wilayah dan bulan
     - Total Orders Last Week → Jumlah pesanan di wilayah dan minggu tertentu. Terdapat persentase perubahan jumlah pesanan terhadap minggu sebelumnya dan trend jumlah pesanan sepanjang minggu tertentu.
     - AOV Last Week → Rata-rata nilai pesanan dalam satuan USD di wilayah dan minggu tertentu. Terdapat persentase perubahan rata-rata nilai pesanan terhadap minggu sebelumnya dan trend rata-rata nilai pesanan yang telah dipesan sepanjang minggu tertentu.
     - Total Sales Last Week → Total penjualan dalam satuan USD di wilayah dan minggu tertentu. Terdapat persentase perubahan total penjualan terhadap minggu sebelumnya dan trend total penjualan sepanjang minggu tertentu.
+    - Franchise Insight:
+        - Declining Performance → Pemilik franchise yang paling mengalami penurunan performa di wilayah dan minggu tertentu.
+        - Rising Performance → Pemilik franchise yang paling mengalami kenaikan performa di wilayah dan minggu tertentu.
+        - Opportunity Improvement → Pemilik franchise yang paling memiliki kesempatan peningkatan performa di wilayah dan minggu tertentu.
+
+- Azure Maps:
+    - Total Orders Last Week by Country → Jumlah pesanan berdasarkan negara di wilayah dan minggu tertentu.
+
+- Tables, dengan kolom Orders Last Week (jumlah pesanan), Orders WoW % (persentase perubahan jumlah pesanan), AOV WoW % (persentase perubahan rata-rata nilai pesanan), Sales WoW % (persentase perubahan penjualan):
+    - Bottom 10 → 10 pemilik franchise dengan jumlah pesanan terendah di wilayah dan minggu tertentu.
+    - Top 10 → 10 pemilik franchise dengan jumlah pesanan tertinggi di wilayah dan minggu tertentu.
+    - All → Semua pemilik franchise yang diurutkan mulai dari jumlah pesanan tertinggi hingga terendah di wilayah dan minggu tertentu.
 
 - Charts:
-    - [Parameter] by Country → [Parameter] berdasarkan negara di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by City → [Parameter] berdasarkan kota di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Truck Model → [Parameter] berdasarkan model truk yang digunakan di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Truck Brand Name → [Parameter] berdasarkan nama merk truk di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Hour of Day → [Parameter] berdasarkan waktu dalam sehari di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Day of Week → [Parameter] berdasrkan hari dalam seminggu di wilayah dan bulan tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-
-### 09-1-2 Halaman 1 - Main - Annual
-Berikut tampilan laporan halaman 1 sepanjang tahun 2022 untuk tim di Departemen Sales semua wilayah.
-
-![alt text](images/main_2022_all.png)
-
-Berikut tampilan laporan halaman 1 sepanjang tahun 2022 untuk tim di Departemen Sales wilayah APAC. 
-
-![alt text](images/main_2022_apac.png)
-
-Bagian halaman ini menampilkan ringkasan penjualan di wilayah dan tahun tertentu. Beberapa bentuk visualisasi yang ditampilkan pada bagian halaman ini, yaitu sebagai berikut:
-- Bookmark:
-    - Monthly → filter menampilkan laporan bulanan.
-    - Annual → filter menampilkan laporan tahunan. 
-
-- Slicer:
-    - Select Latest Period → Filter periode tahun terakhir. Pengguna bisa melihat laporan tahunan yang terakhir diperbarui maupun laporan tahun-tahun sebelumnya.
-    - Select Region → Filter wilayah. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
-
-- Cards:
-    - Total Orders → Jumlah pesanan di wilayah dan tahun tertentu. Terdapat persentase perubahan jumlah pesanan terhadap tahun sebelumnya dan trend jumlah pesanan sepanjang tahun tertentu.
-    - Total Quantities → Jumlah unit item yang telah dipesan di wilayah dan tahun tertentu. Terdapat persentase perubahan jumlah unit item yang telah dipesan terhadap tahun sebelumnya dan trend jumlah unit item yang telah dipesan sepanjang tahun tertentu.
-    - Total Sales → Total penjualan dalam satuan USD di wilayah dan tahun tertentu. Terdapat persentase perubahan total penjualan terhadap tahun sebelumnya dan trend total penjualan sepanjang tahun tertentu.
-
-- Charts:
-    - [Parameter] by Country → [Parameter] berdasarkan negara di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by City → [Parameter] berdasarkan kota di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Truck Model → [Parameter] berdasarkan model truk yang digunakan di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Truck Brand Name → [Parameter] berdasarkan nama merk truk di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Hour of Day → [Parameter] berdasarkan waktu dalam sehari di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-    - [Parameter] by Day of Week → [Parameter] berdasrkan hari dalam seminggu di wilayah dan tahun tertentu. [Parameter] bisa berupa Total Orders, Total Quantities, atau Total Sales.
-
-### 09-2 Halaman 2 - Customer
-Berikut tampilan laporan halaman 2 sepanjang bulan November 2022 untuk tim di Departemen Sales semua wilayah.
-
-![alt text](images/customer_all.png)
-
-Berikut tampilan laporan halaman 2 sepanjang bulan November 2022 untuk tim di Departemen Sales wilayah APAC.
-
-![alt text](images/customer_apac.png)
-
-Halaman ini menampilkan rincian pelanggan beserta jumlah pesanan yang pernah dilakukan, jumlah unit item yang dipesan dan total pembelian yang pernah dilakukan di wilayah dan bulan tertentu. Beberapa bentuk visualisasi yang ditampilkan pada halaman ini, yaitu sebagai berikut:
-- Slicer:
-    - Select Latest Period → Filter periode bulan terakhir (hanya memilih salah satu). Pengguna bisa melihat rincian pelanggan pada bulan yang terakhir diperbarui maupun bulan-bulan sebelumnya.
-    - Select Region → Filter wilayah tempat pelanggan melakukan pemesanan. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
-    - Select Country → Filter negara tempat pelanggan melakukan pemesanan.
-    - Select Food Truck → Filter nama merk truk yang menerima pesanan.
-
-- Table:
-    - Customer ID → Nomor identifikasi pelanggan di wilayah dan bulan tertentu. Semua tim masing-masing wilayah di Departemen Sales dapat melihat nomor identifkasi pelanggan.
-    - Customer Name → Nama lengkap pelanggan di wilayah dan bulan tertentu. Tim masing-masing wilayah di Departemen Sales  yang memiliki akses pada satu wilayah tertentu hanya ditampilkan nama samaran (`**~MASKED~**`).
-    - Email → Alamat email pelanggan di wilayah dan bulan tertentu. Tim masing-masing wilayah di Departemen Sales yang memiliki akses pada satu wilayah tertentu hanya ditampilkan email samaran (`**~MASKED~**.**~MASKED~**@hotmail.com`).
-    - Phone Number → Nomor telepon pelanggan di wilayah dan bulan tertentu. Tim masing-masing wilayah di Departemen Sales yang memiliki akses pada satu wilayah tertentu hanya ditampilkan nomor telepon samaran (`111-111-1111`).
-    - Country → Negara tempat pelanggan melakukan pemesanan di wilayah dan bulan tertentu.
-    - Food Truck → Nama merk truk yang menerima pesanan di wilayah dan bulan tertentu.
-    - Total Orders → Jumlah pesanan yang pernah dilakukan di wilayah dan bulan tertentu.
-    - Total Quantities → Jumlah unit item yang dipesan di wilayah dan bulan tertentu.
-    - Grand Total → Total pembelian yang pernah dilakukan di wilayah dan bulan tertentu.
-
-### 09-3 Halaman 3 - Franchise
-Berikut tampilan laporan halaman 3 sepanjang bulan November 2022 untuk tim di Departemen Sales semua wilayah.
-
-![alt text](images/franchise_all.png)
-
-Berikut tampilan laporan halaman 2 sepanjang bulan November 2022 untuk tim di Departemen Sales wilayah APAC.
-
-![alt text](images/franchise_apac.png)
-
-Halaman ini menampilkan rincian pemilik franchise beserta jumlah pesanan yang pernah diterima, jumlah unit item yang dibuat dan total penjualan yang pernah diterima di wilayah dan bulan tertentu. Beberapa bentuk visualisasi yang ditampilkan pada halaman ini, yaitu sebagai berikut:
-- Slicer:
-    - Select Latest Period → Filter periode bulan terakhir (hanya memilih salah satu). Pengguna bisa melihat rincian pemilik franchise pada bulan yang terakhir diperbarui maupun bulan-bulan sebelumnya.
-    - Select Region → Filter wilayah tempat pemilik franchise menerima pesanan. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
-    - Select Country → Filter negara tempat pemilik franchise menerima pesanan.
-    - Select Food Truck → Filter nama merk truk yang menerima pesanan.
-
-- Table:
-    - Owner ID → Nomor identifikasi pemilik franchise di wilayah dan bulan tertentu.
-    - Owner Name → Nama lengkap pemilik franchise di wilayah dan bulan tertentu.
-    - Email → Alamat email pemilik franchise di wilayah dan bulan tertentu.
-    - Phone Number → Nomor telepon pemilik franchise di wilayah dan bulan tertentu.
-    - Country → Negara tempat pemilik franchise menerima pesanan di wilayah dan bulan tertentu.
-    - Food Truck → Nama merk truk yang menerima pesanan di wilayah dan bulan tertentu.
-    - Total Orders → Jumlah pesanan yang pernah diterima di wilayah dan bulan tertentu.
-    - Total Quantities → Jumlah unit item yang dibuat di wilayah dan bulan tertentu.
-    - Grand Total → Total penjualan yang pernah diterima di wilayah dan bulan tertentu.
+    - Total Orders by Day of Week → Jumlah pesanan berdasarkan hari dalam seminggu di wilayah dan minggu tertentu.
+    - Total Orders by Hour of Day → Jumlah pesanan berdasarkan waktu dalam sehari di wilayah dan minggu tertentu.
 
