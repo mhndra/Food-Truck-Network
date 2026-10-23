@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "13ed78ca5daae784500d",
   "position": {
     "x": 470,
@@ -67,7 +67,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'North America'"
+                                "Value": "'EMEA'"
                               }
                             }
                           ]
