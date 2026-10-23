@@ -256,6 +256,10 @@ Berikut tampilan laporan halaman main dalam seminggu sepanjang periode 24 Oktobe
 
 ![alt text](images/main_2022_apac.png)
 
+Berikut tampilan salah satu tooltip (opportunity improvement) periode 24 Oktober 2022 - 30 Oktober 2022 untuk tim di Departemen Sales wilayah APAC.
+
+![alt text](images/main_2022_tooltip.png)
+
 Bagian halaman ini menampilkan ringkasan performa penjualan di wilayah dan bulan tertentu dan perbandingannya setiap pemilik franchise. Beberapa bentuk visualisasi yang ditampilkan pada bagian halaman ini, yaitu sebagai berikut:
 - Input Button:
 - Select region → Filter wilayah. Tim masing-masing wilayah di Departemen Sales hanya ditampilkan pilihan untuk data wilayah tim tersebut.
@@ -269,9 +273,9 @@ Bagian halaman ini menampilkan ringkasan performa penjualan di wilayah dan bulan
     - AOV Last Week → Rata-rata nilai pesanan dalam satuan USD di wilayah dan minggu tertentu. Terdapat persentase perubahan rata-rata nilai pesanan terhadap minggu sebelumnya dan trend rata-rata nilai pesanan yang telah dipesan sepanjang minggu tertentu.
     - Total Sales Last Week → Total penjualan dalam satuan USD di wilayah dan minggu tertentu. Terdapat persentase perubahan total penjualan terhadap minggu sebelumnya dan trend total penjualan sepanjang minggu tertentu.
     - Franchise Insight:
-        - Declining Performance → Pemilik franchise yang paling mengalami penurunan performa di wilayah dan minggu tertentu.
-        - Rising Performance → Pemilik franchise yang paling mengalami kenaikan performa di wilayah dan minggu tertentu.
-        - Opportunity Improvement → Pemilik franchise yang paling memiliki kesempatan peningkatan performa di wilayah dan minggu tertentu.
+        - Declining Performance → Pemilik franchise yang paling mengalami penurunan performa di wilayah dan minggu tertentu. Terdapat tooltip yang menjelaskan penyebab penurunan performa (cross-selling/upselling).
+        - Rising Performance → Pemilik franchise yang paling mengalami kenaikan performa di wilayah dan minggu tertentu. Terdapat tooltip yang menjelaskan penyebab kenaikan performa (cross-selling/upselling).
+        - Opportunity Improvement → Pemilik franchise yang paling memiliki kesempatan peningkatan performa di wilayah dan minggu tertentu. Terdapat tooltip yang memberikan strategi yang paling sesuai (cross-selling/upselling).
 
 - Azure Maps:
     - Total Orders Last Week by Country → Jumlah pesanan berdasarkan negara di wilayah dan minggu tertentu.
